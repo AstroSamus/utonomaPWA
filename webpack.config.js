@@ -11,11 +11,18 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
+  devServer: {
+    static: "./dist",
+  },
   module: {
     rules: [
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.(png|jpeg|jpg|gif|svg)$/,
+        type: "asset/resource",
       },
     ],
   },
@@ -29,7 +36,7 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(__dirname, "src/assets/"),
-          to: path.resolve(__dirname, "dist"),
+          to: path.resolve(__dirname, "dist/assets/"),
           context: "src",
         },
         {
