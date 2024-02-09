@@ -26,13 +26,21 @@
         --headLine1: normal var(--medium) 3rem/100% var(--baseFontFamily);
         --baseSize: normal var(--regular) 1.25rem/1.6875rem var(--baseFontFamily);
       }
+
       body {
         font: var(--baseSize);
-        background-color: var(--pirateBlack);
-        color: var(--snow);
+        background-color: var(--snow);
+        color: var(--pirateBlack);
         margin: 0px;
         padding: 0px;
       }
+
+      .centerWithFlex{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       .container {
         display: flex;
         height: 100vh;
@@ -49,7 +57,6 @@
       }
 
       .shortVideoReel {
-        background-color: #fdd30f;
         block-size: 100vh;
         min-inline-size: 100vw;
         scroll-snap-align: center;
@@ -67,10 +74,17 @@
       }
 
       .settings {
-        background-color: #FF7420;
         block-size: 100vh;
         min-inline-size: 100vw;
         scroll-snap-align: center;
+        content-visibility: auto;
+      }
+
+      .videoCard {
+        block-size: 100vh;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        counter-increment: item;
         content-visibility: auto;
       }
 
@@ -78,7 +92,11 @@
   </head>
 <body>
   <div class="container">
-    <div class="shortVideoReel">Short video reel</div>
+    <div class="shortVideoReel">
+      <div class="videoCard centerWithFlex" id="instructionsCard">
+        <img src="./assets/icons/utonoma.svg" style="width: 80vw;" alt="">
+      </div>
+    </div>
     <div class="settings">Settings</div>
   </div>
 </body>
