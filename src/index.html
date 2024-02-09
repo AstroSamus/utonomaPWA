@@ -5,9 +5,63 @@
     <title>Utonoma</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json" />
+    <!--Inline the critical css in the following style tag--> 
+    <style type="text/css">
+
+      body {
+        font: var(--baseSize);
+        background-color: var(--pirateBlack);
+        color: var(--snow);
+        margin: 0px;
+        padding: 0px;
+      }
+      .container {
+        display: flex;
+        height: 100vh;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        /*Hide scrollbar for IE, Edge and Firefox*/
+        -ms-overflow-style: none; /*IE and Edge*/
+        scrollbar-width: none; /*Firefox*/
+      }
+
+      /*Hide scrollbar for Chrome, Safari and Opera*/
+      .container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .shortVideoReel {
+        background-color: #fdd30f;
+        block-size: 100vh;
+        min-inline-size: 100vw;
+        scroll-snap-align: center;
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        scroll-snap-stop: always;
+        /*Hide scrollbar for IE, Edge and Firefox*/
+        -ms-overflow-style: none; /*IE and Edge*/
+        scrollbar-width: none; /*Firefox*/
+      }
+
+      /*Hide scrollbar for Chrome, Safari and Opera*/
+      .shortVideoReel::-webkit-scrollbar {
+        display: none;
+      }
+
+      .settings {
+        background-color: #FF7420;
+        block-size: 100vh;
+        min-inline-size: 100vw;
+        scroll-snap-align: center;
+        content-visibility: auto;
+      }
+
+    </style>
   </head>
 <body>
   <div class="container">
-      </div>
+    <div class="shortVideoReel">Short video reel</div>
+    <div class="settings">Settings</div>
+  </div>
 </body>
 </html>
