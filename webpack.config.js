@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './main.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -51,14 +51,13 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Utonoma',
-      template: "src/index.html"
+      template: "./index.html"
     }),
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, "src/assets/"),
+          from: path.resolve(__dirname, "assets/"),
           to: path.resolve(__dirname, "dist/assets/"),
-          context: "src",
         },
         {
           from: path.resolve(__dirname, "manifest.json"),
