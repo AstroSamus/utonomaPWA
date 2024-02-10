@@ -24,7 +24,30 @@ module.exports = {
         test: /\.(png|jpeg|jpg|gif|svg)$/,
         type: "asset/resource",
       },
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            plugins: [
+              ["@babel/plugin-transform-react-jsx", {
+                "pragma": "h",
+                "pragmaFrag": "Fragment",
+              }]
+            ],
+          },
+        },
+      },
     ],
+  },
+  "resolve": {
+    "alias": {
+      "react": "preact/compat",
+      "react-dom/test-utils": "preact/test-utils",
+      "react-dom": "preact/compat",     // Must be below test-utils
+      "react/jsx-runtime": "preact/jsx-runtime"
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -1,5 +1,5 @@
 import "./styles.css"
-
+import { h, render } from "preact"
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -10,3 +10,12 @@ if ('serviceWorker' in navigator) {
     })
   })
 }
+
+const Demo = () => {
+  return(
+    <div> Hello from react!! { 1 + 1 } </div>
+  )
+}
+  
+
+render(<Demo />, document.getElementById("infiniteScrollOfShortVideos"));
