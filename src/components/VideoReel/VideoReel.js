@@ -28,4 +28,4 @@ const Demo = () => {
 }
 
   
-render(<Demo />, document.getElementById("infinite-scroll-of-short-videos"));
+render(<Demo />, document.querySelector("#infinite-scroll-of-short-videos"));
