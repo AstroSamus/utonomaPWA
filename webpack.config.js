@@ -1,6 +1,5 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CopyPlugin = require("copy-webpack-plugin");
 
 
@@ -18,7 +17,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: ['style-loader', "css-loader"],
       },
       {
         test: /\.(png|jpeg|jpg|gif|svg)$/,
@@ -54,7 +53,6 @@ module.exports = {
       title: 'Utonoma',
       template: "src/index.html"
     }),
-    new MiniCssExtractPlugin(),
     new CopyPlugin({
       patterns: [
         {

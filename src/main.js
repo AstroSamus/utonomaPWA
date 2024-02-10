@@ -1,4 +1,3 @@
-import "./styles.css"
 import "./components/VideoReel/VideoReel"
 
 if ('serviceWorker' in navigator) {
