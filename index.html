@@ -1,5 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html id="html-tag" lang="en">
+  <script>
+    //Script for multilingual support 
+    const $htmlTag = document.querySelector("#html-tag")
+    switch(navigator.language.substring(0,2)) {
+      case "es":
+        $htmlTag.lang = "es"
+        $htmlTag.classList.add("spanishLang")
+        break
+      default:
+        $htmlTag.classList.add("englishLang")
+        break
+    }
+  </script>
   <head>
     <meta charset="utf-8">
     <title>Utonoma</title>
@@ -27,6 +40,21 @@
         --headLine1: normal var(--medium) 3rem/100% var(--baseFontFamily);
         --baseSize: normal var(--regular) 1.25rem/1.6875rem var(--baseFontFamily);
       }
+
+      /*Start of selectors for multilingual support*/ 
+      body [lang=en], 
+      body [lang=es] {
+        display: none;
+      }
+
+      .spanishLang [lang=es] {
+        display: inline;
+      }
+
+      .englishLang [lang=en] {
+        display: inline;
+      }
+      /*End of selectors for multilingual support*/
 
       body {
         font: var(--baseSize);
@@ -99,7 +127,10 @@
       </div>
       <div class="videoCard" id="infinite-scroll-of-short-videos"></div>
     </div>
-    <div class="settings">Settings</div>
+    <div class="settings">
+      <span lang="en">Settings</span>
+      <span lang="es">Configuraciones</span>
+    </div>
   </div>
 </body>
 </html>
