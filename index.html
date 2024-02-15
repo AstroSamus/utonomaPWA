@@ -107,6 +107,9 @@
         min-inline-size: 100vw;
         scroll-snap-align: center;
         content-visibility: auto;
+        display:flex; 
+        flex-direction: column; 
+        justify-content: flex-end;
       }
 
       .videoCard {
@@ -128,8 +131,24 @@
       <div class="videoCard" id="infinite-scroll-of-short-videos"></div>
     </div>
     <div class="settings">
-      <span lang="en">Settings</span>
-      <span lang="es">Configuraciones</span>
+      <img src="assets/icons/banner.svg" style="width: 100vw;" alt="">
+      <h2 style="margin: 5vh 6vw">
+        <span lang="en">Connect<br>Wallet</span>
+        <span lang="es">Conectar<br>Billera</span>
+      </h2>
+      <div style="display: flex; margin: 0 6vw 5vh 6vw">
+        <p style="margin: 0;">
+          <span lang="en"> 
+            Login using Metamask or any wallet supported by <b>WalletConnect</b> and start using all the features.         
+          </span>
+          <span lang="es">
+            Inicia sesión utilizando Metamask o cualquier billetera soportada por <b>WalletConnect</b> y comienza a utilizar todas las funcionalidades.
+          </span>
+        </p>
+        <button style="background-color: var(--snow); border: none; padding: 0 0 0 1vw;" >
+          <img src="/assets/icons/continue.svg" alt="" style="width: 4rem;">
+        </button>
+      </div>
     </div>
   </div>
 </body>
