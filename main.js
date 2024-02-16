@@ -1,4 +1,5 @@
 import "./components/VideoReel/VideoReel"
+import "./components/Settings/Settings"
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
