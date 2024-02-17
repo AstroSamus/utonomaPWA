@@ -40,7 +40,7 @@ function createSettingsSection(address) {
   }
   const $settingsSection = createDOM(settingsTemplate())
   $settingsContainer.append($settingsSection) 
-  document.querySelector("#log-out").addEventListener('click', async () => {
+  document.querySelector("#log-out").addEventListener("click", async () => {
     const walletConnectProvider = await import("../../utils/walletConnectProvider")
     const walletConnectProviderInstance = walletConnectProvider.default.getAuthenticationInstance()
     await walletConnectProviderInstance.disconnect()
@@ -87,7 +87,7 @@ function createConnectWalletSection() {
     walletConnectProviderInstance.subscribeEvents(event => {
       if(walletConnectProviderInstance.getIsConnected()) {
         const userAddress = walletConnectProviderInstance.getAddress()
-        localStorage.setItem('userAddress', userAddress)
+        localStorage.setItem("userAddress", userAddress)
         $settingsContainer.removeChild($settingsContainer.firstElementChild)
         createSettingsSection(userAddress)
       }
@@ -97,7 +97,7 @@ function createConnectWalletSection() {
   const $connectWalet = createDOM(connectWalletTemplate())
   $settingsContainer.append($connectWalet) 
   const $connectWalletButton = document.querySelector("#connect-wallet")
-  $connectWalletButton.addEventListener('click', () => {
+  $connectWalletButton.addEventListener("click", () => {
     if(!isAuthenticationModalOpen) {
       $connectWalletButton.children[0].src = "../../assets/icons/circularProgress.svg"
       openWalletConnectModal()
