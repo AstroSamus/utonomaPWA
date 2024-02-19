@@ -26,6 +26,7 @@ function createSettingsSection(address) {
         </p> 
         <div style="display: flex; flex-direction: column; flex: 1; justify-content: end;">
           <img src="assets/icons/banner.svg" style="max-width: 100%; max-height: 80vh; object-fit: cover;" alt="" loading="lazy">
+          <a href="./pages/CreateContent/CreateContent.html">Create Content</a>
           <button id="log-out" style="background-color: var(--snow); border: none; padding: 1rem 0;" >
             <span lang="en"> 
               <b>Log out</b>

@@ -4,9 +4,12 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 
 module.exports = {
-  entry: "./main.js",
+  entry: {
+    index: "./main.js",
+    createContent: "./pages/CreateContent/CreateContent.js"
+  }, 
   output: {
-    filename: "bundle.js",
+    filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
@@ -51,7 +54,14 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "Utonoma",
-      template: "./index.html"
+      template: "./index.html",
+      chunks: ["index"],
+    }),
+    new HtmlWebpackPlugin({
+      title: "Utonoma - Create Content",
+      template: "./pages/CreateContent/CreateContent.html",
+      chunks: ["createContent"],
+      filename: './pages/CreateContent/CreateContent.html',
     }),
     new CopyPlugin({
       patterns: [
@@ -70,4 +80,9 @@ module.exports = {
       ],
     }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
 };
