@@ -1,0 +1,9 @@
+@font-face {
+  font-family: notoSans;
+  src: url(./NotoSans-Light.ttf);
+  font-display: swap;
+}
+
+body {
+  font-family: notoSans;
+}
