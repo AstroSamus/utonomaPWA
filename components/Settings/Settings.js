@@ -41,13 +41,17 @@ function createSettingsSection(address) {
   const $settingsSection = createDOM(settingsTemplate())
   $settingsContainer.append($settingsSection) 
   document.querySelector("#log-out").addEventListener("click", async () => {
-    const walletConnectProvider = await import("../../utils/walletConnectProvider")
-    const walletConnectProviderInstance = walletConnectProvider.default.getAuthenticationInstance()
-    await walletConnectProviderInstance.disconnect()
-    if(!walletConnectProviderInstance.getIsConnected()) {
-      localStorage.removeItem("userAddress");
-      $settingsContainer.removeChild($settingsContainer.firstElementChild)
-      createConnectWalletSection()
+    try{
+      const walletConnectProvider = await import("../../utils/walletConnectProvider")
+      const walletConnectProviderInstance = walletConnectProvider.default.getAuthenticationInstance()
+      await walletConnectProviderInstance.disconnect()
+      if(!walletConnectProviderInstance.getIsConnected()) {
+        localStorage.removeItem("userAddress");
+        $settingsContainer.removeChild($settingsContainer.firstElementChild)
+        createConnectWalletSection()
+      }
+    } catch(error) {
+      console.log("Failure in wallet connect log out", error)
     }
   })
 }
@@ -79,19 +83,24 @@ function createConnectWalletSection() {
   }
 
   async function openWalletConnectModal() {
-    const walletConnectProvider = await import("../../utils/walletConnectProvider")
-    const walletConnectProviderInstance = walletConnectProvider.default.getAuthenticationInstance()
-    await walletConnectProviderInstance.open()
-    $connectWalletButton.children[0].src = "../../assets/icons/continue.svg"
-    isAuthenticationModalOpen = false
-    walletConnectProviderInstance.subscribeEvents(event => {
-      if(walletConnectProviderInstance.getIsConnected()) {
-        const userAddress = walletConnectProviderInstance.getAddress()
-        localStorage.setItem("userAddress", userAddress)
-        $settingsContainer.removeChild($settingsContainer.firstElementChild)
-        createSettingsSection(userAddress)
-      }
-    })
+    try{
+      const walletConnectProvider = await import("../../utils/walletConnectProvider")
+      const walletConnectProviderInstance = walletConnectProvider.default.getAuthenticationInstance()
+      await walletConnectProviderInstance.open()
+      $connectWalletButton.children[0].src = "../../assets/icons/continue.svg"
+      isAuthenticationModalOpen = false
+      walletConnectProviderInstance.subscribeEvents(event => {
+        if(walletConnectProviderInstance.getIsConnected()) {
+          const userAddress = walletConnectProviderInstance.getAddress()
+          localStorage.setItem("userAddress", userAddress)
+          $settingsContainer.removeChild($settingsContainer.firstElementChild)
+          createSettingsSection(userAddress)
+        }
+      })
+    } catch(error) {
+      console.log("Error in wallet connect authentication ", error)
+      isAuthenticationModalOpen = false
+    }
   }
 
   const $connectWalet = createDOM(connectWalletTemplate())
