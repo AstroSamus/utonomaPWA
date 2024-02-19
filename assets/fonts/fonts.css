@@ -1,9 +1,9 @@
 @font-face {
-  font-family: notoSans;
-  src: url(./NotoSans-Light.ttf);
-  font-display: swap;
+  font-family: NotoSans;
+  src: url("./NotoSans.ttf");
+  font-style: normal;
 }
 
 body {
-  font-family: notoSans;
+  font-family: NotoSans;
 }
