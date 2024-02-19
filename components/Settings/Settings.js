@@ -25,7 +25,7 @@ function createSettingsSection(address) {
           ${address}
         </p> 
         <div style="display: flex; flex-direction: column; flex: 1; justify-content: end;">
-          <img src="assets/icons/banner.svg" style="max-width: 100%; max-height: 80vh; object-fit: cover;" alt="">
+          <img src="assets/icons/banner.svg" style="max-width: 100%; max-height: 80vh; object-fit: cover;" alt="" loading="lazy">
           <button id="log-out" style="background-color: var(--snow); border: none; padding: 1rem 0;" >
             <span lang="en"> 
               <b>Log out</b>
@@ -56,7 +56,7 @@ function createConnectWalletSection() {
   function connectWalletTemplate() {
     return `
       <div style="display:flex; flex-direction: column; height: 100%; justify-content: flex-end">
-        <img src="assets/icons/banner.svg" style="width: 100vw;" alt="">
+        <img src="assets/icons/banner.svg" style="width: 100vw;" alt="" loading="lazy">
         <h2 style="margin: 5vh 6vw">
           <span lang="en">Connect<br>Wallet</span>
           <span lang="es">Conectar<br>Billera</span>
