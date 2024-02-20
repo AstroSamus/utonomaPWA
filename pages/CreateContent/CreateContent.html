@@ -1,11 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Content</title>
-</head>
+<html id="html-tag" lang="en">
+  <script>
+    //Script for multilingual support 
+    const $htmlTag = document.querySelector("#html-tag")
+    switch(navigator.language.substring(0,2)) {
+      case "es":
+        $htmlTag.lang = "es"
+        $htmlTag.classList.add("spanishLang")
+        break
+      default:
+        $htmlTag.classList.add("englishLang")
+        break
+    }
+  </script>
+  <head>
+    <meta charset="utf-8">
+    <title>Utonoma - Create Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#383838"/>
+    <link rel="manifest" href="../../manifest.json" />
+    <link rel="preload" href="../../assets/fonts/fonts.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../assets/fonts/fonts.css"></noscript>
+    <!--Inline the critical css in the following style tag--> 
+    <style type="text/css">
+      :root {
+        --cyberYellow: #fdd30f;
+        --pirateBlack: #383838;
+        --electricBlueLemonade: #0063b1;
+        --vibrantOrange: #FF7420;
+        --snow: #fffafa;
+      }
+
+      /*Start of selectors for multilingual support*/ 
+      body [lang=en], 
+      body [lang=es] {
+        display: none;
+      }
+
+      .spanishLang [lang=es] {
+        display: inline;
+      }
+
+      .englishLang [lang=en] {
+        display: inline;
+      }
+      /*End of selectors for multilingual support*/
+
+      body {
+        background-color: var(--pirateBlack);
+        color: var(--snow);
+        margin: 0px;
+        padding: 0px;
+      }
+
+    </style>
+  </head>
 <body>
-  <h1>Hello from the Create Content page</h1>
+  <div 
+    style="height: 100vh; 
+    width: 100vw; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background-image:url('../../assets/img/andrew-kliatskyi-Cc0VTXEkdxw-unsplash.jpg');"
+  >
+    <input type="file" class="file" id="attachment" style="display: none;"/>
+    <button 
+      style="background-color: transparent; 
+      font-size: 2rem; 
+      font-weight: bold;
+      border: solid 1px var(--snow);
+      color: var(--snow);
+      width: 60%;
+      padding: 20px 0;"
+    >
+      <span lang="en">Create</span>
+      <span lang="es">Crear</span>
+    </button>
+  </div>
+  <script>
+
+  </script>
 </body>
 </html>
