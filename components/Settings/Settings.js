@@ -1,17 +1,18 @@
 import { createDOM } from "../../utils/dom"
 
 let isAuthenticationModalOpen = false
+const createContentLink = "../../pages/CreateContent/CreateContent.html"
 
 const $settingsContainer = document.querySelector("#settings")
 
 let userAddress = localStorage.getItem("userAddress")
 if(userAddress) {
-  createSettingsSection(userAddress)
+  createSettingsSection(userAddress, createContentLink)
 } else {
   createConnectWalletSection()
 }
 
-function createSettingsSection(address) {
+function createSettingsSection(address, createContentLink) {
   function settingsTemplate() {
     return `
       <div style="display: flex; flex-direction: column; height: 100%;">
@@ -26,7 +27,29 @@ function createSettingsSection(address) {
         </p> 
         <div style="display: flex; flex-direction: column; flex: 1; justify-content: end;">
           <img src="assets/icons/banner.svg" style="max-width: 100%; max-height: 80vh; object-fit: cover;" alt="" loading="lazy">
-          <a href="./pages/CreateContent/CreateContent.html">Create Content</a>
+          <a href="${createContentLink}" style="text-decoration: none; color: var(--pirateBlack);">
+          <div 
+            style="display: flex;
+            width: 80%;
+            height: 2rem;
+            align-items: center;
+            border: solid 1px var(--pirateBlack);
+            padding: 10px 0;
+            justify-content: center;
+            margin-left: 10%;
+            margin-top: 30px;"
+          >
+            <div style="display: flex; flex: 1;">
+              <img src="./assets/icons/add.svg" alt="" style="padding: 0 20px;">
+              <p style="font-size: 1.1rem;">
+                <span lang="en">Create Content</span>
+                <span lang="es"> Crear Contenido</span>
+              </p>
+            </div>
+            <img src="./assets/icons/arrowRight.svg" alt="" style="padding-right: 20px;">
+          </div>
+        </a>
+
           <button id="log-out" style="background-color: var(--snow); border: none; padding: 1rem 0;" >
             <span lang="en"> 
               <b>Log out</b>
