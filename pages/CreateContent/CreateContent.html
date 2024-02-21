@@ -59,28 +59,67 @@
   <div 
     style="height: 100vh; 
     width: 100vw; 
-    display: flex; 
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
     background-image:url('../../assets/img/andrew-kliatskyi-Cc0VTXEkdxw-unsplash.jpg');"
   >
-    <input type="file" class="file" id="attachment" style="display: none;"/>
-    <button 
-      style="background-color: transparent; 
-      font-size: 2rem; 
-      font-weight: bold;
-      border: solid 1px var(--snow);
-      color: var(--snow);
-      width: 60%;
-      padding: 20px 0;"
+    <div 
+      id="step-1"
+      style="height: 100%; 
+      width: 100%; 
+      display: flex; 
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;"
     >
-      <span lang="en">Create</span>
-      <span lang="es">Crear</span>
-    </button>
+      <input type="file" id="short-video-input" style="display: none;" accept="video/*" />
+      <button 
+        id="button-short-video-input"
+        style="background-color: transparent; 
+        font-size: 2rem; 
+        font-weight: bold;
+        border: solid 1px var(--snow);
+        color: var(--snow);
+        width: 50%;
+        padding: 15px 0;
+        margin: 0 30px 60px 0"
+      >
+        <span lang="en">Create</span>
+        <span lang="es">Crear</span>
+      </button>
+    </div>
+    <div 
+      id="step-2" 
+      style="height: 100%; 
+      width: 100%; 
+      display: none;
+      position: relative;"
+    >
+      <video  id="step-2-video" style="object-fit: fill; width: 100%; height: 100%;"></video>
+      <button 
+        id="button-continue-step-2"
+        style="background-color: transparent; 
+        font-size: 2rem; 
+        font-weight: bold;
+        border: solid 1px var(--snow);
+        color: var(--snow);
+        width: 50%;
+        position: absolute;
+        bottom: 60px;
+        right: 30px;
+        padding: 15px 0;"
+      >
+        <span lang="en">Continue</span>
+        <span lang="es">Continuar</span>
+      </button>
+    </div>
+    <div 
+      id="step-3" 
+      style="height: 100%; 
+      width: 100%; 
+      display: none;
+      position: relative;"
+    >
+      Step 3
+    </div>
   </div>
-  <script>
-
-  </script>
 </body>
 </html>
