@@ -7,6 +7,7 @@ const $stepOne = document.querySelector("#step-1")
 const $stepTwo = document.querySelector("#step-2")
 const $stepTwoVideo = document.querySelector("#step-2-video")
 const $stepThree = document.querySelector("#step-3")
+const $stepFour = document.querySelector("#step-4")
 
 
 $shortVideoInput.addEventListener("change", () => {
@@ -26,4 +27,10 @@ document.querySelector("#button-continue-step-2").addEventListener("click", () =
   $stepTwo.style.display = "none"
   $stepThree.style.display = "flex"
   $stepTwoVideo.pause()
+})
+
+document.querySelector("#button-continue-step-3").addEventListener("click", () => {
+  //document.querySelector("#short-video-title-input").value
+  $stepThree.style.display = "none"
+  $stepFour.style.display = "flex"
 })
