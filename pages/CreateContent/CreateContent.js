@@ -34,3 +34,7 @@ document.querySelector("#button-continue-step-3").addEventListener("click", () =
   $stepThree.style.display = "none"
   $stepFour.style.display = "flex"
 })
+
+document.querySelector("#button-continue-step-4").addEventListener("click", () => {
+  console.log("upload to ipfs")
+})
