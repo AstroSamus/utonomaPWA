@@ -1,0 +1,56 @@
+@media (min-width:851px) or (orientation: landscape) {
+  .App-container {
+    display: flex;
+    gap: 20px
+  }
+  
+  .App-reel {
+    flex: 1;
+  }
+  
+  .App-functionalities {
+    flex-basis: 35%; 
+    flex-shrink: 1;
+  }
+}
+
+@media (max-width:850px) or (orientation: portrait) {
+  .App-container {
+    display: flex;
+    height: 100vh;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /*Hide scrollbar for IE, Edge and Firefox*/
+    -ms-overflow-style: none; /*IE and Edge*/
+    scrollbar-width: none; /*Firefox*/
+  }
+
+  .App-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .App-reel {
+    background-color: #fdd30f;
+    block-size: 100vh;
+    min-inline-size: 100vw;
+    scroll-snap-align: center;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
+    /*Hide scrollbar for IE, Edge and Firefox*/
+    -ms-overflow-style: none; /*IE and Edge*/
+    scrollbar-width: none; /*Firefox*/
+  }
+
+  /*Hide scrollbar for Chrome, Safari and Opera*/
+  .App-reel::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .App-functionalities {
+    min-width: 100vw;
+    scroll-snap-align: center;
+    content-visibility: auto;
+    overflow-y: auto;
+  }
+}
