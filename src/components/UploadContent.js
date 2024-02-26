@@ -140,7 +140,6 @@ export default function UploadContent({ Component, pageProps }) {
     //Start of Upload hashes to the smart contract
 
     if (!isConnected)  {
-
       throw Error('User disconnected')
       setLoading(false);
       showError()

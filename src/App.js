@@ -5,6 +5,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { styled } from 'styled-components'
 import Functionalities from './components/Functionalities';
 import VideoReel from './components/VideoReel';
+import 'primeicons/primeicons.css';
 
 export default function MyApp({ Component, pageProps }) {
   return (

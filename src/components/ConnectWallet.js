@@ -4,12 +4,14 @@ import { Button } from 'primereact/button';
 import { styled } from 'styled-components'
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { ethers } from 'ethers';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react'
-import { BrowserProvider, Contract, formatUnits } from 'ethers'
+import { BrowserProvider, Contract, formatUnits, parseUnits } from 'ethers'
 import { utonomaABI, utonomaSepoliaAddress } from '../Utils/UtonomaABI'
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
 
 // 1. Get projectId at https://cloud.walletconnect.com
 const projectId = 'acc64a6d2308020280276076ddc6effa'
@@ -51,9 +53,11 @@ const Container = styled.div`
 
 export default function ConnectWallet({ Component, pageProps }) {
   const [loadingGetUserBalance, setLoadingGetUserBalance] = useState(false);
+  const [loadingActivateVoting, setLoadingActivateVoting] = useState(false)
   const [userBalance, setUserBalance] = useState(0)
   const { address, chainId, isConnected } = useWeb3ModalAccount()
   const { walletProvider } = useWeb3ModalProvider()
+  const toast = useRef(null);
 
   async function getBalance() {
     setLoadingGetUserBalance(true)
@@ -71,6 +75,40 @@ export default function ConnectWallet({ Component, pageProps }) {
     setLoadingGetUserBalance(false)
 
     setUserBalance(formatUnits(userBalance, 18))
+  }
+
+  const activateVoting = async() => {
+    setLoadingActivateVoting(true)
+    if (!isConnected) {
+      setLoadingActivateVoting(false)
+      throw Error('User disconnected')
+    }
+    
+    const ethersProvider = new BrowserProvider(walletProvider)
+    const signer = await ethersProvider.getSigner()
+    // The Contract object
+    const utonomaContract = new Contract(utonomaSepoliaAddress, utonomaABI, signer)
+    //Approves a big amount of tokens to be spent by the smart contract, so the user doesn't need to 
+    const approveResult = await utonomaContract.approve(utonomaSepoliaAddress, parseUnits("100000.0", 18))
+    const transactionResp = await approveResult.wait()
+    console.log(transactionResp)
+    setLoadingActivateVoting(false)
+    toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'Done. Wait some minutes and start voting!!!', life: 3000 });
+  }
+
+  const confirmActivateVoting = () => {
+    confirmDialog({
+      message: 'This will allow the smart contract to charge you automatically the fees?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      defaultFocus: 'accept',
+      accept: activateVoting,
+      reject
+    });
+  }
+
+  const reject = () => {
+    toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
   }
 
   return (
@@ -97,6 +135,16 @@ export default function ConnectWallet({ Component, pageProps }) {
         />
         <label>{userBalance == 0 ? null : userBalance}</label>
       </div>
+      <Button 
+        icon="pi pi-check" 
+        label="Activate Account For Voting" 
+        onClick={confirmActivateVoting} 
+        severity="secondary" 
+        outlined 
+        loading={loadingActivateVoting}
+      />
+      <Toast ref={toast} />
+      <ConfirmDialog />
     </Container>
   );
 }
