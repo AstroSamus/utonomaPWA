@@ -12,6 +12,7 @@ const VideoContainer = styled.div`
   scroll-snap-align: start;
   scroll-snap-stop: always;
   position: relative;
+  display:flex;
 
   @media only screen and (orientation:landscape) {
     max-height: 100vh;
@@ -23,7 +24,6 @@ const Player = styled.video`
   width: 100%;
 
   @media only screen and (orientation:landscape) {
-    min-height: 100vh;
     width: auto;
   }
 `;
@@ -33,7 +33,7 @@ const InteractionButtons  = styled.div`
   display: flex;
   gap: 8%;
   bottom: 10%;
-  right: 10px;
+  right: 10%;
   color: white;
 `
 
@@ -75,7 +75,7 @@ export default function VideoCard({ posterURL, source }) {
       <Player 
         loop 
         poster = { posterURL } 
-        src = {videoUrl}
+        src = {source}
         onClick={onPlayerPress}
         ref={playerRef} 
       ></Player>

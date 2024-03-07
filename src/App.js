@@ -6,19 +6,22 @@ import { styled } from 'styled-components'
 import Functionalities from './components/Functionalities';
 import VideoReel from './components/VideoReel';
 import 'primeicons/primeicons.css';
+import { StrictMode } from 'react';
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <PrimeReactProvider>
-      <div className='App-container'>
-        <div className='App-reel'>
-          <VideoReel></VideoReel>
+    <StrictMode>
+      <PrimeReactProvider>
+        <div className='App-container'>
+          <div className='App-reel'>
+            <VideoReel></VideoReel>
+          </div>
+          <div className='App-functionalities'>
+            <Functionalities>
+            </Functionalities>
+          </div>
         </div>
-        <div className='App-functionalities'>
-          <Functionalities>
-          </Functionalities>
-        </div>
-      </div>
-    </PrimeReactProvider>
+      </PrimeReactProvider>
+    </StrictMode>
   );
 }

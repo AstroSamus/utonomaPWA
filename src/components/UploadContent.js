@@ -151,8 +151,8 @@ export default function UploadContent({ Component, pageProps }) {
       // The Contract object
       const utonomaContract = new Contract(utonomaSepoliaAddress, utonomaABI, signer)
       const uploadResponse = await utonomaContract.upload(
-        convertIPFSHashToBytes32(metadataHash.IpfsHash), 
         convertIPFSHashToBytes32(contentHash.IpfsHash), 
+        convertIPFSHashToBytes32(metadataHash.IpfsHash), 
         5
       )
       
