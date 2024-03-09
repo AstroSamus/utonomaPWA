@@ -6,7 +6,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import React, { useState, useRef } from "react";
 import { BrowserProvider, Contract, formatUnits } from 'ethers'
-import { utonomaABI, utonomaSepoliaAddress } from '../Utils/UtonomaABI'
+import { utonomaABI, utonomaFilecoinCalibrationTestNetAddress } from '../Utils/UtonomaABI'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react'
 import { CID } from 'multiformats/cid'
 import bs58 from 'bs58'
@@ -149,7 +149,7 @@ export default function UploadContent({ Component, pageProps }) {
       const ethersProvider = new BrowserProvider(walletProvider)
       const signer = await ethersProvider.getSigner()
       // The Contract object
-      const utonomaContract = new Contract(utonomaSepoliaAddress, utonomaABI, signer)
+      const utonomaContract = new Contract(utonomaFilecoinCalibrationTestNetAddress, utonomaABI, signer)
       const uploadResponse = await utonomaContract.upload(
         convertIPFSHashToBytes32(contentHash.IpfsHash), 
         convertIPFSHashToBytes32(metadataHash.IpfsHash), 

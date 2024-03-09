@@ -6,8 +6,9 @@ import React, { useState, useRef, useEffect } from "react";
 import VideoCard from './VideoCard';
 import { ethers } from "ethers";
 import { BrowserProvider, Contract, JsonRpcProvider, formatUnits, parseUnits } from 'ethers'
-import { utonomaABI, utonomaSepoliaAddress } from '../Utils/UtonomaABI'
+import { utonomaABI, utonomaFilecoinCalibrationTestNetAddress } from '../Utils/UtonomaABI'
 import bs58 from 'bs58'
+import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react'
 
 
 function getIpfsHashFromBytes32(bytes32Hex) {
@@ -22,16 +23,26 @@ function getIpfsHashFromBytes32(bytes32Hex) {
 
 export default function VideoReel({ Component, pageProps }) {  
   const [videoSrc, setVideoSrc] = useState("") 
+  const { address, chainId, isConnected } = useWeb3ModalAccount()
+  const { walletProvider } = useWeb3ModalProvider()
+
 
   async function getVideo() {
-    const provider = new JsonRpcProvider("https://sepolia.infura.io/v3/a8b7f3c03367496183ae6e32ad962ee5")
-    const utonomaContract = new Contract(utonomaSepoliaAddress, utonomaABI, provider)
+    //const provider = new BrowserProvider(window.ethereum)
+    debugger
+    const provider = new BrowserProvider(walletProvider)
+    const utonomaContract = new Contract(utonomaFilecoinCalibrationTestNetAddress, utonomaABI, provider)
     const shortVideosLibraryLength = formatUnits(await utonomaContract.getContentLibraryLength(5), 0)
     console.log(shortVideosLibraryLength)
     const identifier = Math.floor(Math.random() * (shortVideosLibraryLength - 1))
     console.log("the identifier is: ", identifier)
-    const {0: authorAddress, 1: contentId, 2: metadata}  = await utonomaContract.getContentById([1,5])
-    setVideoSrc("https://ipfs.io/ipfs/" + getIpfsHashFromBytes32(contentId))
+    try {
+      const {0: authorAddress, 1: contentId, 2: metadata}  = await utonomaContract.getContentById([1,5])
+      setVideoSrc("https://ipfs.io/ipfs/" + getIpfsHashFromBytes32(contentId))
+    } catch(err) {
+      console.log("No content with provided identifier")
+    }
+
   }
 
   useEffect(() => {

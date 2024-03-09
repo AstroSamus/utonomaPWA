@@ -9,7 +9,7 @@ import { ethers } from 'ethers';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react'
 import { BrowserProvider, Contract, formatUnits, parseUnits } from 'ethers'
-import { utonomaABI, utonomaSepoliaAddress } from '../Utils/UtonomaABI'
+import { utonomaABI, utonomaFilecoinCalibrationTestNetAddress } from '../Utils/UtonomaABI'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 
@@ -17,12 +17,12 @@ import { Toast } from 'primereact/toast';
 const projectId = 'acc64a6d2308020280276076ddc6effa'
 
 // 2. Set chains
-const sepolia = {
-  chainId: 11155111,
-  name: 'Sepolia',
-  currency: 'ETH',
-  explorerUrl: 'https://sepolia.etherscan.io/',
-  rpcUrl: 'https://sepolia.infura.io/v3/a8b7f3c03367496183ae6e32ad962ee5'
+const filecoinCalibrationTestNet = {
+  chainId: 314159,
+  name: 'Filecoin - Calibration testnet',
+  currency: 'tFIL',
+  explorerUrl: 'https://calibration.filscan.io',
+  rpcUrl: 'https://rpc.ankr.com/filecoin_testnet'
 }
 
 // 3. Create modal
@@ -36,9 +36,9 @@ const metadata = {
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
   tokens: {
-    1: { address: '0x1AdaA27C9890c97D605778c2C7B9ff846B8e3352' }
+    1: { address: '0xe54d9c99a9A0cfc3974f1b4AfB0a231a059872aD' }
   },
-  chains: [sepolia],
+  chains: [filecoinCalibrationTestNet],
   projectId,
   enableAnalytics: true // Optional - defaults to your Cloud configuration
 })
@@ -59,6 +59,19 @@ export default function ConnectWallet({ Component, pageProps }) {
   const { walletProvider } = useWeb3ModalProvider()
   const toast = useRef(null);
 
+  async function testFilecoin() {
+    try {
+      // Get the provider, instantiate the contract and then call getCurrentAd
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const contract = new ethers.Contract(utonomaFilecoinCalibrationTestNetAddress, utonomaABI, provider);
+      const adData = await contract.balanceOf("0x4A9101BDEe2466d8B8d78a737C11820c9FC1c792")
+      setUserBalance(formatUnits(userBalance, 18))
+      console.log(adData);
+    } catch (error) {
+      console.error('Error fetching current ad:', error);
+    }
+  }
+
   async function getBalance() {
     setLoadingGetUserBalance(true)
     if (!isConnected)  {
@@ -67,11 +80,18 @@ export default function ConnectWallet({ Component, pageProps }) {
     }
 
     const ethersProvider = new BrowserProvider(walletProvider)
+    //const ethersProvider = new JsonRpcProvider('https://314159.rpc.thirdweb.com')
     const signer = await ethersProvider.getSigner()
     // The Contract object
-    const utonomaContract = new Contract(utonomaSepoliaAddress, utonomaABI, signer)
-    const userBalance = await utonomaContract.balanceOf(address)
-
+    const utonomaContract = new Contract(utonomaFilecoinCalibrationTestNetAddress, utonomaABI, signer)
+    let userBalance
+    try{
+      userBalance = await utonomaContract.balanceOf(address)
+    } catch(err) {
+      console.log("error when getting the balance", userBalance)
+      setLoadingGetUserBalance(false)    
+      return  
+    }
     setLoadingGetUserBalance(false)
 
     setUserBalance(formatUnits(userBalance, 18))
@@ -87,9 +107,9 @@ export default function ConnectWallet({ Component, pageProps }) {
     const ethersProvider = new BrowserProvider(walletProvider)
     const signer = await ethersProvider.getSigner()
     // The Contract object
-    const utonomaContract = new Contract(utonomaSepoliaAddress, utonomaABI, signer)
+    const utonomaContract = new Contract(utonomaFilecoinCalibrationTestNetAddress, utonomaABI, signer)
     //Approves a big amount of tokens to be spent by the smart contract, so the user doesn't need to 
-    const approveResult = await utonomaContract.approve(utonomaSepoliaAddress, parseUnits("100000.0", 18))
+    const approveResult = await utonomaContract.approve(utonomaFilecoinCalibrationTestNetAddress, parseUnits("100000.0", 18))
     const transactionResp = await approveResult.wait()
     console.log(transactionResp)
     setLoadingActivateVoting(false)

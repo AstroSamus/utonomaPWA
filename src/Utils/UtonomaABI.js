@@ -1,4 +1,4 @@
-export const utonomaSepoliaAddress = '0x1AdaA27C9890c97D605778c2C7B9ff846B8e3352'
+export const utonomaFilecoinCalibrationTestNetAddress = '0xe54d9c99a9A0cfc3974f1b4AfB0a231a059872aD'
 
 export const utonomaABI = [
 	{
