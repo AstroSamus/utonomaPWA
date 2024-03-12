@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 import { styled } from 'styled-components'
 import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { InputNumber } from 'primereact/inputnumber';
 import React, { useState, useRef } from "react";
 import { ethers } from 'ethers';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
@@ -36,7 +37,9 @@ const metadata = {
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
   tokens: {
-    1: { address: '0xe54d9c99a9A0cfc3974f1b4AfB0a231a059872aD' }
+    1: {
+      address: '0xe54d9c99a9A0cfc3974f1b4AfB0a231a059872aD'
+    },
   },
   chains: [filecoinCalibrationTestNet],
   projectId,

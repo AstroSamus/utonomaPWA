@@ -23,22 +23,23 @@ function getIpfsHashFromBytes32(bytes32Hex) {
 
 export default function VideoReel({ Component, pageProps }) {  
   const [videoSrc, setVideoSrc] = useState("") 
+  const [utonomaCID, setUtonomaCID] = useState({}) 
   const { address, chainId, isConnected } = useWeb3ModalAccount()
   const { walletProvider } = useWeb3ModalProvider()
 
 
   async function getVideo() {
     //const provider = new BrowserProvider(window.ethereum)
-    debugger
-    const provider = new BrowserProvider(walletProvider)
+    const provider = new ethers.JsonRpcProvider("https://rpc.ankr.com/filecoin_testnet")
     const utonomaContract = new Contract(utonomaFilecoinCalibrationTestNetAddress, utonomaABI, provider)
     const shortVideosLibraryLength = formatUnits(await utonomaContract.getContentLibraryLength(5), 0)
     console.log(shortVideosLibraryLength)
     const identifier = Math.floor(Math.random() * (shortVideosLibraryLength - 1))
     console.log("the identifier is: ", identifier)
     try {
-      const {0: authorAddress, 1: contentId, 2: metadata}  = await utonomaContract.getContentById([1,5])
-      setVideoSrc("https://ipfs.io/ipfs/" + getIpfsHashFromBytes32(contentId))
+      const {0: authorAddress, 1: contentId, 2: metadata}  = await utonomaContract.getContentById([identifier,5])
+      setUtonomaCID({identifier, contentLibrary: 5})
+      setVideoSrc("https://copper-urban-gorilla-864.mypinata.cloud/ipfs/" + getIpfsHashFromBytes32(contentId) + "?pinataGatewayToken=WmR3tEcyNtxE6vjc4lPPIrY0Hzp3Dc9AYf2X4Bl-8o6JYBzTx9aY_u3OlpL1wGra")
     } catch(err) {
       console.log("No content with provided identifier")
     }
@@ -46,7 +47,9 @@ export default function VideoReel({ Component, pageProps }) {
   }
 
   useEffect(() => {
-    getVideo()
+    return () => {
+      getVideo()
+    };
   }, []);
 
   return (
@@ -54,14 +57,15 @@ export default function VideoReel({ Component, pageProps }) {
       <VideoCard 
         posterURL={ "https://i1.wp.com/detechter.com/wp-content/uploads/2015/11/romain-3.gif?fit=500%2C700&ssl=1" } 
         source = { videoSrc }
+        utonomaCID = { utonomaCID }
       />
       <VideoCard 
         posterURL={ "https://i1.wp.com/detechter.com/wp-content/uploads/2015/11/romain-3.gif?fit=500%2C700&ssl=1" } 
-        source = { "https://v16-webapp-prime.tiktok.com/video/tos/useast2a/tos-useast2a-pve-0068/o4GBGnDgFNO7yRSeVRvuAB1EE73QIJgfQlS5AE/?a=1988&ch=0&cr=3&dr=0&lr=unwatermarked&cd=0%7C0%7C0%7C&cv=1&br=1792&bt=896&bti=NDU3ZjAwOg%3D%3D&cs=0&ds=6&ft=4fUEKMtN8Zmo01pGT94jVUKBDpWrKsd.&mime_type=video_mp4&qs=0&rc=OzQ7NThkOTU6ODU0Zjc0M0BpajppOnc5cmhscTMzNzczM0BfYy4vNTReXi0xMGNiMV9iYSNfaTRlMmRzMDFgLS1kMTZzcw%3D%3D&btag=e00090000&expire=1709040373&l=20240225132509A716D552852644D7B071&ply_type=2&policy=2&signature=7f8b6bb38c9382b1f7957b2a49079b76&tk=tt_chain_token" }
+        source = { "" }
       />
       <VideoCard 
         posterURL={ "https://i1.wp.com/detechter.com/wp-content/uploads/2015/11/romain-3.gif?fit=500%2C700&ssl=1" } 
-        source = { "https://v16-webapp-prime.tiktok.com/video/tos/useast2a/tos-useast2a-pve-0068/o4GBGnDgFNO7yRSeVRvuAB1EE73QIJgfQlS5AE/?a=1988&ch=0&cr=3&dr=0&lr=unwatermarked&cd=0%7C0%7C0%7C&cv=1&br=1792&bt=896&bti=NDU3ZjAwOg%3D%3D&cs=0&ds=6&ft=4fUEKMtN8Zmo01pGT94jVUKBDpWrKsd.&mime_type=video_mp4&qs=0&rc=OzQ7NThkOTU6ODU0Zjc0M0BpajppOnc5cmhscTMzNzczM0BfYy4vNTReXi0xMGNiMV9iYSNfaTRlMmRzMDFgLS1kMTZzcw%3D%3D&btag=e00090000&expire=1709040373&l=20240225132509A716D552852644D7B071&ply_type=2&policy=2&signature=7f8b6bb38c9382b1f7957b2a49079b76&tk=tt_chain_token" }
+        source = { "" }
       />
     </>
   );
