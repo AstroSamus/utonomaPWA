@@ -11,6 +11,7 @@ import { BrowserProvider, Contract, JsonRpcProvider, formatUnits, parseUnits, bi
 import { utonomaABI, utonomaFilecoinCalibrationTestNetAddress } from '../Utils/UtonomaABI'
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
+import Like from './Like';
 
 const VideoContainer = styled.div`
   min-block-size: 100vh;
@@ -43,7 +44,7 @@ const InteractionButtons  = styled.div`
   color: white;
 `
 
-export default function VideoCard({ posterURL, source, utonomaCID }) { 
+export default function VideoCard({ posterURL, source, utonomaCID, likesNumber }) { 
   const playerRef = useRef(null)
   const [playing, setPlaying] = useState(false)
   const { address, chainId, isConnected } = useWeb3ModalAccount()
@@ -71,7 +72,7 @@ export default function VideoCard({ posterURL, source, utonomaCID }) {
       playerRef.current?.load();
       playerRef.current.play()
       setPlaying(true)
-    }    
+    }
   }, [source]);
 
   const like = async() => {
@@ -182,6 +183,7 @@ export default function VideoCard({ posterURL, source, utonomaCID }) {
         crossOrigin="anonymous"
       ></Player>
       <InteractionButtons>
+        <Like likes = {likesNumber}></Like>
         <Button icon="pi pi-heart" onClick={like}  rounded severity="help" aria-label="Favorite" />
         <Button icon="pi pi-thumbs-down" onClick={dislike} rounded severity="help" aria-label="Favorite" />
       </InteractionButtons>

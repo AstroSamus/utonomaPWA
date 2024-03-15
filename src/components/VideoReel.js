@@ -23,6 +23,7 @@ function getIpfsHashFromBytes32(bytes32Hex) {
 
 export default function VideoReel({ Component, pageProps }) {  
   const [videoSrc, setVideoSrc] = useState("") 
+  const [likesNumber, setLikesNumber] = useState(0) 
   const [utonomaCID, setUtonomaCID] = useState({}) 
   const { address, chainId, isConnected } = useWeb3ModalAccount()
   const { walletProvider } = useWeb3ModalProvider()
@@ -37,8 +38,9 @@ export default function VideoReel({ Component, pageProps }) {
     const identifier = Math.floor(Math.random() * (shortVideosLibraryLength - 1))
     console.log("the identifier is: ", identifier)
     try {
-      const {0: authorAddress, 1: contentId, 2: metadata}  = await utonomaContract.getContentById([identifier,5])
-      setUtonomaCID({identifier, contentLibrary: 5})
+      const {0: authorAddress, 1: contentId, 2: metadata, 3: likes}  = await utonomaContract.getContentById([identifier,5])
+      setUtonomaCID({identifier, contentLibrary: 5, likes})
+      setLikesNumber(ethers.getNumber(likes))
       setVideoSrc("https://copper-urban-gorilla-864.mypinata.cloud/ipfs/" + getIpfsHashFromBytes32(contentId) + "?pinataGatewayToken=WmR3tEcyNtxE6vjc4lPPIrY0Hzp3Dc9AYf2X4Bl-8o6JYBzTx9aY_u3OlpL1wGra")
     } catch(err) {
       console.log("No content with provided identifier")
@@ -58,6 +60,7 @@ export default function VideoReel({ Component, pageProps }) {
         posterURL={ "https://i1.wp.com/detechter.com/wp-content/uploads/2015/11/romain-3.gif?fit=500%2C700&ssl=1" } 
         source = { videoSrc }
         utonomaCID = { utonomaCID }
+        likesNumber = { likesNumber }
       />
       <VideoCard 
         posterURL={ "https://i1.wp.com/detechter.com/wp-content/uploads/2015/11/romain-3.gif?fit=500%2C700&ssl=1" } 
