@@ -400,68 +400,108 @@
           </div>
           <img src="../assets/icons/arrow.svg" alt="">
         </button>
+        <dialog id="modalConfirmActivateForVoting">
+          <h3 style="font: var(--headline1);">
+            <span lang="en">Are you sure that you want to activate your account?</span>
+            <span lang="es">¿Está seguro de que desea activar su cuenta?</span>
+          </h3>
+          <p style="font: var(--headline6)">
+            <span lang="en">
+              This will allow the Utonoma smart contract to automatically charge your 
+              account for the token fees for liking and disliking content.
+            </span>
+            <span lang="es">
+              Esto permitirá que el contrato inteligente de Utonoma cargue automáticamente 
+              en tu cuenta las tarifas en tokens por dar "me gusta" y "no me gusta".
+            </span>
+          </p>
+          <button id="buttonConfirmActivateForVotingYes">
+            <span lang="en">Yes</span>
+            <span lang="es">Si</span>
+          </button>
+          <button id="buttonConfirmActivateForVotingNo">
+            <span lang="en">No</span>
+            <span lang="es">No</span>
+          </button>
+        </dialog>
+        <dialog id="dialogActivateForVotingCheckWallet">
+          <h3 style="font: var(--headline6);">
+            <span lang="en">Check your wallet to approve the operation</span>
+            <span lang="es">Compruebe su cartera para aprobar la operación</span>
+          </h3>
+        </dialog>
+        <dialog id="dialogActivateForVotingTransactionSent">
+          <h3 style="font: var(--headline1);">
+            <span lang="en">Transaction sent to the blockchain</span>
+            <span lang="es">Operación enviada a la cadena de bloques</span>
+          </h3>
+          <p style="font: var(--headline6)">
+            <span lang="en">
+              In a few minutes your account will be activated to start voting 
+              for content.
+            </span>
+            <span lang="es">
+              En unos minutos tu cuenta estará activada para comenzar a votar 
+              por contenido.
+            </span>
+          </p>
+        </dialog>
+        <dialog id="dialogActivateForVotingError">
+          <h3 style="font: var(--headline1);">
+            <span lang="en">An error occurred while activating your account</span>
+            <span lang="es">Ocurrió un error al activar tu cuenta</span>
+          </h3>
+          <p style="font: var(--headline6)">
+            <span lang="en">
+              Please try again so you can start voting for content.
+            </span>
+            <span lang="es">
+              Por favor, reintenta para que puedas comenzar a votar por contenido.
+            </span>
+          </p>
+        </dialog>
+        <dialog id="dialogSendOrReceiveTokens">
+          <h3 style="font: var(--headline1);">
+            <span lang="en">Configure your wallet for the Utonoma token</span>
+            <span lang="es">Configura tu billetera para el token de Utonoma</span>
+          </h3>
+          <!--
+            1. Open your wallet.
+            2. Look for the "Import token" or "Add custom ERC20 token" option.
+            3. For the required information:
+              Token Contract Address: (Enter the contract address here)
+              Token Symbol: (Enter the token symbol here)
+              Decimals of Precision: (Enter the number of decimals here)
+          -->
+          <p style="font: var(--headline6)">
+            <span lang="en">
+              Open your wallet and look for the option "Import token" or "Add custom ERC20 token". 
+              For the required information: <br>
+              <b>Token Contract Address:</b><br>
+              0xdcDC5585ac7458443edbB57E6b03f0E7F486B5D1<br>
+              <b>Token Decimal:</b><br>
+              18<br>
+              <b>Network:</b><br>
+              Scroll Sepolia Testnet
+            </span>
+            <span lang="es">
+              Abre tu billetera y busca la opción “Importar token” o “Agregar token ERC20 personalizado”.
+              Para la información requerida: <br>
+              <b>Dirección del contrato de token:</b><br>
+              0xdcDC5585ac7458443edbB57E6b03f0E7F486B5D1<br>
+              <b>Decimales del Token:</b><br>
+              18<br>
+              <b>Red:</b><br>
+              Scroll Sepolia Testnet
+            </span>
+          </p>
+          <button id="buttonDialogCloseSendTokens">
+            <span lang="en">Close</span>
+            <span lang="es">Cerrar</span>
+          </button>
+        </dialog>
       </div>
     </div>
-    <dialog id="modalConfirmActivateForVoting">
-      <h3 style="font: var(--headline1);">
-        <span lang="en">Are you sure that you want to activate your account?</span>
-        <span lang="es">¿Está seguro de que desea activar su cuenta?</span>
-      </h3>
-      <p style="font: var(--headline6)">
-        <span lang="en">
-          This will allow the Utonoma smart contract to automatically charge your 
-          account for the token fees for liking and disliking content.
-        </span>
-        <span lang="es">
-          Esto permitirá que el contrato inteligente de Utonoma cargue automáticamente 
-          en tu cuenta las tarifas en tokens por dar "me gusta" y "no me gusta".
-        </span>
-      </p>
-      <button id="buttonConfirmActivateForVotingYes">
-        <span lang="en">Yes</span>
-        <span lang="es">Si</span>
-      </button>
-      <button id="buttonConfirmActivateForVotingNo">
-        <span lang="en">No</span>
-        <span lang="es">No</span>
-      </button>
-    </dialog>
-    <dialog id="dialogActivateForVotingCheckWallet">
-      <h3 style="font: var(--headline6);">
-        <span lang="en">Check your wallet to approve the operation</span>
-        <span lang="es">Compruebe su cartera para aprobar la operación</span>
-      </h3>
-    </dialog>
-    <dialog id="dialogActivateForVotingTransactionSent">
-      <h3 style="font: var(--headline1);">
-        <span lang="en">Transaction sent to the blockchain</span>
-        <span lang="es">Operación enviada a la cadena de bloques</span>
-      </h3>
-      <p style="font: var(--headline6)">
-        <span lang="en">
-          In a few minutes your account will be activated to start voting 
-          for content.
-        </span>
-        <span lang="es">
-          En unos minutos tu cuenta estará activada para comenzar a votar 
-          por contenido.
-        </span>
-      </p>
-    </dialog>
-    <dialog id="dialogActivateForVotingError">
-      <h3 style="font: var(--headline1);">
-        <span lang="en">An error occurred while activating your account</span>
-        <span lang="es">Ocurrió un error al activar tu cuenta</span>
-      </h3>
-      <p style="font: var(--headline6)">
-        <span lang="en">
-          Please try again so you can start voting for content.
-        </span>
-        <span lang="es">
-          Por favor, reintenta para que puedas comenzar a votar por contenido.
-        </span>
-      </p>
-    </dialog>
     <dialog id="dialogLikeContentTransactionSent">
       <h3 style="font: var(--headline1);">
         <span lang="en">Transaction sent to the blockchain</span>
@@ -489,46 +529,6 @@
           Por favor, compra tokens de Utonoma. Ve a la seccion de Configuraciones y presiona el boton de "Comprar / Vender tokens"
         </span>
       </p>
-    </dialog>
-    <dialog id="dialogSendOrReceiveTokens">
-      <h3 style="font: var(--headline1);">
-        <span lang="en">Configure your wallet for the Utonoma token</span>
-        <span lang="es">Configura tu billetera para el token de Utonoma</span>
-      </h3>
-      <!--
-        1. Open your wallet.
-        2. Look for the "Import token" or "Add custom ERC20 token" option.
-        3. For the required information:
-          Token Contract Address: (Enter the contract address here)
-          Token Symbol: (Enter the token symbol here)
-          Decimals of Precision: (Enter the number of decimals here)
-      -->
-      <p style="font: var(--headline6)">
-        <span lang="en">
-          Open your wallet and look for the option "Import token" or "Add custom ERC20 token". 
-          For the required information: <br>
-          <b>Token Contract Address:</b><br>
-          0xdcDC5585ac7458443edbB57E6b03f0E7F486B5D1<br>
-          <b>Token Decimal:</b><br>
-          18<br>
-          <b>Network:</b><br>
-          Scroll Sepolia Testnet
-        </span>
-        <span lang="es">
-          Abre tu billetera y busca la opción “Importar token” o “Agregar token ERC20 personalizado”.
-          Para la información requerida: <br>
-          <b>Dirección del contrato de token:</b><br>
-          0xdcDC5585ac7458443edbB57E6b03f0E7F486B5D1<br>
-          <b>Decimales del Token:</b><br>
-          18<br>
-          <b>Red:</b><br>
-          Scroll Sepolia Testnet
-        </span>
-      </p>
-      <button id="buttonDialogCloseSendTokens">
-        <span lang="en">Close</span>
-        <span lang="es">Cerrar</span>
-      </button>
     </dialog>
   </div>
 </body>

@@ -1,49 +1,42 @@
-const isLoggedInKey = 'isUserLoggedIn'
-const addressKey = 'userAddress'
+import { storageEventKeys, pubSub } from "../pubSub.js"
 
-let isLoggedIn
-let address
+export const userManager = (function() {
 
-export function getIsLoggedIn() {
-  if(!isLoggedIn) {
-    const isLoggedInFromLocalStorage = localStorage[isLoggedInKey]
-    if(isLoggedInFromLocalStorage) {
-      isLoggedInFromLocalStorage === 'true' ?  setIsLoggedIn(true) : setIsLoggedIn(false)      
-    } else {
-      //defaults false
-      setIsLoggedIn(false)
-    }
-  } 
-  return isLoggedIn
-}
+  let connectedUserAddress = localStorage.getItem(storageEventKeys.connectedUserAddress) || ''
+  let isLoggedIn = connectedUserAddress ? true : false
 
-export function getUserAddress() {
-  if(!address) {
-    const addressFromLocalStorage = localStorage[addressKey]
-    if(addressFromLocalStorage) {
-      setAddress(addressFromLocalStorage)
-    } else {
-      //defaults empty string
-      setAddress('')
-    }
-  }
-  return address
-}
-
-export function setIsLoggedIn(newValue) {
-  if(typeof newValue != 'boolean') throw 'Invalid type for the isLoggedIn value'
-  if(isLoggedIn !== newValue) {
+  function setIsLoggedIn(newValue) {
+    if(typeof newValue != 'boolean') throw 'Invalid type for the isLoggedIn value'
+    if(isLoggedIn === newValue) return
     isLoggedIn = newValue
-    localStorage[isLoggedInKey] = newValue
-    window.dispatchEvent(new StorageEvent('storage', { key: isLoggedInKey }))
   }
-}
 
-export function setAddress(newValue) {
-  if(typeof newValue != 'string') throw 'Invalid type for the address value'
-  if(address !== newValue) {
-    address = newValue
-    localStorage[addressKey] = newValue
-    window.dispatchEvent(new StorageEvent('storage', { key: addressKey }))
+  function setconnectedUserAddress(newValue) {
+    if(typeof newValue != 'string') throw 'Invalid type for the address value'
+    if(connectedUserAddress === newValue) return
+    connectedUserAddress = newValue
   }
-}
+
+  const actionLoginUser = (userAddress) => {
+    setconnectedUserAddress(userAddress)
+    setIsLoggedIn(true)
+    effectLogUser()
+  }
+
+  const actionLogoutUser = () => {
+    setconnectedUserAddress('')
+    setIsLoggedIn(false)
+    effectLogUser()
+  }
+
+  function effectLogUser() {
+    pubSub.publishAndStore(storageEventKeys.connectedUserAddress, connectedUserAddress)
+  }
+  
+  return {
+    isLoggedIn: () => isLoggedIn,
+    address: () => address,
+    actionLoginUser,
+    actionLogoutUser
+  }
+})()
