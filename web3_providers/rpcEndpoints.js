@@ -1,0 +1,1 @@
+export const sepoliaEndpoint = 'https://sepolia-rpc.scroll.io/'
