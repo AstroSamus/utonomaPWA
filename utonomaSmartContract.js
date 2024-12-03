@@ -1,5 +1,9 @@
 export const utonomaSepoliaAddress = '0xBed329C06DD3C5ddB7DFbd7597Bd552b2Fb3863D'
 
+export const sepoliaTokenSymbol = 'testVersi'
+
+export const tokenDecimals = 18
+
 export const dexLink = `https://pancakeswap.finance/swap?chain=scrollSepolia&outputCurrency=${utonomaSepoliaAddress}`
 
 export const contractDeployedInBlock = 6940955
