@@ -50,7 +50,9 @@ $buttonDialogCloseSendTokens.addEventListener('click', () => {
   $dialogSendOrReceiveTokens.close()
 })
 
+/*
 $buttonBuySellTokens.addEventListener('click', async () => {
   const { dexLink } = await import('../../../utonomaSmartContract.js')
   window.location.href = dexLink
 })
+*/
