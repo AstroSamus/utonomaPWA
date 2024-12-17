@@ -1,89 +1,97 @@
 <!DOCTYPE html>
 <html id="htmlTag" lang="en">
   <script>
-    //Script for multilingual support 
-    const $htmlTag = document.querySelector("#htmlTag")
-    switch(navigator.language.substring(0,2)) {
+    // Script for multilingual support
+    const $htmlTag = document.querySelector("#htmlTag");
+    switch (navigator.language.substring(0, 2)) {
       case "es":
-        $htmlTag.lang = "es"
-        $htmlTag.classList.add("spanishLang")
-        break
+        $htmlTag.lang = "es";
+        $htmlTag.classList.add("spanishLang");
+        break;
       default:
-        $htmlTag.classList.add("englishLang")
-        break
+        $htmlTag.classList.add("englishLang");
+        break;
     }
   </script>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exchange</title>
-  <link rel="preload" href="./assets/fonts/fontsLoader.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="./assets/fonts/fontsLoader.css"></noscript>
-  <!--Inline the critical css in the following style tag--> 
-  <style type="text/css">
-    :root {
-      --cyberYellow: #fdd30f;
-      --pirateBlack: #383838;
-      --electricBlueLemonade: #0063b1;
-      --vibrantOrange: #FF7420;
-      --snow: #fffafa;
-      --baseFontFamily: NotoSans, sans-serif, Helvetica;
-      --headline1: normal 3rem/100% var(--baseFontFamily);
-      --headline6: normal 1.19rem/normal var(--baseFontFamily);
+  <script>
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.style.setProperty("--body-bg", "#33395A");
+    } else {
+      document.documentElement.style.setProperty("--body-bg", "#E7FAFF");
     }
+    console.log(window.matchMedia("(prefers-color-scheme: dark)"));
+  </script>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange</title>
+    <link rel="preload" href="./assets/fonts/fontsLoader.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="./assets/fonts/fontsLoader.css"></noscript>
+    <!-- Inline the critical css in the following style tag -->
+    <style type="text/css">
+      :root {
+        --cyberYellow: #fdd30f;
+        --pirateBlack: #383838;
+        --electricBlueLemonade: #0063b1;
+        --vibrantOrange: #FF7420;
+        --snow: #fffafa;
+        --baseFontFamily: NotoSans, sans-serif, Helvetica;
+        --headline1: normal 3rem/100% var(--baseFontFamily);
+        --headline6: normal 1.19rem/normal var(--baseFontFamily);
+        --body-bg: #E7FAFF;
+      }
 
-    form > div {
-      text-align: left;
-    }
+      form > div {
+        text-align: left;
+      }
 
-    form h2 {
-      font: var(--headline1); 
-      margin-bottom: 21px;
-    }
+      form h2 {
+        font: var(--headline1);
+        margin-bottom: 21px;
+      }
 
-    /*Start of selectors for multilingual support*/ 
-    body [lang=en], 
-    body [lang=es] {
-      display: none;
-    }
+      /* Start of selectors for multilingual support */
+      body [lang=en],
+      body [lang=es] {
+        display: none;
+      }
 
-    .spanishLang [lang=es] {
-      display: inline;
-    }
+      .spanishLang [lang=es] {
+        display: inline;
+      }
 
-    .englishLang [lang=en] {
-      display: inline;
-    }
-    /*End of selectors for multilingual support*/
+      .englishLang [lang=en] {
+        display: inline;
+      }
+      /* End of selectors for multilingual support */
 
-    body {
-      background-color: var(--pirateBlack);
-      color: var(--snow);
-      font-family: var(--baseFontFamily);
-      margin: 0;
-    }
+      body {
+        background-color: var(--body-bg);
+        color: var(--snow);
+        font-family: var(--baseFontFamily);
+        margin: 0;
+      }
 
-    @media screen and (min-width: 700px) {
-
-    }
-  </style>
-</head>
-<body>
-<div style="margin: 0 10vw;">
-  <div style="display: flex; justify-content: center; align-items: center;">
-    <img style="width: 20%; margin: 10px 0;" src="../assets/icons/utonoma-full-logo.svg" alt="">
-    <h1>Write your content</h1>
-  </div>
-  <!--The text inside the textarea should not be indented as this causes problems with the preview of the document-->
-  <textarea id="my-text-area">
-# Welcome to the text editor!
-
-Create **written content** for Utonoma you can do the following actions:
-
-1. You can insert images
-2. Create an enumerated list or using bullets
-3. You can also highlight using *italics* or **bold** 
-  </textarea>
-</div>
-</body>
+      @media screen and (min-width: 700px) {
+      }
+    </style>
+  </head>
+  <body style="background-color: var(--body-bg);">
+    <!-- The text inside the textarea should not be indented as this causes problems with the preview of the document -->
+    <div style="position: relative; width: 100vw; height: 795px; text-align: center;">
+      <iframe
+        id="inlineFrameExample"
+        title="Inline Frame Example"
+        src="https://pancakeswap.finance/?chain=scrollSepolia"
+        style="width: 100%; height: 795px; max-width: 800px; border: 0;"
+        scrolling="no"
+      ></iframe>
+      <div
+        style="position: absolute; top: 0; width: 100%; height: 143px; background-color: var(--body-bg);"
+      ></div>
+      <div
+        style="position: absolute; bottom: 0; width: 100%; height: 50px; background-color: var(--body-bg);"
+      ></div>
+    </div>
+  </body>
 </html>
