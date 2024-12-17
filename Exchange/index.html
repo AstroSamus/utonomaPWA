@@ -14,12 +14,14 @@
     }
   </script>
   <script>
+    /*
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       document.documentElement.style.setProperty("--body-bg", "#33395A");
+      document.documentElement.style.setProperty("--aux", "#33395A");
     } else {
       document.documentElement.style.setProperty("--body-bg", "#E7FAFF");
     }
-    console.log(window.matchMedia("(prefers-color-scheme: dark)"));
+    console.log(window.matchMedia("(prefers-color-scheme: dark)"));*/
   </script>
   <head>
     <meta charset="UTF-8">
@@ -78,6 +80,16 @@
   </head>
   <body style="background-color: var(--body-bg);">
     <!-- The text inside the textarea should not be indented as this causes problems with the preview of the document -->
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+      <img style="width: 20%; margin: 10px 0;" src="../assets/icons/utonoma-full-logo.svg" alt="">
+      <div style="color: var(--pirateBlack); max-width: 30%;">
+        <h1>Exchange your crypto</h1>
+        <p>
+          If you’ve earned some Utonoma tokens from the “likes” on your content or you’re interested in acquiring some 
+          tokens to participate in voting and supporting creators, this is the place to buy and sell.
+        </p>
+      </div>
+    </div>
     <div style="position: relative; width: 100vw; height: 795px; text-align: center;">
       <iframe
         id="inlineFrameExample"
