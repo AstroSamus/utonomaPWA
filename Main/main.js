@@ -1,11 +1,13 @@
 import '../utonoma_styles_library/index.css'
 import { getIsLoggedIn } from '../services/userManager/userManager.js'
+import './components/Settings/Settings.js'
 
 const $settings = document.querySelector('#settings')
 const $connectWallet = document.querySelector('#connectWallet')
 const $splashScreen = document.querySelector('#splashScreen')
 const $buttonTouchToStart = document.querySelector('#buttonTouchToStart')
 const $shortVideoReel = document.querySelector('#shortVideoReel')
+
 
 let ConnectWallet
 
@@ -38,20 +40,3 @@ window.addEventListener('storage', (event) => {
     switchSettingsOrConnectWallet()
   }
 })
-
-async function switchSettingsOrConnectWallet() {
-  if(getIsLoggedIn()) {
-    $connectWallet.style.display = 'none'
-    $settings.style.display = 'flex'
-    await import('./components/Settings/Settings.js')
-  } else {
-    $settings.style.display = 'none'
-    $connectWallet.style.display = 'flex'
-    if(!ConnectWallet) {
-      ConnectWallet = true //prevent creating multiple instances as setting ConnectWallet depends on an async operation
-      const { ConnectWallet: ConnectWalletFactory } = await import('./components/ConnectWallet/ConnectWallet.js')
-      ConnectWallet = ConnectWalletFactory($connectWallet)
-    }
-  }
-}
-switchSettingsOrConnectWallet()
