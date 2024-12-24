@@ -19,7 +19,7 @@ $buttonManageAccount.addEventListener('click', async () => {
   const { useSignedProvider } = await import('../../../web3_providers/signedProvider.js')
   const { modal } = await useSignedProvider()
   modal.open()
-  modal.subscribeState(async(newState) => {
+  /*modal.subscribeState(async(newState) => {
     if(modal.getIsConnected()) {
       setIsLoggedIn(true)
       setAddress(modal.getAddress())
@@ -30,7 +30,7 @@ $buttonManageAccount.addEventListener('click', async () => {
       $connectWallet.style.display = 'flex'
       await import('../ConnectWallet/ConnectWallet.js')
     }
-  })
+  })*/
   $buttonManageAccount.disabled = false
 })
 
