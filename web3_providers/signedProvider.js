@@ -2,6 +2,10 @@ import { createWeb3Modal, defaultConfig } from '@web3modal/ethers'
 import { BrowserProvider, Contract } from 'ethers'
 import { utonomaSepoliaAddress, utonomaABI } from '../utonomaSmartContract.js'
 import { sepoliaEndpoint } from './rpcEndpoints.js'
+import {  
+  setIsLoggedIn, 
+  setAddress  
+} from '../services/userManager/userManager.js'
 
 let modal
 
@@ -62,10 +66,34 @@ export async function useSignedProvider() {
 
 export async function useUtonomaContractForSignedTransactions() {
   let { modal } = await useSignedProvider()
-  if(!modal.getIsConnected()) throw(new Error('User disconnected'))
+  if(!modal.getIsConnected()) {
+    if(!await loginUser(modal)) {
+      throw(new Error('User disconnected'))
+    }
+  }
   const walletProvider = modal.getWalletProvider()
   const ethersProvider = new BrowserProvider(walletProvider)
   const signer = await ethersProvider.getSigner()
   const utonomaContractForSignedTransactions = new Contract(utonomaSepoliaAddress, utonomaABI, signer)
   return { utonomaContractForSignedTransactions }
+}
+
+export async function loginUser() {
+  let { modal } = await useSignedProvider()
+  return new Promise((resolve) => {
+    modal.subscribeProvider(({ address, isConnected }) => {
+      if(isConnected) {
+        console.log('user connected successfully')
+        setIsLoggedIn(true)
+        setAddress(address)
+        resolve(true)
+      } else {
+        console.log('user refused to connect')
+        setIsLoggedIn(false)
+        setAddress('')
+        //resolve(false)
+      }
+    })
+    modal.open()
+  })
 }
