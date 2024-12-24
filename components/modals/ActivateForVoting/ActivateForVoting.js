@@ -25,7 +25,7 @@ export const ActivateForVoting = ($container) => {
       case state.availiableSteps.userAccepted:
         try {
           $modalConfirmActivateForVoting.close()
-          $dialogCheckWalletToApprove.showModal()
+          $dialogCheckWalletToApprove.show()
           const { utonomaContractForSignedTransactions } = await useUtonomaContractForSignedTransactions()
           approveResult = await utonomaContractForSignedTransactions.approve(utonomaSepoliaAddress, parseUnits("100000.0", 18))
           state.setStep(state.availiableSteps.waitingForApproveOnWallet, effects)
