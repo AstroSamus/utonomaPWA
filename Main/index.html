@@ -109,7 +109,7 @@
       display: flex;
     }
     
-    .Layout--splashScreenToRightPanel, .Layout--rightPanelToCenterPanel, .Layout--shortVideoReelToRightPanel {
+    .Layout--splashScreenToRightPanel, .Layout--rightPanelToCenterPanel {
       display: none;
     }
 
@@ -196,6 +196,29 @@
         object-fit: cover;
       }
     }
+
+    @media (max-width: 699px) {
+      
+      .Layout--shortVideoReelToRightPanel {
+        position: absolute;
+        top: 10%;
+        right: 0%;
+        width: 60px;
+      }
+
+      .Layout--shortVideoReelToRightPanel span {
+        font: unset;
+      }
+
+      .Layout--shortVideoReelToRightPanel button {
+        margin-top: 0rem;
+      }
+
+      .Layout--shortVideoReelToRightPanel svg {
+        width: 12px;
+      }
+    }
+
   </style>
 </head>
 <body>
