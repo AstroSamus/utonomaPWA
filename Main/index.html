@@ -148,6 +148,15 @@
     }
 
     @media screen and (min-width: 700px) {
+    .Layout--shortVideoReelToRightPanel button {
+      margin-top: 7rem;
+      transform: rotate(90deg); 
+      color: var(--snow);
+    }
+
+    .Layout--shortVideoReelToRightPanel span {
+      font: var(--headline6);
+    }
       .Layout--splashScreen {
         width: 100%;
       }
@@ -389,8 +398,7 @@
           <div class="Layout--shortVideoReelToRightPanel">
             <button 
               id="buttonShortVideoReelToRightPanel"
-              class="Button--horizontalText" 
-              style="margin-top: 7rem; transform: rotate(90deg); color: var(--snow);" 
+              class="Button--horizontalText"  
               type="button"
             >
               <svg width="21" height="36" viewBox="0 0 21 36" fill="none" style="transform: rotate(-90deg)" xmlns="http://www.w3.org/2000/svg">
@@ -403,8 +411,8 @@
                 </clipPath>
                 </defs>
               </svg>
-              <span style="font: var(--headline6);" lang="en">SETTINGS</span>
-              <span style="font: var(--headline6);" lang="es">CONFIG.</span>
+              <span class="Text--shaded" lang="en">SETTINGS</span>
+              <span class="Text--shaded" lang="es">CONFIG.</span>
             </button>
           </div>
         </div>
