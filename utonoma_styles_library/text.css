@@ -2,6 +2,12 @@
   text-shadow: 
     6px 0 8px var(--pirateBlack), 
     0 6px 8px var(--pirateBlack), 
-    -6px 0 8px var(--pirateBlack)
-  ;
+    -6px 0 8px var(--pirateBlack);
+}
+
+.Text--shaded--snow {
+  text-shadow: 
+    6px 0 8px var(--snow), 
+    0 6px 8px var(--snow), 
+    -6px 0 8px var(--snow);
 }

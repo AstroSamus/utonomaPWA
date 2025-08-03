@@ -109,7 +109,7 @@
       display: flex;
     }
     
-    .Layout--splashScreenToRightPanel, .Layout--rightPanelToCenterPanel {
+    .Layout--splashScreenToRightPanel {
       display: none;
     }
 
@@ -151,6 +151,11 @@
       margin-top: 7rem;
       transform: rotate(90deg); 
       color: var(--snow);
+    }
+
+    .Layout--rightPanelToCenterPanel button {
+      margin-top: 7rem; 
+      transform: rotate(-90deg);
     }
 
     .Layout--shortVideoReelToRightPanel span {
@@ -206,16 +211,30 @@
         width: 60px;
       }
 
-      .Layout--shortVideoReelToRightPanel span {
+      .Layout--shortVideoReelToRightPanel span,
+      .Layout--rightPanelToCenterPanel span {
         font: unset;
       }
 
-      .Layout--shortVideoReelToRightPanel button {
+      .Layout--shortVideoReelToRightPanel button,
+      .Layout--rightPanelToCenterPanel button {
         margin-top: 0rem;
       }
 
-      .Layout--shortVideoReelToRightPanel svg {
+      .Layout--shortVideoReelToRightPanel svg,
+      .Layout--rightPanelToCenterPanel img {
         width: 12px;
+        height: 12px;
+      }
+
+      .Layout--rightPanelToCenterPanel {
+        position: absolute;
+        top: 10%;
+        left: -4.5%;
+      }
+
+      .Layout--rightPanelToCenterPanel span {
+        background-color: var(--snow);
       }
     }
 
@@ -447,11 +466,10 @@
         <button 
           id="buttonRightPanelToCenterPanel"
           class="Button--horizontalText" 
-          style="margin-top: 7rem; transform: rotate(-90deg);" 
           type="button"
         >
-          <span style="font: var(--headline6);" lang="en">BACK</span>
-          <span style="font: var(--headline6);" lang="es">ATRAS</span>
+          <span class="Text--shaded--snow" lang="en">BACK</span>
+          <span class="Text--shaded--snow" lang="es">ATRAS</span>
           <img style="transform: rotate(-90deg);" src="../assets/icons/arrow.svg" alt="">
         </button>
       </div>
