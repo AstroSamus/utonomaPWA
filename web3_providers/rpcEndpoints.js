@@ -1,0 +1,2 @@
+export const sepoliaRpcEndpoint = 'https://sepolia-rpc.scroll.io/'
+export const sepoliaEventFilterEndpoint = 'https://api.studio.thegraph.com/query/106360/utonoma-sepolia-get-contents-uploaded/version/latest'
