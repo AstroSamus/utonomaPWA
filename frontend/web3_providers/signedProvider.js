@@ -41,7 +41,6 @@ export const appkit = {
 
       this._modal.subscribeProviders((state) => {
         this._isConnected = !!state["eip155"];
-        console.log("Estado de conexión actualizado:", this._isConnected);
         if (!this._isConnected) this._utonomaContract = null;
       });
     }
@@ -49,8 +48,8 @@ export const appkit = {
   },
   get isConnected() {
     if (this._isConnected === null) {
-      const providers = this.modal.getProviders();
-      return !!providers["eip155"];
+      const provider = this.modal.getProvider('eip155');
+      return !!provider;
     }
     return this._isConnected;
   },
@@ -67,12 +66,13 @@ export const appkit = {
 
     this._utonomaContractPromise = (async () => {
       if (!this.isConnected) throw(new Error('User disconnected'));
-      const providers = this.modal.getProviders();
-      const eip155Provider = providers["eip155"];
-      if (!eip155Provider) throw(new Error("EIP-155 provider is not available"));
-      const ethProvider = new BrowserProvider(eip155Provider)
+
+      const provider = this.modal.getProvider('eip155');      
+      if (!provider) throw(new Error("EIP-155 provider is not available"));
+      
+      const ethProvider = new BrowserProvider(provider)
       const ethSigner = await ethProvider.getSigner()
-      return new Contract(utonomaSepoliaAddress, utonomaABI, ethSigner)
+      return new Contract(utonomaContractAddress, utonomaContractAbi, ethSigner)
     })();
     return this._utonomaContract;
   }
