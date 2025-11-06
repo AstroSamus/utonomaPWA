@@ -44,8 +44,6 @@
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
-    "@reown/appkit": "^1.5.3",
-    "@reown/appkit-adapter-ethers": "^1.8.12",
     "bops": "^1.0.1",
     "bs58": "^5.0.0",
     "buffer": "^6.0.3",
