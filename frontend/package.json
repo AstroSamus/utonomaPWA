@@ -46,6 +46,7 @@
   "dependencies": {
     "@web3-onboard/core": "^2.24.1",
     "@web3-onboard/injected-wallets": "^2.11.3",
+    "@web3-onboard/walletconnect": "^2.6.3",
     "bops": "^1.0.1",
     "bs58": "^5.0.0",
     "buffer": "^6.0.3",
