@@ -55,6 +55,8 @@ export function shouldContentBeEliminated(likes, dislikes) {
   //If there are 0 dislikes return false as a content without dislikes can't be eliminated
   if(dislikes === 0) return false
   const n = likes + dislikes
+  const minimumQuorum = 6
+  if(n < minimumQuorum) return false
   const p = dislikes / n
   const z = 1.96
 

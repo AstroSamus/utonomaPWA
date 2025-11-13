@@ -35,7 +35,7 @@ const shouldContentBeEliminatedPositiveCases = [
   [43310, 98100],
   [4950000000, 10050000000],
   [25, 75],
-  [80,107]
+  [80,107],
 ]
 test.each(shouldContentBeEliminatedPositiveCases)(
   "shouldContentBeEliminated method, when receiving %p likes and %p dislikes, should return true",
@@ -58,7 +58,9 @@ const shouldContentBeEliminatedNegativeCases = [
   ['a string', 'another string'],
   [0,0],
   [-1,0],
-  [-5,-45]
+  [-5,-45],
+  [2, 2], //minimum quorum not reached cases (6 votes at least)
+  [0, 5]
 ]
 test.each(shouldContentBeEliminatedNegativeCases)(
   "shouldContentBeEliminated method, when receiving %p likes and %p dislikes, should return false",

@@ -60,7 +60,7 @@
     }
 
     .Layout--shortVideoReel {
-      height: 100vh;
+      height: 100dvh;
       width: 100%;
       background-color: var(--pirateBlack);
       display: flex;
@@ -71,7 +71,7 @@
 
     .Layout--mainContainer {
       display: flex;
-      height: 100vh;
+      height: 100dvh;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       /*Hide scrollbar for IE, Edge and Firefox*/
@@ -85,7 +85,7 @@
     }
 
     .Layout--centerPanelContainer {
-      block-size: 100vh;
+      block-size: 100dvh;
       min-inline-size: 100vw;
       scroll-snap-align: center;
       overflow-y: auto;
@@ -102,7 +102,7 @@
     }
 
     .Layout--rightPanelContainer {
-      block-size: 100vh;
+      block-size: 100dvh;
       min-inline-size: 100vw;
       scroll-snap-align: center;
       content-visibility: auto;
@@ -124,12 +124,12 @@
 
     .Image--utonomaBackgroundPoster {
       width: auto; 
-      max-height: 70vh;
+      max-height: 70dvh;
     }
 
     .Layout--header {
       display: flex;
-      height: 100vh;  
+      height: 100dvh;  
       align-items: flex-end;
       justify-content: center;
       flex-wrap: wrap;
@@ -194,7 +194,14 @@
       <header id="splashScreen"
         class="Layout--header">
         <div class="Layout--splashScreen">
-          <img src="../assets/icons/utonoma-full-logo.svg" alt="" style="width: auto; max-height: 70vh;">
+          <p style="background-color: var(--cyberYellow); 
+            max-width: 16rem; 
+            padding: 8px;
+            margin: auto auto 16px auto;">
+            <span lang="en"><b>Demo version:</b> tokens are only for test purposes.</span>
+            <span lang="es"><b>Versión demo:</b> los tokens son sólo de prueba.</span>
+          </p>
+          <img src="../assets/icons/utonoma-full-logo.svg" alt="" style="width: auto; max-height: 70dvh;">
           <div style="display: flex; justify-content: flex-end;">
             <button 
               id="buttonTouchToStart"
@@ -281,11 +288,26 @@
                 </svg>                  
                 <span class="Text--shaded" id="likesNumber" style="margin: 0; color: var(--snow);">-</span>
               </button>
+              <button class="Button--verticalText" type="button" id="buttonDislikeShortVideo">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                  class="Icon--small Icon--shaded"
+                  viewBox="0 -960 960 960" 
+                  fill="#F3F3F3">
+                  <path d="M240-840h440v520L400-40l-50-50q-7-7-11.5-19t-4.5-23v-14l44-174H120q-32 0-56-24t-24-56v-80q0-7 2-15t4-15l120-282q9-20 30-34t44-14Zm360 80H240L120-480v80h360l-54 220 174-174v-406Zm0 406v-406 406Zm80 34v-80h120v-360H680v-80h200v520H680Z"/>
+                </svg> 
+                <span class="Text--shaded" id="likesNumber" style="margin: 0; color: var(--snow);">-</span>
+              </button>
+              <button id="buttonShare"
+                style="margin-left: 10px;">
+                <svg class="Icon--small Icon--shaded" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fffafa">
+                  <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T720-200q0-17-11.5-28.5T680-240q-17 0-28.5 11.5T640-200q0 17 11.5 28.5T680-160ZM200-440q17 0 28.5-11.5T240-480q0-17-11.5-28.5T200-520q-17 0-28.5 11.5T160-480q0 17 11.5 28.5T200-440Zm480-280q17 0 28.5-11.5T720-760q0-17-11.5-28.5T680-800q-17 0-28.5 11.5T640-760q0 17 11.5 28.5T680-720Zm0 520ZM200-480Zm480-280Z"/>
+                </svg>                  
+              </button>
               <dialog id="dialogConfirmLikeOrDislike">
                 <form method="dialog">
                   <h2 style="font: var(--headline1); margin: 0;">
-                    <span lang="en">Confirm your like</span>
-                    <span lang="es">Confirma tu like</span>
+                    <span lang="en">Confirm your vote</span>
+                    <span lang="es">Confirma tu voto</span>
                   </h2>
                   <p style="font: var(--headline6); margin-bottom: 0;">
                     <span lang="en">Current fee for voting, in Utonoma tokens, is: </span>
@@ -303,10 +325,10 @@
                 </h3>
                 <p style="font: var(--headline6)">
                   <span lang="en">
-                    Please verify that your balance is sufficient and that your account is active.
+                    Please verify that your balance is sufficient.
                   </span>
                   <span lang="es">
-                    Por favor, verifica que tu saldo sea suficiente y que tu cuenta esté activada.
+                    Por favor, verifica que tu saldo sea suficiente.
                   </span>
                 </p>
               </dialog>
@@ -317,10 +339,10 @@
                 </h3>
                 <p style="font: var(--headline6)">
                   <span lang="en">
-                    In a few minutes your like will have been processed.
+                    In a few minutes your operation will have been processed.
                   </span>
                   <span lang="es">
-                    En unos cuantos minutos tu like habrá sido procesado
+                    En unos cuantos minutos tu operación habrá sido procesada
                   </span>
                 </p>
               </dialog>
@@ -349,6 +371,16 @@
                   </span>
                   <span lang="es">
                     Se produjo un error al votar por el contenido.
+                  </span>
+                </p>
+              </dialog>
+              <dialog id="dialogShareButtonTextCopied">
+                <p style="font: var(--headline6)">
+                  <span lang="en">
+                    Link copied to clipboard.
+                  </span>
+                  <span lang="es">
+                    Link copiado al portapapeles.
                   </span>
                 </p>
               </dialog>
@@ -424,13 +456,19 @@
             padding: 4px 12px; 
             background-color: var(--cyberYellow);
             border-radius: 100px;
-            margin: 0 0 76px 32px;">
+            margin: 0 0 24px 32px;">
             <span style="font: var(--headline6);">
               <span lang="en">I’m a new user</span>
               <span lang="es">Soy usuario nuevo</span>
             </span>
           </button>
         </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4rjFhTD-n0Dm79w8JMy9F7AXiEYWiOeXmDcL0jDwKht0hEg/viewform?usp=dialog"
+          target="_blank"
+          style="margin: 0 0 46px 32px;">
+          <span lang="en">Report content</span>
+          <span lang="es">Reportar contenido</span>
+        </a>
       </div>
       <div id="settings" class="Layout--settings">
         <img src="../assets/img/utnoma-pattern-background.jpg" 
@@ -492,20 +530,8 @@
           <img src="../assets/icons/arrow.svg" alt="">
         </button>
         <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
-          <span lang="en">3. Now that you have some Utonoma tokens, you can activate your account and start voting.</span>
-          <span lang="es">3. Ahora que tienes algunos tokens de Utonoma, puedes activar tu cuenta y comenzar a votar.</span>
-        </p>
-        <button id="buttonActivateForVoting" class="Button--textBetweenTwoIcons">
-          <div>
-            <img src="../assets/icons/checked-profile-icon.svg" alt="">
-            <span lang="en">Activate for voting</span>
-            <span lang="es">Activar para votar</span>
-          </div>
-          <img src="../assets/icons/arrow.svg" alt="">
-        </button>
-        <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
-          <span lang="en">4. You can view your content and claim your reward here.</span>
-          <span lang="es">4. Puedes ver tu contenido y reclamar tu recompensa aquí.</span>
+          <span lang="en">3. You can view your content and claim your reward here.</span>
+          <span lang="es">3. Puedes ver tu contenido y reclamar tu recompensa aquí.</span>
         </p>
         <button id="buttonMyContent" onclick="location.href='/MyContent'" class="Button--textBetweenTwoIcons">
           <div>
@@ -516,8 +542,8 @@
           <img src="../assets/icons/arrow.svg" alt="">
         </button>
         <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
-          <span lang="en">5. You can log out here.</span>
-          <span lang="es">5. Puedes cerrar sesión aquí.</span>
+          <span lang="en">4. You can log out here.</span>
+          <span lang="es">4. Puedes cerrar sesión aquí.</span>
         </p>
         <button id="buttonManageAccount" class="Button--textBetweenTwoIcons">
           <div>
@@ -527,83 +553,23 @@
           </div>
           <img src="../assets/icons/arrow.svg" alt="">
         </button>
+        <button class="Button--textBetweenTwoIcons" 
+          onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSc4rjFhTD-n0Dm79w8JMy9F7AXiEYWiOeXmDcL0jDwKht0hEg/viewform?usp=dialog', '_blank')">
+          <div>
+            <img src="../assets/icons/warning.svg" alt="">
+            <span lang="en">Report content</span>
+            <span lang="es">Reportar contenido</span>
+          </div>
+          <img src="../assets/icons/arrow.svg" alt="">
+        </button>
       </div>
-    </div>
-    <div id="activateForVoting">
-      <dialog id="modalConfirmActivateForVoting">
-        <h3 style="font: var(--headline1);">
-          <span lang="en">¿Do you want to activate your account?</span>
-          <span lang="es">¿Quieres activar tu cuenta?</span>
-        </h3>
-        <p style="font: var(--headline6)">
-          <span lang="en">
-            This will allow the Utonoma smart contract to automatically charge your 
-            account for the token fees for liking and disliking content.
-          </span>
-          <span lang="es">
-            Esto permitirá que el contrato inteligente de Utonoma cargue automáticamente 
-            en tu cuenta las tarifas en tokens por dar "me gusta" y "no me gusta".
-          </span>
-        </p>
-        <button id="buttonConfirmActivateForVotingYes">
-          <span lang="en">Yes</span>
-          <span lang="es">Si</span>
-        </button>
-        <button id="buttonConfirmActivateForVotingNo">
-          <span lang="en">No</span>
-          <span lang="es">No</span>
-        </button>
-      </dialog>
-      <dialog id="dialogActivateForVotingTransactionSent">
-        <h3 style="font: var(--headline1);">
-          <span lang="en">Transaction sent to the blockchain</span>
-          <span lang="es">Operación enviada a la cadena de bloques</span>
-        </h3>
-        <p style="font: var(--headline6)">
-          <span lang="en">
-            In a few minutes your account will be activated to start voting 
-            for content.
-          </span>
-          <span lang="es">
-            En unos minutos tu cuenta estará activada para comenzar a votar 
-            por contenido.
-          </span>
-        </p>
-      </dialog>
-      <dialog id="dialogActivateForVotingSuccess">
-        <h3 style="font: var(--headline1);">
-          <span lang="en">Success</span>
-          <span lang="es">Éxito</span>
-        </h3>
-        <p style="font: var(--headline6)">
-          <span lang="en">
-            Your account is activated and ready to vote.
-          </span>
-          <span lang="es">
-            Tu cuenta está activada y lista para votar.
-          </span>
-        </p>
-      </dialog>
-      <dialog id="dialogActivateForVotingError">
-        <h3 style="font: var(--headline1);">
-          <span lang="en">An error occurred while activating your account</span>
-          <span lang="es">Ocurrió un error al activar tu cuenta</span>
-        </h3>
-        <p style="font: var(--headline6)">
-          <span lang="en">
-            Please try again so you can start voting for content.
-          </span>
-          <span lang="es">
-            Por favor, reintenta para que puedas comenzar a votar por contenido.
-          </span>
-        </p>
-      </dialog>
     </div>
     <dialog id="dialogSendOrReceiveTokens">
       <h3 style="font: var(--headline1);">
         <span lang="en">Configure your wallet for the Utonoma token</span>
         <span lang="es">Configura tu billetera para el token de Utonoma</span>
       </h3>
+      <button id="$buttonDialogAddTokenAutomatically">Add token automatically</button>
       <!--
         1. Open your wallet.
         2. Look for the "Import token" or "Add custom ERC20 token" option.
@@ -648,6 +614,46 @@
         <span lang="en">Check your wallet to approve the operation</span>
         <span lang="es">Compruebe su cartera para aprobar la operación</span>
       </h3>
+    </dialog>
+    <dialog id="dialogThisContentCanBeDeleted">
+      <h3 style="font: var(--headline1);">
+        <span lang="en">Quickly</span>
+        <span lang="es">Rápido</span>
+      </h3>
+      <p style="font: var(--headline6)">
+        <span lang="en">
+          <b>This content is ready to be deleted.</b> 
+          You can try to save it by giving it a like or delete it by giving it a dislike.
+        </span>
+        <span lang="es">
+          <b>Este contenido está listo para ser eliminado.</b>
+          Puedes intentar salvarlo dandole like o eliminarlo dando dislike.
+        </span>
+      </p>
+      <button id="cancel" type="reset">
+        <span lang="en">Understood</span>
+        <span lang="es">Entendido</span>
+      </button>
+    </dialog>
+    <dialog id="dialogConfirmDelete">
+      <form method="dialog">
+        <h2 style="font: var(--headline1); margin: 0;">
+          <span lang="en">Delete content</span>
+          <span lang="es">Borrar contenido</span>
+        </h2>
+        <p style="font: var(--headline6); margin-bottom: 0;">
+          <span lang="en">Are you sure you want to continue?</span>
+          <span lang="es">¿Estás seguro de que deseas continuar?</span>
+        </p>
+        <button id="confirmButton" value="confirm">
+          <span lang="en">Confirm</span>
+          <span lang="es">Confirmar</span>
+        </button>
+        <button id="cancelButton" value="cancel">
+          <span lang="en">Cancel</span>
+          <span lang="es">Cancelar</span>
+        </button>
+      </form>
     </dialog>
   </div>
 </body>

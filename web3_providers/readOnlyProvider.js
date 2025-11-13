@@ -4,9 +4,9 @@
  * @module readOnlyProvider
  */
 
-import { sepoliaEndpoint } from './rpcEndpoints.js'
+import { sepoliaRpcEndpoint, sepoliaEventFilterEndpoint } from './rpcEndpoints.js'
 import { JsonRpcProvider, Contract } from 'ethers'
-import { utonomaSepoliaAddress, utonomaABI, contractDeployedInBlock } from '../utonomaSmartContract.js'
+import { utonomaSepoliaAddress, utonomaABI } from '../utonomaSmartContract.js'
 
 
 export const readOnlyProvider = (function() {
@@ -14,7 +14,7 @@ export const readOnlyProvider = (function() {
    * The JSON-RPC provider to the selected network
    * @type {JsonRpcProvider}
    */
-  let provider = new JsonRpcProvider(sepoliaEndpoint)
+  let provider = new JsonRpcProvider(sepoliaRpcEndpoint)
 
   /**
    * The Utonoma contract instance.
@@ -40,7 +40,34 @@ export const readOnlyProvider = (function() {
      * so many events unnecessarily
      */
     getContentUploadedByThisAccount: async(userAddress) => {
-      return await utonomaContract.queryFilter(utonomaContract.filters.uploaded(userAddress), contractDeployedInBlock, 'latest')
+      try {
+        const rawResponse = await fetch(sepoliaEventFilterEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            query: `
+              {
+                uploadeds(
+                  where: {
+                    contentCreator:"${userAddress}"
+                  }
+                  orderBy: index
+                  orderDirection: desc
+                ){
+                  index,
+                  contentType
+                }
+              }
+            `
+          })  
+        })
+        const response = await rawResponse.json()
+        return response.data.uploadeds
+      } catch (error) {
+        throw new Error('Error when filtering the contents uploaded by this account:', error)
+      }
     }
   }
 
@@ -48,9 +75,6 @@ export const readOnlyProvider = (function() {
     getCurrentFee: async() => {
       let usersInTheLastPeriod = await readOnlyProvider.utonomaContract.currentPeriodMAU()
       return await readOnlyProvider.utonomaContract.calculateFee(usersInTheLastPeriod)
-    },
-    getAllowance: async(address) => {
-      return await readOnlyProvider.utonomaContract.allowance(address , utonomaSepoliaAddress)
     },
     getBalance: async(address) => {
       return await readOnlyProvider.utonomaContract.balanceOf(address)

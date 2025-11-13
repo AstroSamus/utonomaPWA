@@ -1,8 +1,8 @@
 import {
-  createStateForShortVideoReel
+  shortVideoReelState
 } from './ShortVideoReel.state'
 
-const state = createStateForShortVideoReel()
+const state = shortVideoReelState
 
 const shortVideos = [
   {'cid' : '16546'},

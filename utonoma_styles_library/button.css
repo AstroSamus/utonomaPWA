@@ -1,5 +1,4 @@
 .Button--verticalText {
-  background-color: transparent;
   border: none;
   display: flex;
   flex-direction: column;
@@ -8,7 +7,6 @@
 }
 
 .Button--horizontalText {
-  background-color: transparent;
   align-items: center;
   gap: 16px;
   border: none;
@@ -17,7 +15,6 @@
 }
 
 .Button--textBetweenTwoIcons {
-  background-color: transparent;
   border: 1px solid var(--pirateBlack);
   display: flex;
   justify-content: space-between;
@@ -47,4 +44,6 @@
 
 button {
   cursor: pointer;
+  background-color: transparent;
+  border: none;
 }

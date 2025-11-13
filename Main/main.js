@@ -12,8 +12,7 @@ let ConnectWallet
 $buttonTouchToStart.addEventListener('click', async () => {
   $splashScreen.style.display = 'none'
   $shortVideoReel.style.display = ''
-  const { ShortVideoReel } = await import('../components/ShortVideoReel/ShortVideoReel.js')
-  ShortVideoReel($shortVideoReel)
+  await import('../components/ShortVideoReel/ShortVideoReel.js')
 })
 
 document.querySelector('#buttonSplashScreenToRightPanel').addEventListener('click', async()=> {
