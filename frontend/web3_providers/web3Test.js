@@ -45,7 +45,6 @@ export const web3 = {
   },
 
   async connect() {
-    debugger
     const connected = await this.onboard.connectWallet();
     if (!connected || !connected.length) {
       throw new Error('User did not connect a wallet');
@@ -54,7 +53,6 @@ export const web3 = {
     const [wallet] = connected;
     this._wallet = wallet;
 
-    // provider inyectado por la wallet (MetaMask, etc.)
     const provider = wallet.provider;
     this._ethersProvider = new BrowserProvider(provider);
     this._signer = await this._ethersProvider.getSigner();
@@ -97,13 +95,10 @@ export const web3 = {
       });
     } catch (err) {
       if (err.code === 4902) {
-        // La red no existe, la agregamos
         await provider.request({
           method: 'wallet_addEthereumChain',
-          params: [AVALANCHE_FUJI_PARAMS]
+          params: [chainForAddEthereumChain]
         });
-
-        // Opcional: reintentar el switch
         try {
           await provider.request({
             method: 'wallet_switchEthereumChain',

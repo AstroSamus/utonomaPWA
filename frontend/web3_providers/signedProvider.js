@@ -1,12 +1,10 @@
-import { createAppKit } from '@reown/appkit'
-import { EthersAdapter } from '@reown/appkit-adapter-ethers'
-import { 
-  networks,
-  appkitProjectId as projectId,
-  appkitMetadata as metadata
-} from 'config.env'
 import { BrowserProvider, Contract } from 'ethers'
 import { utonomaSepoliaAddress, utonomaABI } from '../utonomaSmartContract.js'
+
+const EthersAdapter = {}
+const createAppKit = {}
+
+let networks, projectId, metadata
 
 /**
  * Lazy-initialized AppKit singleton with connection state and contract access.

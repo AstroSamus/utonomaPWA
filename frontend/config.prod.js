@@ -1,4 +1,9 @@
-import { avalanche } from '@reown/appkit/networks'
+const avalancheFuji = {
+  id: 43113,
+  token: 'AVAX',
+  label: 'Avalanche Fuji Testnet',
+  rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc'
+}
 
 export const networks = [avalanche]
 export const appkitProjectId = '260948140665e32551a32a2cddffc2c3'
