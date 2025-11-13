@@ -5,7 +5,8 @@ import {
   setAddress 
 } from '../../../services/userManager/userManager.js'
 import { createStateForConnectWallet } from "./ConnectWallet.state.js"
-import { useSignedProvider } from '../../../web3_providers/signedProvider.js'
+import { appkit } from '../../../web3_providers/signedProvider.js'
+import { web3 } from '../../../web3_providers/web3Test.js'
 
 const $settings = document.querySelector('#settings')
 const $connectWallet = document.querySelector('#connectWallet')
@@ -15,12 +16,12 @@ export const ConnectWallet = ($container) => {
   const $buttonConnectWallet = $container.querySelector('#buttonConnectWallet')
   const $buttonImANewUser = document.querySelector('#buttonImANewUser')
 
-  $buttonImANewUser.addEventListener('click', async() => {
+/*  $buttonImANewUser.addEventListener('click', async() => {
     loading(true)
-    const { modal } = await useSignedProvider()
+    const modal = appkit.modal
     await modal.open({ view: 'WhatIsAWallet' })
     loading(false)
-  })
+  })*/
 
   function loading(boolean) {
     $buttonImANewUser.disabled = boolean
@@ -29,7 +30,7 @@ export const ConnectWallet = ($container) => {
 
   async function effectIsButtonConnectWalletEnabled() {
     loading(true)
-    const { modal } = await useSignedProvider()
+    const modal = appkit.modal
     modal.subscribeState(async(newState) => {
       if(newState?.open === false) {
         state.setIsButtonConnectWalletEnabled(true, () => {})
@@ -50,8 +51,13 @@ export const ConnectWallet = ($container) => {
     modal.open()
   }
 
-  $buttonConnectWallet.addEventListener('click', () => {
-    state.setIsButtonConnectWalletEnabled(false, effectIsButtonConnectWalletEnabled)
+  $buttonConnectWallet.addEventListener('click', async () => {
+    //state.setIsButtonConnectWalletEnabled(false, effectIsButtonConnectWalletEnabled)
+    try {
+      await web3.connect()
+    } catch (error) {
+      console.error(error)
+    }
   })
 
   return state
