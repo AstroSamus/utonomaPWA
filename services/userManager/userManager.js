@@ -29,10 +29,9 @@ export const userManager = {
     )
   },
 
-  /*
   logout() {
     this.lastKnownUserAddress = null
-  },*/
+  }
 }
 
 export function getIsLoggedIn() {
