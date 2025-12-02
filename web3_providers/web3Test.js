@@ -69,12 +69,13 @@ export const web3 = {
 
   async disconnect() {
     if (this._wallet) {
-      await this.onboard.disconnectWallet({ label: this._wallet.label });
-      this._wallet = null;
-      this._ethersProvider = null;
-      this._signer = null;
-      this._utonomaContractPromise = null;
+      await this.onboard.disconnectWallet({ label: this._wallet.label })
+      this._wallet = null
+      this._ethersProvider = null
+      this._signer = null
+      this._utonomaContractPromise = null
     }
+    userManager.logout()
   },
 
   async ensureFuji() {
