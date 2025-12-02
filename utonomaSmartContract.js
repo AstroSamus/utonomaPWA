@@ -6,8 +6,6 @@ export const tokenDecimals = 18
 
 export const dexLink = `https://pancakeswap.finance/swap?chain=scrollSepolia&outputCurrency=${utonomaSepoliaAddress}`
 
-export const contractDeployedInBlock = 6940955
-
 export const utonomaABI = [
 	{
 		"inputs": [
