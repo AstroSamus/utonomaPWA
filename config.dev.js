@@ -27,12 +27,20 @@ export const walletConnectModuleParams = {
   dappUrl: 'http://192.168.68.108:8080'
 }
 
+/**
+ * @typedef {Object} ContractInfo
+ * @property {string} utonomaAddress - Address of the contract.
+ * @property {string} utonomaSymbol - Symbol of the token.
+ * @property {number} tokenDecimals - Decimals of the Nomax token.
+ * @property {Array} utonomaAbi - ABI of the Utonoma smart contract.
+ * @type {ContractInfo}
+ */
 export const contractInfo = {
   utonomaAddress: '0x8FffFDc2B2657413d1114D804F42159B8f084951',
   utonomaSymbol: 'testNomax',
   tokenDecimals: 18,
-  dexLink : `https://pancakeswap.finance/swap?chain=scrollSepolia&outputCurrency=${utonomaAddress}`,
-  utonomaABI: [
+  dexLink : 'https://pancakeswap.finance/',
+  utonomaAbi: [
     {
       "inputs": [
         {
