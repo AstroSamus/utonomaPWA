@@ -1,5 +1,8 @@
 import '../utonoma_styles_library/index.css'
-import { getIsLoggedIn } from '../services/userManager/userManager.js'
+import {
+  USER_ADDRESS_KEY,
+  userManager 
+} from '../services/userManager/userManager.js'
 
 const $settings = document.querySelector('#settings')
 const $connectWallet = document.querySelector('#connectWallet')
@@ -31,15 +34,14 @@ document.querySelector('#buttonRightPanelToCenterPanel').addEventListener('click
 })
 
 window.addEventListener('storage', (event) => {
-  console.log('change in storage: ', event)
-  if (event.key === 'isUserLoggedIn' || event.key === 'userAddress') {
+  if (event.key === USER_ADDRESS_KEY) {
     console.log('re evaluate right pannel')
     switchSettingsOrConnectWallet()
   }
 })
 
 async function switchSettingsOrConnectWallet() {
-  if(getIsLoggedIn()) {
+  if(userManager.isLoggedIn) {
     $connectWallet.style.display = 'none'
     $settings.style.display = 'flex'
     await import('./components/Settings/Settings.js')
