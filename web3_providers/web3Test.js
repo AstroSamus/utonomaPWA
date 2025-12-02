@@ -6,8 +6,11 @@ import {
   chains,
   chainForAddEthereumChain,
   walletConnectModuleParams,
+  contractInfo
 } from 'config.env'
+import { userManager } from '../services/userManager/userManager.js'
 
+const { utonomaAddress, utonomaAbi } = contractInfo
 const injected = injectedModule();
 const walletConnect = walletConnectModule(walletConnectModuleParams);
 
@@ -57,7 +60,7 @@ export const web3 = {
     this._ethersProvider = new BrowserProvider(provider);
     this._signer = await this._ethersProvider.getSigner();
 
-    console.log('Connected wallet:', await this._signer.getAddress());
+    userManager.lastKnownUserAddress = await this._signer.getAddress()
 
     await this.ensureFuji()
 
@@ -128,7 +131,7 @@ export const web3 = {
         await this.ensureFuji();
       }
 
-      return new Contract(utonomaSepoliaAddress, utonomaABI, this._signer);
+      return new Contract(utonomaAddress, utonomaAbi, this._signer);
     })();
 
     return this._utonomaContractPromise;
