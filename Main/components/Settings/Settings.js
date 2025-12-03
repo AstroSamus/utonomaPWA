@@ -1,8 +1,8 @@
 const $settings = document.querySelector('#settings')
-const $dialogSendOrReceiveTokens = document.querySelector('#dialogSendOrReceiveTokens')
+const $dialogAddTokenManually = document.querySelector('#dialogAddTokenManually')
 const $connectWallet = document.querySelector('#connectWallet')
 const $buttonDisconnectWallet = document.querySelector('#buttonDisconnectWallet')
-const $buttonSendTokens = document.querySelector('#buttonSendTokens')
+const $buttonAddTokenToWallet = document.querySelector('#buttonAddTokenToWallet')
 const $buttonDialogCloseSendTokens = document.querySelector('#buttonDialogCloseSendTokens')
 const $buttonBuySellTokens = document.querySelector('#buttonBuySellTokens')
 
@@ -14,14 +14,15 @@ $buttonDisconnectWallet.addEventListener('click', async () => {
 })
 
 
-$buttonSendTokens.addEventListener('click', () => {
-  $dialogSendOrReceiveTokens.showModal()
-})
-
+$buttonAddTokenToWallet.addEventListener('click', async () => {
+  const { web3 } = await import('../../../web3_providers/web3Test.js')
+  const isTokenAddedToWallet = await web3.addNomaxToWallet()
+  //if token was not added to wallet, then display dialog with instructions to add it manually
+  if(!isTokenAddedToWallet) $dialogAddTokenManually.showModal()
 })
 
 $buttonDialogCloseSendTokens.addEventListener('click', () => {
-  $dialogSendOrReceiveTokens.close()
+  $dialogAddTokenManually.close()
 })
 
 $buttonBuySellTokens.addEventListener('click', async () => {
