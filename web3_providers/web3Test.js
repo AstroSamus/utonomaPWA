@@ -10,7 +10,12 @@ import {
 } from 'config.env'
 import { userManager } from '../services/userManager/userManager.js'
 
-const { utonomaAddress, utonomaAbi } = contractInfo
+const { 
+  utonomaAddress, 
+  utonomaAbi, 
+  utonomaSymbol,
+  utonomaTokenDecimals 
+} = contractInfo
 const injected = injectedModule();
 const walletConnect = walletConnectModule(walletConnectModuleParams);
 
@@ -114,6 +119,38 @@ export const web3 = {
       } else {
         throw err;
       }
+    }
+  },
+
+  /**
+   * @Developer Adds Nomax to the user's wallet
+   * @returns {Promise<boolean>} - Returns true if the token was added, false otherwise
+   */
+  async addNomaxToWallet() {
+    if (!this._wallet || !this._wallet.provider) {
+      if(!await this.connect()) return false
+    }
+
+    const provider = this._wallet.provider;
+
+    try {
+      const wasAdded = await provider.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: utonomaAddress,
+            symbol: utonomaSymbol,
+            decimals: utonomaTokenDecimals,
+            // image: 'https://...' // Add logo here
+          }
+        }
+      })
+      //the value of wasAdded is true or false based on if the user accepted or rejected the request
+      return wasAdded
+    } catch (error) {
+      console.error('Error adding token to wallet:', error);
+      return false
     }
   },
 
