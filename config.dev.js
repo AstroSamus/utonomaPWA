@@ -38,7 +38,7 @@ export const walletConnectModuleParams = {
 export const contractInfo = {
   utonomaAddress: '0x8FffFDc2B2657413d1114D804F42159B8f084951',
   utonomaSymbol: 'testNomax',
-  tokenDecimals: 18,
+  utonomaTokenDecimals: 18,
   dexLink : 'https://pancakeswap.finance/',
   utonomaAbi: [
     {
