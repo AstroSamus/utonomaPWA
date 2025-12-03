@@ -16,13 +16,6 @@ export const ConnectWallet = ($container) => {
   const $buttonConnectWallet = $container.querySelector('#buttonConnectWallet')
   const $buttonImANewUser = document.querySelector('#buttonImANewUser')
 
-/*  $buttonImANewUser.addEventListener('click', async() => {
-    loading(true)
-    const modal = appkit.modal
-    await modal.open({ view: 'WhatIsAWallet' })
-    loading(false)
-  })*/
-
   function loading(boolean) {
     $buttonImANewUser.disabled = boolean
     $buttonConnectWallet.disabled = boolean
