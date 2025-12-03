@@ -8,13 +8,19 @@ export const USER_ADDRESS_KEY = 'userAddress'
 
 export const userManager = {
   _isLoggedIn: null,
-  _lastKnownUserAddress: localStorage[USER_ADDRESS_KEY] ?? null,
+  _lastKnownUserAddress: (() => {
+    const stored = localStorage[USER_ADDRESS_KEY]
+    //when retrieving from local storage, 'null' is stored as a string
+    //but in memory the value is stored as the data type null
+    //so we need to check both cases
+    return stored === 'null' || stored === null ? null : stored
+  })(),
 
   get lastKnownUserAddress() {
     return this._lastKnownUserAddress
   },
   
-  get isLoggedIn() { 
+  get isLoggedIn() {
     return !!this._lastKnownUserAddress;
   },
 
