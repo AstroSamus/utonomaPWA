@@ -12,6 +12,10 @@
         $htmlTag.classList.add("englishLang")
         break
     }
+    // Script for multi-environment support (dev or prod)
+    var ENV = (typeof process !== 'undefined' && process.env && process.env.NODE_ENV) || 'development';
+    var $html = document.documentElement; // o document.querySelector('#htmlTag')
+    $html.classList.add(ENV === 'production' ? 'prodEnv' : 'devEnv');
   </script>
 <head>
   <meta charset="UTF-8">
@@ -46,6 +50,13 @@
       display: inline;
     }
     /*End of selectors for multilingual support*/
+
+    /*Start of selectors for multi-environment support (dev or prod)*/
+    [data-env="dev"], [data-env="prod"] { display: none; }
+
+    .devEnv  [data-env="dev"]  { display: initial; }
+    .prodEnv [data-env="prod"] { display: initial; }
+    /*End of selectors for multi-environment support (dev or prod)*/
 
     body {
       background-color: var(--snow);
@@ -586,7 +597,8 @@
           <b>Token Decimal:</b><br>
           18<br>
           <b>Network:</b><br>
-          Scroll Sepolia Testnet
+          <span data-env="prod">Avalanche</span>
+          <span data-env="dev">Avalanche Fuji</span>
         </span>
         <span lang="es">
           Abre tu billetera y busca la opción “Importar token” o “Agregar token ERC20 personalizado”.
@@ -596,7 +608,8 @@
           <b>Decimales del Token:</b><br>
           18<br>
           <b>Red:</b><br>
-          Scroll Sepolia Testnet
+          <span data-env="prod">Avalanche</span>
+          <span data-env="dev">Avalanche Fuji</span>
         </span>
       </p>
       <p style="font: var(--headline6)">
