@@ -50,7 +50,7 @@ export const web3 = {
   async connect() {
     const connected = await this.onboard.connectWallet();
     if (!connected || !connected.length) {
-      throw new Error('User did not connect a wallet');
+      return false
     }
 
     const [wallet] = connected;
