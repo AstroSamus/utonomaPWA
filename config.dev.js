@@ -1,3 +1,5 @@
+export const isDevEnvironment = true
+
 export const chains = [{
   id: '0xa869', // 43113 en hex - Avalanche Fuji
   token: 'AVAX',
