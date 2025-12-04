@@ -1,10 +1,14 @@
 export const isDevEnvironment = true
 
+export const rpcUrl = 'https://api.avax-test.network/ext/bc/C/rpc'
+
+export const utonomaEventFilterUrl = 'https://api.studio.thegraph.com/query/106360/utonoma-fuji/version/latest'
+
 export const chains = [{
   id: '0xa869', // 43113 en hex - Avalanche Fuji
   token: 'AVAX',
   label: 'Avalanche Fuji',
-  rpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc'
+  rpcUrl
 }]
 
 //addEthereumChain calls needs the network in a special format
