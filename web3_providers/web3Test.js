@@ -53,6 +53,8 @@ export const web3 = {
   },
 
   async connect() {
+    if(this.isConnected) return this._wallet;
+    
     const connected = await this.onboard.connectWallet();
     if (!connected || !connected.length) {
       return false
