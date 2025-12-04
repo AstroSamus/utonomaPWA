@@ -26,6 +26,10 @@ $buttonDialogCloseSendTokens.addEventListener('click', () => {
 })
 
 $buttonBuySellTokens.addEventListener('click', async () => {
-  const { dexLink } = await import('../../../utonomaSmartContract.js')
-  window.location.href = dexLink
+  //const { dexLink } = await import('../../../utonomaSmartContract.js')
+  const { isDevEnvironment } = await import('config.env')
+  if (isDevEnvironment) {
+    alert('Contact us to request test NOMAX tokens for development purposes.')
+  }
+  //window.location.href = dexLink
 })
