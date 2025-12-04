@@ -1,6 +1,6 @@
 import { ShortVideoMetadata } from '../../services/models.js'
 import { convertIPFSHashToBytes32 } from '../../utils/encodingUtils/encodingUtils.js'
-import { appkit } from '../../web3_providers/signedProvider.js'
+import { web3 } from '../../web3_providers/web3Test.js'
 import { validateVideoDuration } from '../../utils/validationUtils/validationUtils.js'
 import { pinJsonToIpfs, pinFileToIPFS } from '../../services/ipfsService/ipfsService.js'
 import { createStateForUploadContentForm } from './UploadContentForm.state.js'
@@ -39,16 +39,16 @@ export const UploadContentForm = ($container) => {
         try{
           const shortVideoDuration = await validateVideoDuration($videoPreview, shortVideoFile, 60)
           if(!shortVideoDuration) state.setState(state.availiableStates.videoTooLongError, effects)
-          else state.setState(state.availiableStates.checkingIfUserIsConnected, effects)
+          else state.setState(state.availiableStates.connectingUserWallet, effects)
         } catch(error) {
           console.log(error)
           state.setState(state.availiableStates.wrongVideoFileError, effects)
         }
         break
-      case state.availiableStates.checkingIfUserIsConnected:
-        const modal = appkit.modal
-        if(!modal.getIsConnectedState()) state.setState(state.availiableStates.userDisconnectedError, effects)
-        else state.setState(state.availiableStates.uploadingToIpfs, effects)
+      case state.availiableStates.connectingUserWallet:
+        await web3.connect() 
+          ? state.setState(state.availiableStates.uploadingToIpfs, effects) 
+          : state.setState(state.availiableStates.genericError, effects)
         break
       case state.availiableStates.uploadingToIpfs:
         const metadata = new ShortVideoMetadata()
@@ -66,8 +66,8 @@ export const UploadContentForm = ($container) => {
       case state.availiableStates.uploadingToUtonoma:
         try {
           $dialogCheckWalletToApprove.showModal()
-          const utonomaContractForSignedTransactions = await appkit.utonomaContract
-          uploadResponse = await utonomaContractForSignedTransactions.upload(
+          const contract = await web3.utonomaContract
+          uploadResponse = await contract.upload(
             convertIPFSHashToBytes32(shortVideoHash.IpfsHash), 
             convertIPFSHashToBytes32(metadataHash.IpfsHash), 
             5
@@ -116,15 +116,6 @@ export const UploadContentForm = ($container) => {
       case state.availiableStates.genericError:
         $dialogUploadContentError.show()
         setTimeout(() => { $dialogUploadContentError.close() }, 8000)
-        state.setState(state.availiableStates.fillingForm, effects)
-        break
-      case state.availiableStates.userDisconnectedError:
-        console.log('user disconnected step')
-        const { setIsLoggedIn, setAddress } = await import('../../services/userManager/userManager.js')
-        setIsLoggedIn(false)
-        setAddress('')
-        window.location.replace('/#rightPanelContainer')
-        setTimeout(() => location.hash = '', 100)
         state.setState(state.availiableStates.fillingForm, effects)
         break
     }
