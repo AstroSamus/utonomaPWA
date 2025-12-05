@@ -38,6 +38,11 @@ document.querySelector('#buttonSettings').addEventListener('click', async()=> {
   setTimeout(() => location.hash = '', 100)
 })
 
+document.querySelector('#buttonNavbarBack').addEventListener('click', async()=> {
+  location.hash = 'centerPanelContainer'
+  setTimeout(() => location.hash = '', 100)
+})
+
 window.addEventListener('storage', (event) => {
   if (event.key === USER_ADDRESS_KEY) {
     console.log('re evaluate right pannel')
