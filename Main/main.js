@@ -33,6 +33,11 @@ document.querySelector('#buttonRightPanelToCenterPanel').addEventListener('click
   setTimeout(() => location.hash = '', 100)
 })
 
+document.querySelector('#buttonSettings').addEventListener('click', async()=> {
+  location.hash = 'rightPanelContainer'
+  setTimeout(() => location.hash = '', 100)
+})
+
 window.addEventListener('storage', (event) => {
   if (event.key === USER_ADDRESS_KEY) {
     console.log('re evaluate right pannel')
