@@ -4,25 +4,30 @@
  * @module readOnlyProvider
  */
 
-import { sepoliaRpcEndpoint, sepoliaEventFilterEndpoint } from './rpcEndpoints.js'
 import { JsonRpcProvider, Contract } from 'ethers'
-import { utonomaSepoliaAddress, utonomaABI } from '../utonomaSmartContract.js'
+import { 
+  contractInfo, 
+  rpcUrl, 
+  utonomaEventFilterUrl 
+} from 'config.env'
 
+
+const { utonomaAddress, utonomaAbi } = contractInfo
 
 export const readOnlyProvider = (function() {
   /**
    * The JSON-RPC provider to the selected network
    * @type {JsonRpcProvider}
    */
-  let provider = new JsonRpcProvider(sepoliaRpcEndpoint)
+  let provider = new JsonRpcProvider(rpcUrl)
 
   /**
    * The Utonoma contract instance.
    * @type {Contract}
    */
   let utonomaContract = new Contract(
-    utonomaSepoliaAddress, 
-    utonomaABI,
+    utonomaAddress, 
+    utonomaAbi,
     provider
   )
 
@@ -41,7 +46,7 @@ export const readOnlyProvider = (function() {
      */
     getContentUploadedByThisAccount: async(userAddress) => {
       try {
-        const rawResponse = await fetch(sepoliaEventFilterEndpoint, {
+        const rawResponse = await fetch(utonomaEventFilterUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

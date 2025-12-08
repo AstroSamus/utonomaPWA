@@ -6,8 +6,16 @@ import {
   chains,
   chainForAddEthereumChain,
   walletConnectModuleParams,
+  contractInfo
 } from 'config.env'
+import { userManager } from '../services/userManager/userManager.js'
 
+const { 
+  utonomaAddress, 
+  utonomaAbi, 
+  utonomaSymbol,
+  utonomaTokenDecimals 
+} = contractInfo
 const injected = injectedModule();
 const walletConnect = walletConnectModule(walletConnectModuleParams);
 
@@ -45,9 +53,11 @@ export const web3 = {
   },
 
   async connect() {
+    if(this.isConnected) return this._wallet;
+    
     const connected = await this.onboard.connectWallet();
     if (!connected || !connected.length) {
-      throw new Error('User did not connect a wallet');
+      return false
     }
 
     const [wallet] = connected;
@@ -57,7 +67,7 @@ export const web3 = {
     this._ethersProvider = new BrowserProvider(provider);
     this._signer = await this._ethersProvider.getSigner();
 
-    console.log('Connected wallet:', await this._signer.getAddress());
+    userManager.lastKnownUserAddress = await this._signer.getAddress()
 
     await this.ensureFuji()
 
@@ -66,12 +76,13 @@ export const web3 = {
 
   async disconnect() {
     if (this._wallet) {
-      await this.onboard.disconnectWallet({ label: this._wallet.label });
-      this._wallet = null;
-      this._ethersProvider = null;
-      this._signer = null;
-      this._utonomaContractPromise = null;
+      await this.onboard.disconnectWallet({ label: this._wallet.label })
+      this._wallet = null
+      this._ethersProvider = null
+      this._signer = null
+      this._utonomaContractPromise = null
     }
+    userManager.logout()
   },
 
   async ensureFuji() {
@@ -113,6 +124,38 @@ export const web3 = {
     }
   },
 
+  /**
+   * @Developer Adds Nomax to the user's wallet
+   * @returns {Promise<boolean>} - Returns true if the token was added, false otherwise
+   */
+  async addNomaxToWallet() {
+    if (!this._wallet || !this._wallet.provider) {
+      if(!await this.connect()) return false
+    }
+
+    const provider = this._wallet.provider;
+
+    try {
+      const wasAdded = await provider.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: utonomaAddress,
+            symbol: utonomaSymbol,
+            decimals: utonomaTokenDecimals,
+            // image: 'https://...' // Add logo here
+          }
+        }
+      })
+      //the value of wasAdded is true or false based on if the user accepted or rejected the request
+      return wasAdded
+    } catch (error) {
+      console.error('Error adding token to wallet:', error);
+      return false
+    }
+  },
+
   get utonomaContract() {
     if (this._utonomaContractPromise) return this._utonomaContractPromise;
 
@@ -128,7 +171,7 @@ export const web3 = {
         await this.ensureFuji();
       }
 
-      return new Contract(utonomaSepoliaAddress, utonomaABI, this._signer);
+      return new Contract(utonomaAddress, utonomaAbi, this._signer);
     })();
 
     return this._utonomaContractPromise;

@@ -15,7 +15,7 @@ export function getIpfsHashFromBytes32(bytes32Hex) {
 }
 
 export function getUrlFromIpfsHash(cid) {
-  return `https://copper-urban-gorilla-864.mypinata.cloud/ipfs/${cid}?pinataGatewayToken=WmR3tEcyNtxE6vjc4lPPIrY0Hzp3Dc9AYf2X4Bl-8o6JYBzTx9aY_u3OlpL1wGra`
+  return `https://copper-urban-gorilla-864.mypinata.cloud/ipfs/${cid}`
 }
 
 export function convertIPFSHashToBytes32(CID){

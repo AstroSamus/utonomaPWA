@@ -1,5 +1,5 @@
 import {ACTIONS, LikeButton } from '../LikeButton/LikeButton.js'
-import { appkit } from '../../web3_providers/signedProvider.js'
+import { web3 } from '../../web3_providers/web3Test.js'
 import { GenericModal as GenericModalFactory } from '../modals/GenericModal/GenericModal.js'
 
 export const DislikeButton = ($container) => {
@@ -26,8 +26,8 @@ export const DislikeButton = ($container) => {
   DislikeButton.actions.waitingForApproveOnWallet = async() => {
     try {
       $dialogCheckWalletToApprove.showModal()
-      const utonomaContractForSignedTransactions = await appkit.utonomaContract
-      let likeResult = await utonomaContractForSignedTransactions.dislike([DislikeButton.utonomaIdentifier.index, DislikeButton.utonomaIdentifier.contentType])
+      const contract = await web3.utonomaContract
+      let likeResult = await contract.dislike([DislikeButton.utonomaIdentifier.index, DislikeButton.utonomaIdentifier.contentType])
       DislikeButton.currentAction = { 
         value: ACTIONS.waitingForBlockchainResult, 
         payload: likeResult
@@ -40,8 +40,8 @@ export const DislikeButton = ($container) => {
   } 
   DislikeButton.actions.waitingForDeletionApproveOnWallet = async() => {
     try {
-      const { utonomaContractForSignedTransactions } = await appkit.utonomaContract()
-      const transaction = await utonomaContractForSignedTransactions.deletion(DislikeButton.utonomaIdentifier)
+      const contract = await web3.utonomaContract
+      const transaction = await contract.deletion(DislikeButton.utonomaIdentifier)
       const deleteResult = await transaction.wait()
       if(deleteResult.status === 1) {
         $dialogLikeButtonSuccess.show()

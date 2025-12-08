@@ -1,106 +1,12 @@
-export const utonomaSepoliaAddress = '0xBed329C06DD3C5ddB7DFbd7597Bd552b2Fb3863D'
+export const utonomaSepoliaAddress = '0x8FffFDc2B2657413d1114D804F42159B8f084951'
 
-export const sepoliaTokenSymbol = 'testVersi'
+export const sepoliaTokenSymbol = 'testNomax'
 
 export const tokenDecimals = 18
 
 export const dexLink = `https://pancakeswap.finance/swap?chain=scrollSepolia&outputCurrency=${utonomaSepoliaAddress}`
 
-export const contractDeployedInBlock = 6940955
-
 export const utonomaABI = [
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "approve",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes15",
-				"name": "proposedUserName",
-				"type": "bytes15"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "metadata",
-				"type": "bytes32"
-			}
-		],
-		"name": "createUser",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum ContentStorage.ContentTypes",
-						"name": "contentType",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct ContentStorage.Identifier",
-				"name": "id",
-				"type": "tuple"
-			}
-		],
-		"name": "deletion",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum ContentStorage.ContentTypes",
-						"name": "contentType",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct ContentStorage.Identifier",
-				"name": "id",
-				"type": "tuple"
-			}
-		],
-		"name": "dislike",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
 	{
 		"inputs": [
 			{
@@ -209,6 +115,16 @@ export const utonomaABI = [
 		"type": "error"
 	},
 	{
+		"inputs": [],
+		"name": "EnforcedPause",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "ExpectedPause",
+		"type": "error"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -234,28 +150,17 @@ export const utonomaABI = [
 		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": false,
 				"internalType": "address",
-				"name": "to",
+				"name": "account",
 				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
 			}
 		],
-		"name": "transfer",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "Paused",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -280,6 +185,19 @@ export const utonomaABI = [
 			}
 		],
 		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "Unpaused",
 		"type": "event"
 	},
 	{
@@ -364,56 +282,6 @@ export const utonomaABI = [
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum ContentStorage.ContentTypes",
-						"name": "contentType",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct ContentStorage.Identifier",
-				"name": "id",
-				"type": "tuple"
-			}
-		],
-		"name": "harvestLikes",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum ContentStorage.ContentTypes",
-						"name": "contentType",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct ContentStorage.Identifier",
-				"name": "id",
-				"type": "tuple"
-			}
-		],
-		"name": "like",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -464,131 +332,6 @@ export const utonomaABI = [
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum ContentStorage.ContentTypes",
-						"name": "contentType",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct ContentStorage.Identifier",
-				"name": "replyId",
-				"type": "tuple"
-			},
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum ContentStorage.ContentTypes",
-						"name": "contentType",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct ContentStorage.Identifier",
-				"name": "replyingToId",
-				"type": "tuple"
-			}
-		],
-		"name": "reply",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "transferFrom",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "metadata",
-				"type": "bytes32"
-			}
-		],
-		"name": "updateUserMetadataHash",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "contentHash",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "metadataHash",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "enum ContentStorage.ContentTypes",
-				"name": "contentType",
-				"type": "uint8"
-			}
-		],
-		"name": "upload",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum ContentStorage.ContentTypes",
-						"name": "contentType",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct ContentStorage.Identifier",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -616,38 +359,6 @@ export const utonomaABI = [
 	{
 		"inputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum ContentStorage.ContentTypes",
-						"name": "contentType",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct ContentStorage.Identifier",
-				"name": "id",
-				"type": "tuple"
-			}
-		],
-		"name": "voluntarilyDelete",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "withdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
 				"name": "owner",
 				"type": "address"
@@ -667,6 +378,30 @@ export const utonomaABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "spender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -796,6 +531,24 @@ export const utonomaABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "bytes15",
+				"name": "proposedUserName",
+				"type": "bytes15"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "metadata",
+				"type": "bytes32"
+			}
+		],
+		"name": "createUser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "currentPeriodMAU",
 		"outputs": [
@@ -819,6 +572,56 @@ export const utonomaABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ContentStorage.ContentTypes",
+						"name": "contentType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct ContentStorage.Identifier",
+				"name": "id",
+				"type": "tuple"
+			}
+		],
+		"name": "deletion",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ContentStorage.ContentTypes",
+						"name": "contentType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct ContentStorage.Identifier",
+				"name": "id",
+				"type": "tuple"
+			}
+		],
+		"name": "dislike",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -999,19 +802,6 @@ export const utonomaABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getMinContentTypes",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"components": [
@@ -1058,7 +848,7 @@ export const utonomaABI = [
 		"inputs": [
 			{
 				"internalType": "bytes15",
-				"name": "userName",
+				"name": "requestedUserName",
 				"type": "bytes15"
 			}
 		],
@@ -1115,6 +905,31 @@ export const utonomaABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ContentStorage.ContentTypes",
+						"name": "contentType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct ContentStorage.Identifier",
+				"name": "id",
+				"type": "tuple"
+			}
+		],
+		"name": "harvestLikes",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "historicMAUData",
 		"outputs": [
@@ -1147,6 +962,31 @@ export const utonomaABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ContentStorage.ContentTypes",
+						"name": "contentType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct ContentStorage.Identifier",
+				"name": "id",
+				"type": "tuple"
+			}
+		],
+		"name": "like",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "minimumQuorum",
 		"outputs": [
@@ -1170,6 +1010,68 @@ export const utonomaABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "pause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "paused",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ContentStorage.ContentTypes",
+						"name": "contentType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct ContentStorage.Identifier",
+				"name": "replyId",
+				"type": "tuple"
+			},
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ContentStorage.ContentTypes",
+						"name": "contentType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct ContentStorage.Identifier",
+				"name": "replyingToId",
+				"type": "tuple"
+			}
+		],
+		"name": "reply",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1233,6 +1135,145 @@ export const utonomaABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "metadata",
+				"type": "bytes32"
+			}
+		],
+		"name": "updateUserMetadataHash",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "contentHash",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "metadataHash",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "enum ContentStorage.ContentTypes",
+				"name": "contentType",
+				"type": "uint8"
+			}
+		],
+		"name": "upload",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ContentStorage.ContentTypes",
+						"name": "contentType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct ContentStorage.Identifier",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ContentStorage.ContentTypes",
+						"name": "contentType",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct ContentStorage.Identifier",
+				"name": "id",
+				"type": "tuple"
+			}
+		],
+		"name": "voluntarilyDelete",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

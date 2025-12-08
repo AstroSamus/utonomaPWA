@@ -1,82 +1,35 @@
-import { 
-  setIsLoggedIn,
-  setAddress
-} from '../../../services/userManager/userManager.js'
-
 const $settings = document.querySelector('#settings')
-const $dialogSendOrReceiveTokens = document.querySelector('#dialogSendOrReceiveTokens')
+const $dialogAddTokenManually = document.querySelector('#dialogAddTokenManually')
 const $connectWallet = document.querySelector('#connectWallet')
-const $buttonManageAccount = document.querySelector('#buttonManageAccount')
-const $buttonSendTokens = document.querySelector('#buttonSendTokens')
+const $buttonDisconnectWallet = document.querySelector('#buttonDisconnectWallet')
+const $buttonAddTokenToWallet = document.querySelector('#buttonAddTokenToWallet')
 const $buttonDialogCloseSendTokens = document.querySelector('#buttonDialogCloseSendTokens')
 const $buttonBuySellTokens = document.querySelector('#buttonBuySellTokens')
 
-$buttonManageAccount.addEventListener('click', async () => {
-  $buttonManageAccount.disabled = true
-  const { appkit } = await import('../../../web3_providers/signedProvider.js')
-  const modal = appkit.modal
-  modal.subscribeState(async(newState) => {
-    const isLoggedIn = modal.getIsConnectedState()
-    if(isLoggedIn) {
-      setIsLoggedIn(true)
-      setAddress(modal.getAddress())
-    } else {
-      setIsLoggedIn(false)
-      setAddress('')
-      $settings.style.display = 'none'
-      $connectWallet.style.display = 'flex'
-      await import('../ConnectWallet/ConnectWallet.js')
-    }
-  })
-  modal.open()
-  $buttonManageAccount.disabled = false
+$buttonDisconnectWallet.addEventListener('click', async () => {
+  $buttonDisconnectWallet.disabled = true
+  const { web3 } = await import('../../../web3_providers/web3Test.js')
+  await web3.disconnect()
+  $buttonDisconnectWallet.disabled = false
 })
 
 
-$buttonSendTokens.addEventListener('click', () => {
-  $dialogSendOrReceiveTokens.showModal()
-})
-
-$buttonDialogAddTokenAutomatically.addEventListener('click' , async() => {
-  const { 
-    utonomaSepoliaAddress,
-    sepoliaTokenSymbol,
-    tokenDecimals
-  } = await import('../../../utonomaSmartContract.js')
-  const { appkit } = await import('../../../web3_providers/signedProvider.js')
-  const walletProvider = await appkit.utonomaContract
-  console.log(walletProvider)
-  try {
-    // wasAdded is a boolean. Like any RPC method, an error may be thrown.
-    const wasAdded = await walletProvider.request({
-      method: 'wallet_watchAsset',
-      params: {
-        type: 'ERC20', // Initially only supports ERC20, but eventually more!
-        options: {
-          address: utonomaSepoliaAddress, // The address that the token is at.
-          symbol: sepoliaTokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
-          decimals: tokenDecimals, // The number of decimals in the token
-          //image: , // A string url of the token logo
-        },
-      },
-    })
-
-    if (wasAdded) {
-      console.log('Thanks for your interest!');
-    } else {
-      console.log('Your loss!');
-    }
-  } catch (error) {
-    console.log(error);
-  }
-
+$buttonAddTokenToWallet.addEventListener('click', async () => {
+  const { web3 } = await import('../../../web3_providers/web3Test.js')
+  const isTokenAddedToWallet = await web3.addNomaxToWallet()
+  //if token was not added to wallet, then display dialog with instructions to add it manually
+  if(!isTokenAddedToWallet) $dialogAddTokenManually.showModal()
 })
 
 $buttonDialogCloseSendTokens.addEventListener('click', () => {
-  $dialogSendOrReceiveTokens.close()
+  $dialogAddTokenManually.close()
 })
 
 $buttonBuySellTokens.addEventListener('click', async () => {
-  const { dexLink } = await import('../../../utonomaSmartContract.js')
-  window.location.href = dexLink
+  //const { dexLink } = await import('../../../utonomaSmartContract.js')
+  const { isDevEnvironment } = await import('config.env')
+  if (isDevEnvironment) {
+    alert('Contact us to request test NOMAX tokens for development purposes.')
+  }
+  //window.location.href = dexLink
 })

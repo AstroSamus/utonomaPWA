@@ -12,6 +12,10 @@
         $htmlTag.classList.add("englishLang")
         break
     }
+    // Script for multi-environment support (dev or prod)
+    var ENV = (typeof process !== 'undefined' && process.env && process.env.NODE_ENV) || 'development';
+    var $html = document.documentElement; // o document.querySelector('#htmlTag')
+    $html.classList.add(ENV === 'production' ? 'prodEnv' : 'devEnv');
   </script>
 <head>
   <meta charset="UTF-8">
@@ -47,11 +51,27 @@
     }
     /*End of selectors for multilingual support*/
 
+    /*Start of selectors for multi-environment support (dev or prod)*/
+    [data-env="dev"], [data-env="prod"] { display: none; }
+
+    .devEnv  [data-env="dev"]  { display: initial; }
+    .prodEnv [data-env="prod"] { display: initial; }
+    /*End of selectors for multi-environment support (dev or prod)*/
+
     body {
       background-color: var(--snow);
       color: var(--pirateBlack);
       font-family: var(--baseFontFamily);
       margin: 0;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: var(--snow);
+      width: 100%;
+      z-index: 1000; /* Ensures the navbar stays above other content */
+      transition: background-color 0.3s ease;
     }
 
     .Layout--splashScreen {
@@ -106,7 +126,7 @@
       min-inline-size: 100vw;
       scroll-snap-align: center;
       content-visibility: auto;
-      display: flex;
+      overflow-y: auto;
     }
     
     .Layout--splashScreenToRightPanel, .Layout--rightPanelToCenterPanel, .Layout--shortVideoReelToRightPanel {
@@ -120,6 +140,7 @@
       flex-wrap: wrap;
       overflow: auto;
       padding-block-end: 30px;
+      max-height: 100vh;
     }
 
     .Image--utonomaBackgroundPoster {
@@ -177,7 +198,7 @@
         flex-wrap: nowrap;
       }
 
-      .Layout--swipeRight {
+      .Layout--swipeRight, #settingsButtonContainer, #rightPanelNavbar {
         display: none;
       }
 
@@ -270,6 +291,18 @@
                 <span class="Text--shaded" style="margin: 0; color: var(--snow);">
                   <span lang="en">Back</span>
                   <span lang="es">Atras</span>
+                </span>
+              </button>
+            </div>
+            <div id="settingsButtonContainer" 
+              style="position: absolute; 
+              bottom: 15%; 
+              right: 16px">
+              <button class="Button--verticalText" type="button" id="buttonSettings">
+                <svg class="Icon--small Icon--shaded" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fffafa"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg>                
+                <span class="Text--shaded" style="margin: 0; color: var(--snow);">
+                  <span lang="en">Set.</span>
+                  <span lang="es">Conf.</span>
                 </span>
               </button>
             </div>
@@ -411,165 +444,178 @@
       </div>
     </div>
     <div class="Layout--rightPanelContainer" id="rightPanelContainer">
-      <div class="Layout--rightPanelToCenterPanel">
+      <div id="rightPanelNavbar" class="navbar" style="color: var(--pirateBlack);">
         <button 
-          id="buttonRightPanelToCenterPanel"
+          id="buttonNavbarBack"
           class="Button--horizontalText" 
-          style="margin-top: 7rem; transform: rotate(-90deg);" 
-          type="button"
-        >
+          style="padding: 8px;" 
+          type="button">
+          <img style="transform: rotate(-180deg) scale(0.6);" src="../assets/icons/arrow.svg" alt="">
           <span style="font: var(--headline6);" lang="en">BACK</span>
           <span style="font: var(--headline6);" lang="es">ATRAS</span>
-          <img style="transform: rotate(-90deg);" src="../assets/icons/arrow.svg" alt="">
         </button>
       </div>
-      <div id="connectWallet"
-        style="display: flex; 
-        flex-direction: column;
-        width: 100%;
-        justify-content: flex-end;
-        display: none;"
-      >
-        <img src="../assets/icons/utonoma-background.svg" alt="" class="Image--utonomaBackgroundPoster">
-        <button 
-          id="buttonConnectWallet"
-          class="Button--horizontalText" 
-          style="margin: 32px 32px; justify-content: space-between; max-width: 21rem;" 
-          type="button"
-        >
-          <div style="text-align: start;">
-            <h2 style="font: var(--headline1); margin: 0;">
-              <span lang="en">Connect Wallet</span>
-              <span lang="es">Conectar Cartera</span>
-            </h2>
-          </div>
-          <div style="width: 5.5rem; height: 5.5rem;">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M25.6796 31.9196L31.9196 25.6796C32.3434 25.2228 32.5789 24.6228 32.5789 23.9997C32.5789 23.3765 32.3434 22.7765 31.9196 22.3197L25.6182 16.0204C25.404 15.8042 25.1462 15.6361 24.8619 15.5273C24.5777 15.4185 24.2735 15.3715 23.9697 15.3895C23.3496 15.393 22.7561 15.6413 22.3183 16.0804C21.8945 16.5372 21.659 17.1373 21.659 17.7604C21.659 18.3835 21.8945 18.9835 22.3183 19.4403L24.4785 21.6005H16.7402C16.4276 21.5909 16.1164 21.6472 15.827 21.7659C15.5376 21.8846 15.2765 22.063 15.0606 22.2893C14.843 22.5168 14.6726 22.7852 14.5593 23.079C14.4461 23.3727 14.3922 23.686 14.4008 24.0007C14.3955 24.3173 14.454 24.6316 14.5727 24.9251C14.6914 25.2186 14.868 25.4852 15.0919 25.7091C15.3157 25.9329 15.5823 26.1095 15.8758 26.2282C16.1693 26.3469 16.4837 26.4054 16.8002 26.4002H24.4799L22.2597 28.6204C22.0433 28.835 21.8751 29.0933 21.7663 29.3781C21.6575 29.6628 21.6106 29.9675 21.6288 30.2718C21.6327 30.8909 21.881 31.4834 22.3197 31.9203C22.7765 32.3441 23.3765 32.5796 23.9996 32.5796C24.6227 32.5796 25.2228 32.3434 25.6796 31.9196ZM24 47.9995C20.783 48.0203 17.5965 47.3764 14.64 46.1082C8.89203 43.6816 4.31812 39.1074 1.89183 33.3593C0.62368 30.403 -0.0202158 27.2167 0.000488384 24C-0.0203131 20.7831 0.623585 17.5965 1.89183 14.64C4.31905 8.89204 8.89257 4.31751 14.64 1.88901C17.5969 0.622365 20.7833 -0.0205435 24 0.0005004C27.2164 -0.0204464 30.4026 0.62246 33.3593 1.88901C39.107 4.31736 43.6808 8.89191 46.1082 14.64C47.3764 17.5965 48.0203 20.7831 47.9995 24C48.0203 27.217 47.3764 30.4035 46.1082 33.36C43.6816 39.108 39.1074 43.6819 33.3593 46.1082C30.403 47.3761 27.2167 48.0204 24 47.9995Z" fill="#383838"/>
-            </svg>
-          </div>
-        </button>
-        <div>
-          <button id="buttonImANewUser"
-            type="button" 
-            style="border: none; 
-            padding: 4px 12px; 
-            background-color: var(--cyberYellow);
-            border-radius: 100px;
-            margin: 0 0 24px 32px;">
-            <span style="font: var(--headline6);">
-              <span lang="en">I’m a new user</span>
-              <span lang="es">Soy usuario nuevo</span>
-            </span>
+      <div style="display: flex;">
+        <div class="Layout--rightPanelToCenterPanel">
+          <button 
+            id="buttonRightPanelToCenterPanel"
+            class="Button--horizontalText" 
+            style="margin-top: 7rem; transform: rotate(-90deg);" 
+            type="button"
+          >
+            <span style="font: var(--headline6);" lang="en">BACK</span>
+            <span style="font: var(--headline6);" lang="es">ATRAS</span>
+            <img style="transform: rotate(-90deg); " src="../assets/icons/arrow.svg" alt="">
           </button>
         </div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4rjFhTD-n0Dm79w8JMy9F7AXiEYWiOeXmDcL0jDwKht0hEg/viewform?usp=dialog"
-          target="_blank"
-          style="margin: 0 0 46px 32px;">
-          <span lang="en">Report content</span>
-          <span lang="es">Reportar contenido</span>
-        </a>
-      </div>
-      <div id="settings" class="Layout--settings">
-        <img src="../assets/img/utnoma-pattern-background.jpg" 
-          style=" width: 100%; 
-            max-width: 27rem; 
-            max-height: 45%; 
-            object-fit: cover;" 
-          alt=""
+        <div id="connectWallet"
+          style="display: flex; 
+          flex-direction: column;
+          width: 100%;
+          justify-content: flex-end;
+          display: none;"
         >
-        <h2 
-          style="font: var(--headline1); 
-          margin: 32px 32px 16px 32px; 
-          width: 100%; 
-          max-width: 23rem;
-          overflow: hidden; 
-          white-space: nowrap; 
-          text-overflow: ellipsis;
-          line-height: 1.3;"
-        >
-          <span lang="en">Settings</span>
-          <span lang="es">Configuraciones</span>
-        </h2>
-        <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
-          <span lang="en">1. Finish configuring your wallet for the Utonoma token.</span>
-          <span lang="es">1. Termina de configurar tu cartera para el token de Utonoma.</span>
-        </p>
-        <button id="buttonSendTokens" class="Button--textBetweenTwoIcons">
+          <img src="../assets/icons/utonoma-background.svg" alt="" class="Image--utonomaBackgroundPoster">
+          <button 
+            id="buttonConnectWallet"
+            class="Button--horizontalText" 
+            style="margin: 32px 32px; justify-content: space-between; max-width: 21rem;" 
+            type="button"
+          >
+            <div style="text-align: start;">
+              <h2 style="font: var(--headline1); margin: 0;">
+                <span lang="en">Connect Wallet</span>
+                <span lang="es">Conectar Cartera</span>
+              </h2>
+            </div>
+            <div style="width: 5.5rem; height: 5.5rem;">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25.6796 31.9196L31.9196 25.6796C32.3434 25.2228 32.5789 24.6228 32.5789 23.9997C32.5789 23.3765 32.3434 22.7765 31.9196 22.3197L25.6182 16.0204C25.404 15.8042 25.1462 15.6361 24.8619 15.5273C24.5777 15.4185 24.2735 15.3715 23.9697 15.3895C23.3496 15.393 22.7561 15.6413 22.3183 16.0804C21.8945 16.5372 21.659 17.1373 21.659 17.7604C21.659 18.3835 21.8945 18.9835 22.3183 19.4403L24.4785 21.6005H16.7402C16.4276 21.5909 16.1164 21.6472 15.827 21.7659C15.5376 21.8846 15.2765 22.063 15.0606 22.2893C14.843 22.5168 14.6726 22.7852 14.5593 23.079C14.4461 23.3727 14.3922 23.686 14.4008 24.0007C14.3955 24.3173 14.454 24.6316 14.5727 24.9251C14.6914 25.2186 14.868 25.4852 15.0919 25.7091C15.3157 25.9329 15.5823 26.1095 15.8758 26.2282C16.1693 26.3469 16.4837 26.4054 16.8002 26.4002H24.4799L22.2597 28.6204C22.0433 28.835 21.8751 29.0933 21.7663 29.3781C21.6575 29.6628 21.6106 29.9675 21.6288 30.2718C21.6327 30.8909 21.881 31.4834 22.3197 31.9203C22.7765 32.3441 23.3765 32.5796 23.9996 32.5796C24.6227 32.5796 25.2228 32.3434 25.6796 31.9196ZM24 47.9995C20.783 48.0203 17.5965 47.3764 14.64 46.1082C8.89203 43.6816 4.31812 39.1074 1.89183 33.3593C0.62368 30.403 -0.0202158 27.2167 0.000488384 24C-0.0203131 20.7831 0.623585 17.5965 1.89183 14.64C4.31905 8.89204 8.89257 4.31751 14.64 1.88901C17.5969 0.622365 20.7833 -0.0205435 24 0.0005004C27.2164 -0.0204464 30.4026 0.62246 33.3593 1.88901C39.107 4.31736 43.6808 8.89191 46.1082 14.64C47.3764 17.5965 48.0203 20.7831 47.9995 24C48.0203 27.217 47.3764 30.4035 46.1082 33.36C43.6816 39.108 39.1074 43.6819 33.3593 46.1082C30.403 47.3761 27.2167 48.0204 24 47.9995Z" fill="#383838"/>
+              </svg>
+            </div>
+          </button>
           <div>
-            <img src="../assets/icons/send-money.svg" alt="">
-            <span lang="en">Configure wallet</span>
-            <span lang="es">Configurar cartera</span>
+            <button id="buttonImANewUser"
+              type="button" 
+              style="border: none; 
+              padding: 4px 12px; 
+              background-color: var(--cyberYellow);
+              border-radius: 100px;
+              margin: 0 0 24px 32px;"
+              onclick="location.href='https://ethereum.org/wallets/find-wallet/#main-content'">
+              <span style="font: var(--headline6);">
+                <span lang="en">I’m a new user</span>
+                <span lang="es">Soy usuario nuevo</span>
+              </span>
+            </button>
           </div>
-          <img src="../assets/icons/arrow.svg" alt="">
-        </button>
-        <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
-          <span lang="en">
-            2. You’ll need some Utonoma tokens to vote for content. You can either 
-            buy them or create content and receive likes, which you can exchange for tokens.
-          </span>
-          <span lang="es">
-            2. Necesitarás algunos tokens de Utonoma para votar por contenido. Puedes comprarlos 
-            o crear contenido y recibir 'likes', los cuales puedes intercambiar por tokens.
-          </span>
-        </p>
-        <button id = 'buttonBuySellTokens' class="Button--textBetweenTwoIcons">
-          <div>
-            <img src="../assets/icons/money-exchange.svg" alt="">
-            <span lang="en">Buy / Sell tokens</span>
-            <span lang="es">Comprar / Vender tokens</span>
-          </div>
-          <img src="../assets/icons/arrow.svg" alt="">
-        </button>
-        <button id="buttonUploadContent" onclick="location.href='/UploadContent'" class="Button--textBetweenTwoIcons">
-          <div>
-            <img src="../assets/icons/add.svg" alt="">
-            <span lang="en">Upload Content</span>
-            <span lang="es">Subir contenido</span>
-          </div>
-          <img src="../assets/icons/arrow.svg" alt="">
-        </button>
-        <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
-          <span lang="en">3. You can view your content and claim your reward here.</span>
-          <span lang="es">3. Puedes ver tu contenido y reclamar tu recompensa aquí.</span>
-        </p>
-        <button id="buttonMyContent" onclick="location.href='/MyContent'" class="Button--textBetweenTwoIcons">
-          <div>
-            <img src="../assets/icons/utonoma-small-logo-black.svg" alt="">
-            <span lang="en">My content</span>
-            <span lang="es">Mi contenido</span>
-          </div>
-          <img src="../assets/icons/arrow.svg" alt="">
-        </button>
-        <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
-          <span lang="en">4. You can log out here.</span>
-          <span lang="es">4. Puedes cerrar sesión aquí.</span>
-        </p>
-        <button id="buttonManageAccount" class="Button--textBetweenTwoIcons">
-          <div>
-            <img src="../assets/icons/wallet-icon.svg" alt="">
-            <span lang="en">Manage account</span>
-            <span lang="es">Administrar cuenta</span>
-          </div>
-          <img src="../assets/icons/arrow.svg" alt="">
-        </button>
-        <button class="Button--textBetweenTwoIcons" 
-          onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSc4rjFhTD-n0Dm79w8JMy9F7AXiEYWiOeXmDcL0jDwKht0hEg/viewform?usp=dialog', '_blank')">
-          <div>
-            <img src="../assets/icons/warning.svg" alt="">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4rjFhTD-n0Dm79w8JMy9F7AXiEYWiOeXmDcL0jDwKht0hEg/viewform?usp=dialog"
+            target="_blank"
+            style="margin: 0 0 46px 32px;">
             <span lang="en">Report content</span>
             <span lang="es">Reportar contenido</span>
-          </div>
-          <img src="../assets/icons/arrow.svg" alt="">
-        </button>
+          </a>
+        </div>
+        <div id="settings" class="Layout--settings">
+          <img src="../assets/img/utnoma-pattern-background.jpg" 
+            style=" width: 100%; 
+              max-width: 27rem; 
+              max-height: 45%; 
+              object-fit: cover;" 
+            alt=""
+          >
+          <h2 
+            style="font: var(--headline1); 
+            margin: 32px 32px 16px 32px; 
+            width: 100%; 
+            max-width: 23rem;
+            overflow: hidden; 
+            white-space: nowrap; 
+            text-overflow: ellipsis;
+            line-height: 1.3;"
+          >
+            <span lang="en">Settings</span>
+            <span lang="es">Configuraciones</span>
+          </h2>
+          <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
+            <span lang="en">1. Finish configuring your wallet for the Utonoma token.</span>
+            <span lang="es">1. Termina de configurar tu cartera para el token de Utonoma.</span>
+          </p>
+          <button id="buttonAddTokenToWallet" class="Button--textBetweenTwoIcons">
+            <div>
+              <img src="../assets/icons/send-money.svg" alt="">
+              <span lang="en">Add token to wallet</span>
+              <span lang="es">Agregar token al wallet</span>
+            </div>
+            <img src="../assets/icons/arrow.svg" alt="">
+          </button>
+          <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
+            <span lang="en">
+              2. You’ll need some Utonoma tokens to vote for content. You can either 
+              buy them or create content and receive likes, which you can exchange for tokens.
+            </span>
+            <span lang="es">
+              2. Necesitarás algunos tokens de Utonoma para votar por contenido. Puedes comprarlos 
+              o crear contenido y recibir 'likes', los cuales puedes intercambiar por tokens.
+            </span>
+          </p>
+          <button id = 'buttonBuySellTokens' class="Button--textBetweenTwoIcons">
+            <div>
+              <img src="../assets/icons/money-exchange.svg" alt="">
+              <span lang="en">Buy / Sell tokens</span>
+              <span lang="es">Comprar / Vender tokens</span>
+            </div>
+            <img src="../assets/icons/arrow.svg" alt="">
+          </button>
+          <button id="buttonUploadContent" onclick="location.href='/UploadContent'" class="Button--textBetweenTwoIcons">
+            <div>
+              <img src="../assets/icons/add.svg" alt="">
+              <span lang="en">Upload Content</span>
+              <span lang="es">Subir contenido</span>
+            </div>
+            <img src="../assets/icons/arrow.svg" alt="">
+          </button>
+          <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
+            <span lang="en">3. You can view your content and claim your reward here.</span>
+            <span lang="es">3. Puedes ver tu contenido y reclamar tu recompensa aquí.</span>
+          </p>
+          <button id="buttonMyContent" onclick="location.href='/MyContent'" class="Button--textBetweenTwoIcons">
+            <div>
+              <img src="../assets/icons/utonoma-small-logo-black.svg" alt="">
+              <span lang="en">My content</span>
+              <span lang="es">Mi contenido</span>
+            </div>
+            <img src="../assets/icons/arrow.svg" alt="">
+          </button>
+          <p style="font: var(--headline6); max-width: 23rem; margin: 12px 32px;">
+            <span lang="en">4. You can log out here.</span>
+            <span lang="es">4. Puedes cerrar sesión aquí.</span>
+          </p>
+          <button id="buttonDisconnectWallet" class="Button--textBetweenTwoIcons">
+            <div>
+              <img src="../assets/icons/wallet-icon.svg" alt="">
+              <span lang="en">Disconnect wallet</span>
+              <span lang="es">Desconectar cartera</span>
+            </div>
+            <img src="../assets/icons/arrow.svg" alt="">
+          </button>
+          <button class="Button--textBetweenTwoIcons" 
+            onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSc4rjFhTD-n0Dm79w8JMy9F7AXiEYWiOeXmDcL0jDwKht0hEg/viewform?usp=dialog', '_blank')">
+            <div>
+              <img src="../assets/icons/warning.svg" alt="">
+              <span lang="en">Report content</span>
+              <span lang="es">Reportar contenido</span>
+            </div>
+            <img src="../assets/icons/arrow.svg" alt="">
+          </button>
+        </div>
       </div>
     </div>
-    <dialog id="dialogSendOrReceiveTokens">
+    <dialog id="dialogAddTokenManually">
       <h3 style="font: var(--headline1);">
         <span lang="en">Configure your wallet for the Utonoma token</span>
         <span lang="es">Configura tu billetera para el token de Utonoma</span>
       </h3>
-      <button id="$buttonDialogAddTokenAutomatically">Add token automatically</button>
       <!--
         1. Open your wallet.
         2. Look for the "Import token" or "Add custom ERC20 token" option.
@@ -580,24 +626,30 @@
       -->
       <p style="font: var(--headline6)">
         <span lang="en">
+          We couldn't automatically add the Utonoma token to your wallet, but you can do it manually.
           Open your wallet and look for the option "Import token" or "Add custom ERC20 token". 
           For the required information: <br>
           <b>Token Contract Address:</b><br>
-          <span></span>0xBed329C06DD3C5ddB7DFbd7597Bd552b2Fb3863D<br>
+          <span data-env="prod"> - </span>
+          <span data-env="dev">0x8FffFDc2B2657413d1114D804F42159B8f084951</span><br>
           <b>Token Decimal:</b><br>
           18<br>
           <b>Network:</b><br>
-          Scroll Sepolia Testnet
+          <span data-env="prod">Avalanche</span>
+          <span data-env="dev">Avalanche Fuji</span>
         </span>
         <span lang="es">
+          No pudimos agregar automáticamente el token de Utonoma a tu cartera, pero puedes hacerlo manualmente.
           Abre tu billetera y busca la opción “Importar token” o “Agregar token ERC20 personalizado”.
           Para la información requerida: <br>
           <b>Dirección del contrato de token:</b><br>
-          0xBed329C06DD3C5ddB7DFbd7597Bd552b2Fb3863D<br>
+          <span data-env="prod"> - </span>
+          <span data-env="dev">0x8FffFDc2B2657413d1114D804F42159B8f084951</span><br>
           <b>Decimales del Token:</b><br>
           18<br>
           <b>Red:</b><br>
-          Scroll Sepolia Testnet
+          <span data-env="prod">Avalanche</span>
+          <span data-env="dev">Avalanche Fuji</span>
         </span>
       </p>
       <p style="font: var(--headline6)">
@@ -654,6 +706,30 @@
           <span lang="es">Cancelar</span>
         </button>
       </form>
+    </dialog>
+    <dialog id="dialogWelcomeUtonoma">
+      <h3 style="font: var(--headline1);">
+        <span lang="en">Welcome to Utonoma.</span>
+        <span lang="es">Bienvenido(a) a Utonoma.</span>
+      </h3>
+      <p style="font: var(--headline6)">
+        <span lang="en">
+          This is our first public release, and it’s already fully functional.
+          We’re continuously improving the visual experience 
+          to offer you an increasingly complete platform. <br>
+          Thank you for being among the first people to use this project. ❤️
+        </span>
+        <span lang="es">
+          Esta es nuestra primera versión pública y ya es completamente funcional.
+          Seguimos mejorando la experiencia visual para ofrecerte una plataforma 
+          cada vez más completa. <br>
+          Gracias por ser parte de las primeras personas en usar este proyecto. ❤️
+        </span>
+      </p>
+      <button id="buttonDialogCloseWelcomeUtonoma">
+        <span lang="en">Close</span>
+        <span lang="es">Cerrar</span>
+      </button>
     </dialog>
   </div>
 </body>
