@@ -18,20 +18,22 @@ export const ContentInformationCard = (
     $template.querySelector('.Card__actionButton').addEventListener('click', async(e) => {
       const $container = e.target.closest('.Card__container')
       try {
-        const { appkit } = await import('../../web3_providers/signedProvider.js')
-        const utonomaContractForSignedTransactions = await appkit.utonomaContract
+        const { web3 } = await import('../../web3_providers/web3Test.js')
+        if(!await web3.connect()) {
+          alertUserNotLoggedIn($container)
+          return
+        }
+        const contract = await web3.utonomaContract
         alertCashRewardRequest($container)
-        const harvestLikesReq = await utonomaContractForSignedTransactions.harvestLikes([identifierIndex, identifierContentType])
+        const harvestLikesReq = await contract.harvestLikes([identifierIndex, identifierContentType])
         alertCashRewardSent($container)
         const harvestLikesResp = await harvestLikesReq.wait()
         console.log(harvestLikesResp)
+        $container.classList.remove('Card__container--glow')
+        $container.querySelector('.Card__actionButton').style.display = 'none'
       } catch (error) {
         console.log(error)
-        alertUserNotLoggedIn($container)
       }
-
-      $container.classList.remove('Card__container--glow')
-      $container.querySelector('.Card__actionButton').style.display = 'none'
     })
   }
   else {
@@ -55,8 +57,7 @@ export const ContentInformationCard = (
     $errorDialog.show()
     setTimeout(() => { 
       $errorDialog.close() 
-      window.location.replace('/#rightPanelContainer')
-    }, 8000)
+    }, 5000)
   }
 
   return $template
