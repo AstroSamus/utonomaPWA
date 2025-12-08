@@ -91,7 +91,7 @@ export const LikeButton = ($container) => {
       }
     },
     votesCount: () => {
-      $likesNumber.innerHTML = state.votesCount
+      $likesNumber.textContent = state.votesCount
     }
   }
 
@@ -150,7 +150,7 @@ export const LikeButton = ($container) => {
       }
     },
     success: () => {
-      $likesNumber.innerHTML = parseInt($likesNumber.innerHTML) + 1
+      $likesNumber.textContent = parseInt($likesNumber.textContent) + 1
       $dialogLikeButtonSuccess.show()
       setTimeout(() => $dialogLikeButtonSuccess.close(), 5000)
     },

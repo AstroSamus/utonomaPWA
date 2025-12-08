@@ -23,7 +23,7 @@ export const ConfirmLikeOrDislike = ($container, { feeForVoting = '-' } = {}) =>
       })
     },
     setFeeForVoting: function() {
-      $spanCurrentFee.innerHTML = state.feeForVoting()
+      $spanCurrentFee.textContent = state.feeForVoting()
     }
   }
 
