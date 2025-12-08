@@ -9,6 +9,7 @@ const $connectWallet = document.querySelector('#connectWallet')
 const $splashScreen = document.querySelector('#splashScreen')
 const $buttonTouchToStart = document.querySelector('#buttonTouchToStart')
 const $shortVideoReel = document.querySelector('#shortVideoReel')
+const $dialogWelcomeUtonoma = document.querySelector('#dialogWelcomeUtonoma')
 
 let ConnectWallet
 
@@ -16,6 +17,12 @@ $buttonTouchToStart.addEventListener('click', async () => {
   $splashScreen.style.display = 'none'
   $shortVideoReel.style.display = ''
   await import('../components/ShortVideoReel/ShortVideoReel.js')
+})
+
+$dialogWelcomeUtonoma.showModal()
+
+$dialogWelcomeUtonoma.querySelector('#buttonDialogCloseWelcomeUtonoma').addEventListener('click', () => {
+  $dialogWelcomeUtonoma.close()
 })
 
 document.querySelector('#buttonSplashScreenToRightPanel').addEventListener('click', async()=> {
