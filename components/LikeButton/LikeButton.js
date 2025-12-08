@@ -1,7 +1,8 @@
 import { ConfirmLikeOrDislike as ConfirmLikeOrDislikeFactory } from '../modals/ConfirmLikeOrDislike/ConfirmLikeOrDislike.js'
 import { readOnlyProvider } from "../../web3_providers/readOnlyProvider.js"
 import { formatUnits } from 'ethers'
-import { appkit } from '../../web3_providers/signedProvider.js'
+import { web3 } from '../../web3_providers/web3Test.js'
+import { userManager } from '../../services/userManager/userManager.js'
 
 export const ACTIONS = {
   waiting: 'waiting',
@@ -96,21 +97,16 @@ export const LikeButton = ($container) => {
 
   const actions = {
     checkingIfUserIsConnected: async () => {
-      if(!modal) {
-          const { appkit } = await import('../../web3_providers/signedProvider.js')
-          const modalInstance = appkit.modal
-          modal = modalInstance
-      }
-      if(modal.getIsConnectedState()) {
+      if(await web3.connect()) {
         state.isDeleteable
-        ? state.currentAction = { value: ACTIONS.alertDelete }
-        : state.currentAction = { value: ACTIONS.requestingFeeAcceptance }
-      } 
-      else state.currentAction = { value: ACTIONS.userDisconnectedError}
+          ? state.currentAction = { value: ACTIONS.alertDelete }
+          : state.currentAction = { value: ACTIONS.requestingFeeAcceptance } 
+      }
+      else state.currentAction = { value: ACTIONS.genericError}
     },
     requestingFeeAcceptance: async () => {
       try {
-        currentFee = await readOnlyProvider.genericRequests.getCurrentFee(modal.getAddress())
+        currentFee = await readOnlyProvider.genericRequests.getCurrentFee()
         if(!ConfirmLikeOrDislike) ConfirmLikeOrDislike = ConfirmLikeOrDislikeFactory(document.querySelector('#dialogConfirmLikeOrDislike'))
         ConfirmLikeOrDislike.updateFee(formatUnits(currentFee, 18))
         const confirmation = await ConfirmLikeOrDislike.askForUserConfirmation()
@@ -122,7 +118,7 @@ export const LikeButton = ($container) => {
     },
     checkingAccountBalance: async () => {
       try {
-        const accountBalance = await readOnlyProvider.genericRequests.getBalance(modal.getAddress())
+        const accountBalance = await readOnlyProvider.genericRequests.getBalance(userManager.lastKnownUserAddress)
         if(accountBalance <= currentFee) state.currentAction = { value: ACTIONS.balanceNotEnoughtError }
         else state.currentAction = { value: ACTIONS.waitingForApproveOnWallet }
       } catch(error) {
@@ -132,8 +128,8 @@ export const LikeButton = ($container) => {
     waitingForApproveOnWallet: async () => {
       try {
         $dialogCheckWalletToApprove.showModal()
-        const utonomaContractForSignedTransactions = await appkit.utonomaContract
-        likeResult = await utonomaContractForSignedTransactions.like([state.utonomaIdentifier.index, state.utonomaIdentifier.contentType])
+        const contract = await web3.utonomaContract
+        likeResult = await contract.like([state.utonomaIdentifier.index, state.utonomaIdentifier.contentType])
         state.currentAction = { value: ACTIONS.waitingForBlockchainResult, payload: likeResult }
       } catch(error) {
         state.currentAction = { value: ACTIONS.genericError }
