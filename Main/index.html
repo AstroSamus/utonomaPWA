@@ -222,13 +222,15 @@
         class="Layout--header">
         <div class="Layout--splashScreen">
           <div style="padding-top: 10vh;">
-            <p style="background-color: var(--cyberYellow); 
-              max-width: 16rem; 
-              padding: 8px;
-              margin: auto auto 16px auto;">
-              <span lang="en"><b>Demo version:</b> tokens are only for test purposes.</span>
-              <span lang="es"><b>Versión demo:</b> los tokens son sólo de prueba.</span>
-            </p>
+            <div data-env="dev">
+              <p  style="background-color: var(--cyberYellow); 
+                max-width: 16rem; 
+                padding: 8px;
+                margin: auto auto 16px auto;">
+                <span lang="en"><b>Demo version:</b> tokens are only for test purposes.</span>
+                <span lang="es"><b>Versión demo:</b> los tokens son sólo de prueba.</span>
+              </p>
+            </div>
             <img src="../assets/icons/utonoma-full-logo.svg" alt="" style="width: auto; max-height: 70dvh;">
             <div style="display: flex; justify-content: flex-end;">
               <button 
@@ -646,7 +648,7 @@
           Open your wallet and look for the option "Import token" or "Add custom ERC20 token". 
           For the required information: <br>
           <b>Token Contract Address:</b><br>
-          <span data-env="prod"> - </span>
+          <span data-env="prod"> 0xBF3089759edC8152ADE63270f98546fCdd71D34e </span>
           <span data-env="dev">0x8FffFDc2B2657413d1114D804F42159B8f084951</span><br>
           <b>Token Decimal:</b><br>
           18<br>
@@ -659,7 +661,7 @@
           Abre tu billetera y busca la opción “Importar token” o “Agregar token ERC20 personalizado”.
           Para la información requerida: <br>
           <b>Dirección del contrato de token:</b><br>
-          <span data-env="prod"> - </span>
+          <span data-env="prod"> 0xBF3089759edC8152ADE63270f98546fCdd71D34e </span>
           <span data-env="dev">0x8FffFDc2B2657413d1114D804F42159B8f084951</span><br>
           <b>Decimales del Token:</b><br>
           18<br>
