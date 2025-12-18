@@ -84,11 +84,11 @@ export const web3 = {
     }
 
     const provider = this._wallet.provider;
-    const targetChainId = '0xa869';
+    const targetChainId = chainForAddEthereumChain.chainId;
 
     const currentChainId = await provider.request({ method: 'eth_chainId' });
     if (currentChainId.toLowerCase() === targetChainId) {
-      console.log('Already on Avalanche Fuji');
+      console.log('Already on correct network');
       return;
     }
 
@@ -160,7 +160,7 @@ export const web3 = {
       // Ensure you are in the correct network
       const network = await this._ethersProvider.getNetwork();
       if (network.chainId !== chainIdInBigInt) { // ethers v6 uses BigInt
-        console.warn('Not on Fuji, calling ensureCorrectNetwork()');
+        console.warn('Not on correct network, calling ensureCorrectNetwork()');
         await this.ensureCorrectNetwork();
       }
 
