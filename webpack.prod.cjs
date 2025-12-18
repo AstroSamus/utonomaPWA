@@ -16,7 +16,7 @@ module.exports = merge(common, {
       new TerserPlugin({
         terserOptions: {
           compress: {
-            drop_console: true, // elimina todos los console.*
+            drop_console: true, // eliminate all console logs.*
           },
         },
       }),
