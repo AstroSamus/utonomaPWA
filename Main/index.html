@@ -77,6 +77,10 @@
     .Layout--splashScreen {
       width: 80vw;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      align-items: center;
     }
 
     .Layout--shortVideoReel {
@@ -150,7 +154,7 @@
     .Layout--header {
       display: flex;
       height: 100dvh;  
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -165,6 +169,8 @@
       max-width: 70vw;
       align-items: center;
       text-align: right;
+      justify-content: flex-end;
+      flex-grow: 1;
     }
 
     @media screen and (min-width: 700px) {
@@ -214,42 +220,44 @@
       <header id="splashScreen"
         class="Layout--header">
         <div class="Layout--splashScreen">
-          <p style="background-color: var(--cyberYellow); 
-            max-width: 16rem; 
-            padding: 8px;
-            margin: auto auto 16px auto;">
-            <span lang="en"><b>Demo version:</b> tokens are only for test purposes.</span>
-            <span lang="es"><b>Versión demo:</b> los tokens son sólo de prueba.</span>
-          </p>
-          <img src="../assets/icons/utonoma-full-logo.svg" alt="" style="width: auto; max-height: 70dvh;">
-          <div style="display: flex; justify-content: flex-end;">
-            <button 
-              id="buttonTouchToStart"
-              class="Button--horizontalText" 
-              style="margin-top: 32px;" 
-              type="button"
-            >
-              <h1 style="font: var(--headline6);">
-                <span lang="en">Touch to start</span>
-                <span lang="es">Toque para iniciar</span>
-              </h1>
-              <img src="../assets/icons/continue-active-icon.svg" alt="">
+          <div style="padding-top: 10vh;">
+            <p style="background-color: var(--cyberYellow); 
+              max-width: 16rem; 
+              padding: 8px;
+              margin: auto auto 16px auto;">
+              <span lang="en"><b>Demo version:</b> tokens are only for test purposes.</span>
+              <span lang="es"><b>Versión demo:</b> los tokens son sólo de prueba.</span>
+            </p>
+            <img src="../assets/icons/utonoma-full-logo.svg" alt="" style="width: auto; max-height: 70dvh;">
+            <div style="display: flex; justify-content: flex-end;">
+              <button 
+                id="buttonTouchToStart"
+                class="Button--horizontalText" 
+                style="margin-top: 32px;" 
+                type="button"
+              >
+                <h1 style="font: var(--headline6);">
+                  <span lang="en">Touch to start</span>
+                  <span lang="es">Toque para iniciar</span>
+                </h1>
+                <img src="../assets/icons/continue-active-icon.svg" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="Layout--howItWorks">
+            <button id="buttonHowItWorks"
+              type="button" 
+              style="border: none; 
+              padding: 4px 12px; 
+              background-color: var(--cyberYellow);
+              border-radius: 100px;
+              margin: 0 0 24px 32px;">
+              <span style="font: var(--headline6);">
+                <span lang="en">How it works</span>
+                <span lang="es">Cómo funciona</span>
+              </span>
             </button>
           </div>
-        </div>
-        <div class="Layout--howItWorks">
-          <button id="buttonHowItWorks"
-            type="button" 
-            style="border: none; 
-            padding: 4px 12px; 
-            background-color: var(--cyberYellow);
-            border-radius: 100px;
-            margin: 0 0 24px 32px;">
-            <span style="font: var(--headline6);">
-              <span lang="en">How it works</span>
-              <span lang="es">Cómo funciona</span>
-            </span>
-          </button>
         </div>
         <div class="Layout--splashScreenToRightPanel">
           <button 
