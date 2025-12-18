@@ -6,7 +6,8 @@ import {
   chains,
   chainForAddEthereumChain,
   walletConnectModuleParams,
-  contractInfo
+  contractInfo,
+  chainIdInBigInt
 } from 'config.env'
 import { userManager } from '../services/userManager/userManager.js'
 
@@ -69,7 +70,7 @@ export const web3 = {
 
     userManager.lastKnownUserAddress = await this._signer.getAddress()
 
-    await this.ensureFuji()
+    await this.ensureCorrectNetwork()
 
     return wallet;
   },
@@ -85,7 +86,7 @@ export const web3 = {
     userManager.logout()
   },
 
-  async ensureFuji() {
+  async ensureCorrectNetwork() {
     if (!this._wallet || !this._wallet.provider) {
       throw new Error('No wallet connected');
     }
@@ -164,11 +165,11 @@ export const web3 = {
         throw new Error('No signer available. Call web3.connect() first.');
       }
 
-      // Opcional: asegurarte de que estás en Fuji antes de crear el contrato
+      // Ensure you are in the correct network
       const network = await this._ethersProvider.getNetwork();
-      if (network.chainId !== 43113n) { // ethers v6 usa BigInt
-        console.warn('Not on Fuji, calling ensureFuji()');
-        await this.ensureFuji();
+      if (network.chainId !== chainIdInBigInt) { // ethers v6 uses BigInt
+        console.warn('Not on Fuji, calling ensureCorrectNetwork()');
+        await this.ensureCorrectNetwork();
       }
 
       return new Contract(utonomaAddress, utonomaAbi, this._signer);
