@@ -7,7 +7,8 @@ import {
   chainForAddEthereumChain,
   walletConnectModuleParams,
   contractInfo,
-  chainIdInBigInt
+  chainIdInBigInt,
+  web3OnboardMetadata
 } from 'config.env'
 import { userManager } from '../services/userManager/userManager.js'
 
@@ -20,16 +21,7 @@ const {
 const injected = injectedModule();
 const walletConnect = walletConnectModule(walletConnectModuleParams);
 
-const appMetadata = {
-  name: 'Web3-Onboard Vanilla JS Demo',
-  icon: '<svg />',
-  logo: '<svg />',
-  description: 'Demo using Onboard',
-  recommendedInjectedWallets: [
-    { name: 'Coinbase', url: 'https://wallet.coinbase.com/' },
-    { name: 'MetaMask', url: 'https://metamask.io' }
-  ]
-}
+const appMetadata = web3OnboardMetadata
 
 export const web3 = {
   _onboard: null,
