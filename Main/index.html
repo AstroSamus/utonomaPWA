@@ -155,7 +155,7 @@
       flex-wrap: wrap;
     }
 
-    .Layout--swipeRight {
+    .Layout--howItWorks {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -197,7 +197,7 @@
         flex-wrap: nowrap;
       }
 
-      .Layout--swipeRight, #settingsButtonContainer, #rightPanelNavbar {
+      #settingsButtonContainer, #rightPanelNavbar {
         display: none;
       }
 
@@ -237,6 +237,20 @@
             </button>
           </div>
         </div>
+        <div class="Layout--howItWorks">
+          <button id="buttonHowItWorks"
+            type="button" 
+            style="border: none; 
+            padding: 4px 12px; 
+            background-color: var(--cyberYellow);
+            border-radius: 100px;
+            margin: 0 0 24px 32px;">
+            <span style="font: var(--headline6);">
+              <span lang="en">How it works</span>
+              <span lang="es">Cómo funciona</span>
+            </span>
+          </button>
+        </div>
         <div class="Layout--splashScreenToRightPanel">
           <button 
             id="buttonSplashScreenToRightPanel"
@@ -248,13 +262,6 @@
             <span style="font: var(--headline6);" lang="en">SETTINGS</span>
             <span style="font: var(--headline6);" lang="es">CONFIG.</span>
           </button>
-        </div>
-        <div class="Layout--swipeRight">
-          <p class="Button--horizontalText">
-            <span style="font: var(--headline6);" lang="en">Swipe right for settings</span>
-            <span style="font: var(--headline6);" lang="es">Desliza a la izquierda para ajustes</span>
-            <img src="../assets/icons/swipe-left.svg" alt="">
-          </p>
         </div>
       </header>
       <div id="shortVideoReel" 
@@ -706,23 +713,31 @@
         </button>
       </form>
     </dialog>
-    <dialog id="dialogWelcomeUtonoma">
-      <h3 style="font: var(--headline1);">
+    <dialog id="dialogWelcomeUtonoma" style="padding-bottom: 10dvh;">
+      <h3>
         <span lang="en">Welcome to Utonoma.</span>
         <span lang="es">Bienvenido(a) a Utonoma.</span>
       </h3>
       <p style="font: var(--headline6)">
         <span lang="en">
-          This is our first public release, and it’s already fully functional.
-          We’re continuously improving the visual experience 
-          to offer you an increasingly complete platform. <br>
-          Thank you for being among the first people to use this project. ❤️
+          <b>Create</b> content that helps others or showcases your good actions and receive rewards 
+          through the likes you earn. But be careful: you can also receive dislikes.<br><br>
+          <b>Vote</b> and reward your favorite creators by liking their posts. If you don’t like 
+          something, you can give it a dislike. When a piece of content receives too many 
+          dislikes, it is removed from the platform.<br><br>
+          <b>Hold.</b> By holding the Utonoma token, you help make creators’ rewards more valuable.<br><br>
+          Everything runs on blockchain. Explore, participate, and be 
+          among the first to use Utonoma.
         </span>
         <span lang="es">
-          Esta es nuestra primera versión pública y ya es completamente funcional.
-          Seguimos mejorando la experiencia visual para ofrecerte una plataforma 
-          cada vez más completa. <br>
-          Gracias por ser parte de las primeras personas en usar este proyecto. ❤️
+          <b>Crea</b> contenido donde ayudes a otros o muestres tus buenos actos y recibe recompensas 
+          por los likes que obtengas. Pero cuidado: también puedes recibir dislikes.<br><br>
+          <b>Vota</b> y recompensa a tus creadores favoritos dando like a sus publicaciones. 
+          Si algo no te gusta, puedes darle dislike. Cuando un contenido recibe demasiados 
+          dislikes, se elimina de la plataforma.<br><br>
+          <b>Holdea.</b> Al mantener el token de Utonoma, ayudas a que las recompensas de los creadores 
+          se vuelvan más valiosas.<br><br>
+          Todo funciona sobre blockchain. Explora, participa y sé parte de las primeras personas en usar Utonoma.<br>
         </span>
       </p>
       <button id="buttonDialogCloseWelcomeUtonoma">

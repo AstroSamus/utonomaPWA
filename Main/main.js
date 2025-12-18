@@ -10,6 +10,7 @@ const $splashScreen = document.querySelector('#splashScreen')
 const $buttonTouchToStart = document.querySelector('#buttonTouchToStart')
 const $shortVideoReel = document.querySelector('#shortVideoReel')
 const $dialogWelcomeUtonoma = document.querySelector('#dialogWelcomeUtonoma')
+const $buttonHowItWorks = document.getElementById('buttonHowItWorks')
 
 let ConnectWallet
 
@@ -19,7 +20,15 @@ $buttonTouchToStart.addEventListener('click', async () => {
   await import('../components/ShortVideoReel/ShortVideoReel.js')
 })
 
-$dialogWelcomeUtonoma.showModal()
+//Shows the welcome message only the first time the web app opens
+if(!localStorage['isWelcomeDialogShown']) {
+  $dialogWelcomeUtonoma.showModal()
+  localStorage['isWelcomeDialogShown'] = 'true'
+}
+
+$buttonHowItWorks.addEventListener('click', () => {
+  $dialogWelcomeUtonoma.showModal()
+})
 
 $dialogWelcomeUtonoma.querySelector('#buttonDialogCloseWelcomeUtonoma').addEventListener('click', () => {
   $dialogWelcomeUtonoma.close()
