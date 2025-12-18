@@ -1,41 +1,41 @@
 export const isDevEnvironment = false
 
-export const rpcUrl = 'https://api.avax-test.network/ext/bc/C/rpc'
+export const rpcUrl = 'https://api.avax.network/ext/bc/C/rpc'
 
 export const ipfsJsonUploaderUrl = 'https://mmcvhj7mz9.us-east-1.awsapprunner.com/pinJsonToIpfs'
 
 export const ipfsFileUploaderUrl = 'https://mmcvhj7mz9.us-east-1.awsapprunner.com/pinFileToIpfs'
 
-export const utonomaEventFilterUrl = 'https://api.studio.thegraph.com/query/106360/utonoma-fuji/version/latest'
+export const utonomaEventFilterUrl = 'https://api.studio.thegraph.com/query/106360/utonoma-mainnet/version/latest'
+
+export const chainIdInBigInt = 43114n
 
 export const chains = [{
-  id: '0xa869', // 43113 en hex - Avalanche Fuji
+  id: '0xa86a', // 43114 en hex - Avalanche C-Chain
   token: 'AVAX',
-  label: 'Avalanche Fuji',
+  label: 'Avalanche C-Chain',
   rpcUrl
 }]
 
 //addEthereumChain calls needs the network in a special format
 export const chainForAddEthereumChain = {
-  chainId: '0xa869',
-  chainName: 'Avalanche Fuji C-Chain',
+  chainId: '0xa86a',
+  chainName: 'Avalanche C-Chain',
   nativeCurrency: {
-    name: 'Avalanche Fuji C-Chain',
+    name: 'Avalanche C-Chain',
     symbol: 'AVAX',
     decimals: 18
   },
   rpcUrls: [
-    'https://api.avax-test.network/ext/bc/C/rpc',
-    'https://endpoints.omniatech.io/v1/avax/fuji/public'
+    'https://api.avax.network/ext/bc/C/rpc',
+    'https://endpoints.omniatech.io/v1/avax/mainnet/public'
   ],
-  blockExplorerUrls: ['https://subnets-test.avax.network/c-chain']
+  blockExplorerUrls: ['https://subnets.avax.network/c-chain']
 }
 
-//Replace this in prod
 export const walletConnectModuleParams = {
-  projectId : '2897ca765c95a7e36410d31f88a6efee',
-  //for testing, assing the dappUrl to your local IPV4 address
-  dappUrl: 'http://192.168.68.108:8080'
+  projectId : '260948140665e32551a32a2cddffc2c3',
+  dappUrl: 'https://app.utonoma.com'
 }
 
 /**
@@ -47,8 +47,8 @@ export const walletConnectModuleParams = {
  * @type {ContractInfo}
  */
 export const contractInfo = {
-  utonomaAddress: '0x8FffFDc2B2657413d1114D804F42159B8f084951',
-  utonomaSymbol: 'testNomax',
+  utonomaAddress: '0xBF3089759edC8152ADE63270f98546fCdd71D34e',
+  utonomaSymbol: 'Nomax',
   utonomaTokenDecimals: 18,
   dexLink : 'https://pancakeswap.finance/',
   utonomaAbi: [
