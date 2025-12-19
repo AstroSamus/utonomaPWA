@@ -20,12 +20,6 @@ $buttonTouchToStart.addEventListener('click', async () => {
   await import('../components/ShortVideoReel/ShortVideoReel.js')
 })
 
-//Shows the welcome message only the first time the web app opens
-if(!localStorage['isWelcomeDialogShown']) {
-  $dialogWelcomeUtonoma.showModal()
-  localStorage['isWelcomeDialogShown'] = 'true'
-}
-
 $buttonHowItWorks.addEventListener('click', () => {
   $dialogWelcomeUtonoma.showModal()
   //Scrolling to top of the modal
