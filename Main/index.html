@@ -12,10 +12,6 @@
         $htmlTag.classList.add("englishLang")
         break
     }
-    // Script for multi-environment support (dev or prod)
-    var ENV = (typeof process !== 'undefined' && process.env && process.env.NODE_ENV) || 'development';
-    var $html = document.documentElement; // o document.querySelector('#htmlTag')
-    $html.classList.add(ENV === 'production' ? 'prodEnv' : 'devEnv');
   </script>
 <head>
   <meta charset="UTF-8">

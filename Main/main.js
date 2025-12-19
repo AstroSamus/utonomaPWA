@@ -4,6 +4,11 @@ import {
   userManager 
 } from '../services/userManager/userManager.js'
 
+// multi-environment support (dev or prod)
+var ENV = process.env.NODE_ENV || 'production';
+var $html = document.documentElement; // o document.querySelector('#htmlTag')
+$html.classList.add(ENV === 'production' ? 'prodEnv' : 'devEnv');
+
 const $settings = document.querySelector('#settings')
 const $connectWallet = document.querySelector('#connectWallet')
 const $splashScreen = document.querySelector('#splashScreen')
