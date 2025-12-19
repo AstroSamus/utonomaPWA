@@ -28,6 +28,8 @@ if(!localStorage['isWelcomeDialogShown']) {
 
 $buttonHowItWorks.addEventListener('click', () => {
   $dialogWelcomeUtonoma.showModal()
+  //Scrolling to top of the modal
+  $dialogWelcomeUtonoma.scrollTop = 0
 })
 
 $dialogWelcomeUtonoma.querySelector('#buttonDialogCloseWelcomeUtonoma').addEventListener('click', () => {
