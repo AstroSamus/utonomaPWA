@@ -74,6 +74,11 @@
       transition: background-color 0.3s ease;
     }
 
+    .header--utonomaLogo {
+      width: auto; 
+      max-height: 70dvh;
+    }
+
     .Layout--splashScreen {
       width: 80vw;
       text-align: center;
@@ -212,6 +217,10 @@
         width: auto; 
         object-fit: cover;
       }
+
+      .header--utonomaLogo {
+        min-height: 45dvh;
+      }
     }
   </style>
 </head>
@@ -231,7 +240,10 @@
                 <span lang="es"><b>Versión demo:</b> los tokens son sólo de prueba.</span>
               </p>
             </div>
-            <img src="../assets/icons/utonoma-full-logo.svg" alt="" style="width: auto; max-height: 70dvh;">
+            <img 
+              class="header--utonomaLogo"
+              src="../assets/icons/utonoma-full-logo.svg" 
+              alt="" >
             <div style="display: flex; justify-content: flex-end;">
               <button 
                 id="buttonTouchToStart"
@@ -254,7 +266,7 @@
               padding: 4px 12px; 
               background-color: var(--cyberYellow);
               border-radius: 100px;
-              margin: 0 0 24px 32px;">
+              margin: 0 0 24px 0;">
               <span style="font: var(--headline6);">
                 <span lang="en">How it works</span>
                 <span lang="es">Cómo funciona</span>
