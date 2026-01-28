@@ -6,7 +6,9 @@ import {
   chains,
   chainForAddEthereumChain,
   walletConnectModuleParams,
-  contractInfo
+  contractInfo,
+  chainIdInBigInt,
+  web3OnboardMetadata
 } from 'config.env'
 import { userManager } from '../services/userManager/userManager.js'
 
@@ -19,16 +21,7 @@ const {
 const injected = injectedModule();
 const walletConnect = walletConnectModule(walletConnectModuleParams);
 
-const appMetadata = {
-  name: 'Web3-Onboard Vanilla JS Demo',
-  icon: '<svg />',
-  logo: '<svg />',
-  description: 'Demo using Onboard',
-  recommendedInjectedWallets: [
-    { name: 'Coinbase', url: 'https://wallet.coinbase.com/' },
-    { name: 'MetaMask', url: 'https://metamask.io' }
-  ]
-}
+const appMetadata = web3OnboardMetadata
 
 export const web3 = {
   _onboard: null,
@@ -69,7 +62,7 @@ export const web3 = {
 
     userManager.lastKnownUserAddress = await this._signer.getAddress()
 
-    await this.ensureFuji()
+    await this.ensureCorrectNetwork()
 
     return wallet;
   },
@@ -85,17 +78,17 @@ export const web3 = {
     userManager.logout()
   },
 
-  async ensureFuji() {
+  async ensureCorrectNetwork() {
     if (!this._wallet || !this._wallet.provider) {
       throw new Error('No wallet connected');
     }
 
     const provider = this._wallet.provider;
-    const targetChainId = '0xa869';
+    const targetChainId = chainForAddEthereumChain.chainId;
 
     const currentChainId = await provider.request({ method: 'eth_chainId' });
     if (currentChainId.toLowerCase() === targetChainId) {
-      console.log('Already on Avalanche Fuji');
+      console.log('Already on correct network');
       return;
     }
 
@@ -164,11 +157,11 @@ export const web3 = {
         throw new Error('No signer available. Call web3.connect() first.');
       }
 
-      // Opcional: asegurarte de que estás en Fuji antes de crear el contrato
+      // Ensure you are in the correct network
       const network = await this._ethersProvider.getNetwork();
-      if (network.chainId !== 43113n) { // ethers v6 usa BigInt
-        console.warn('Not on Fuji, calling ensureFuji()');
-        await this.ensureFuji();
+      if (network.chainId !== chainIdInBigInt) { // ethers v6 uses BigInt
+        console.warn('Not on correct network, calling ensureCorrectNetwork()');
+        await this.ensureCorrectNetwork();
       }
 
       return new Contract(utonomaAddress, utonomaAbi, this._signer);

@@ -48,7 +48,7 @@ test('getUrlFromIpfsHash should compose a url that points to the provided CID', 
   const providedCID = 'QmWhR7sn34AK7Y8MDJhdSGnjzGzzEG1BhxjTpAZb591gRa'
   const actualResult = getUrlFromIpfsHash(providedCID)
 
-  const expectedResult = 'https://copper-urban-gorilla-864.mypinata.cloud/ipfs/QmWhR7sn34AK7Y8MDJhdSGnjzGzzEG1BhxjTpAZb591gRa?pinataGatewayToken=WmR3tEcyNtxE6vjc4lPPIrY0Hzp3Dc9AYf2X4Bl-8o6JYBzTx9aY_u3OlpL1wGra'
+  const expectedResult = 'https://copper-urban-gorilla-864.mypinata.cloud/ipfs/QmWhR7sn34AK7Y8MDJhdSGnjzGzzEG1BhxjTpAZb591gRa'
   expect(expectedResult).toStrictEqual(actualResult)
 })
 

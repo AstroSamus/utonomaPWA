@@ -3,11 +3,13 @@ import { readOnlyProvider } from "../../web3_providers/readOnlyProvider.js"
 import { formatUnits } from 'ethers'
 import { web3 } from '../../web3_providers/web3Test.js'
 import { userManager } from '../../services/userManager/userManager.js'
+import { GenericModal as GenericModalFactory } from '../modals/GenericModal/GenericModal.js'
 
 export const ACTIONS = {
   waiting: 'waiting',
   loading: 'loading',
   pressingButton: 'likeButtonPressed',
+  checkingIfFirstTimeVoting: 'checkingIfFirstTimeVoting',
   checkingIfUserIsConnected: 'checkingIfUserIsConnected',
   requestingFeeAcceptance: 'requestingFeeAcceptance',
   checkingAccountBalance: 'checkingAccountBalance',
@@ -74,6 +76,8 @@ export const LikeButton = ($container) => {
   const $dialogLikeButtonSuccess = document.querySelector('#dialogLikeButtonSuccess')
   const $dialogLikeButtonError = document.querySelector('#dialogLikeButtonError')
 
+  const DialogVotingTutorial = GenericModalFactory(document.getElementById('dialogVotingTutorial'))
+
   let ConfirmLikeOrDislike
   let modal
   let currentFee
@@ -91,11 +95,18 @@ export const LikeButton = ($container) => {
       }
     },
     votesCount: () => {
-      $likesNumber.innerHTML = state.votesCount
+      $likesNumber.textContent = state.votesCount
     }
   }
 
   const actions = {
+    checkingIfFirstTimeVoting: async() => {
+      if(!localStorage['isFirstTimeVoting']) {
+        await DialogVotingTutorial.actions.showDialog()
+        localStorage['isFirstTimeVoting'] = 'true'
+      }
+      state.currentAction = { value: ACTIONS.checkingIfUserIsConnected}
+    },
     checkingIfUserIsConnected: async () => {
       if(await web3.connect()) {
         state.isDeleteable
@@ -150,7 +161,7 @@ export const LikeButton = ($container) => {
       }
     },
     success: () => {
-      $likesNumber.innerHTML = parseInt($likesNumber.innerHTML) + 1
+      $likesNumber.textContent = parseInt($likesNumber.textContent) + 1
       $dialogLikeButtonSuccess.show()
       setTimeout(() => $dialogLikeButtonSuccess.close(), 5000)
     },
@@ -177,7 +188,7 @@ export const LikeButton = ($container) => {
   const state = new State(_effects, actions)
 
   $buttonLikeShortVideo.addEventListener('click', () => {
-    state.currentAction = { value: ACTIONS.checkingIfUserIsConnected }
+    state.currentAction = { value: ACTIONS.checkingIfFirstTimeVoting }
   })
 
   return state

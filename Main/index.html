@@ -12,10 +12,6 @@
         $htmlTag.classList.add("englishLang")
         break
     }
-    // Script for multi-environment support (dev or prod)
-    var ENV = (typeof process !== 'undefined' && process.env && process.env.NODE_ENV) || 'development';
-    var $html = document.documentElement; // o document.querySelector('#htmlTag')
-    $html.classList.add(ENV === 'production' ? 'prodEnv' : 'devEnv');
   </script>
 <head>
   <meta charset="UTF-8">
@@ -74,9 +70,18 @@
       transition: background-color 0.3s ease;
     }
 
+    .header--utonomaLogo {
+      width: auto; 
+      max-height: 70dvh;
+    }
+
     .Layout--splashScreen {
       width: 80vw;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      align-items: center;
     }
 
     .Layout--shortVideoReel {
@@ -139,8 +144,9 @@
       width: 100%;
       flex-wrap: wrap;
       overflow: auto;
-      padding-block-end: 30px;
-      max-height: 100vh;
+      max-height: 100dvh;
+      min-height: 100dvh;
+      padding-bottom: 48px;
     }
 
     .Image--utonomaBackgroundPoster {
@@ -151,12 +157,12 @@
     .Layout--header {
       display: flex;
       height: 100dvh;  
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
       flex-wrap: wrap;
     }
 
-    .Layout--swipeRight {
+    .Layout--howItWorks {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -166,6 +172,8 @@
       max-width: 70vw;
       align-items: center;
       text-align: right;
+      justify-content: flex-end;
+      flex-grow: 1;
     }
 
     @media screen and (min-width: 700px) {
@@ -198,13 +206,17 @@
         flex-wrap: nowrap;
       }
 
-      .Layout--swipeRight, #settingsButtonContainer, #rightPanelNavbar {
+      #settingsButtonContainer, #rightPanelNavbar {
         display: none;
       }
 
       .Image--utonomaBackgroundPoster {
         width: auto; 
         object-fit: cover;
+      }
+
+      .header--utonomaLogo {
+        min-height: 45dvh;
       }
     }
   </style>
@@ -215,26 +227,47 @@
       <header id="splashScreen"
         class="Layout--header">
         <div class="Layout--splashScreen">
-          <p style="background-color: var(--cyberYellow); 
-            max-width: 16rem; 
-            padding: 8px;
-            margin: auto auto 16px auto;">
-            <span lang="en"><b>Demo version:</b> tokens are only for test purposes.</span>
-            <span lang="es"><b>Versión demo:</b> los tokens son sólo de prueba.</span>
-          </p>
-          <img src="../assets/icons/utonoma-full-logo.svg" alt="" style="width: auto; max-height: 70dvh;">
-          <div style="display: flex; justify-content: flex-end;">
-            <button 
-              id="buttonTouchToStart"
-              class="Button--horizontalText" 
-              style="margin-top: 32px;" 
-              type="button"
-            >
-              <h1 style="font: var(--headline6);">
-                <span lang="en">Touch to start</span>
-                <span lang="es">Toque para iniciar</span>
-              </h1>
-              <img src="../assets/icons/continue-active-icon.svg" alt="">
+          <div style="padding-top: 10vh;">
+            <div data-env="dev">
+              <p  style="background-color: var(--cyberYellow); 
+                max-width: 16rem; 
+                padding: 8px;
+                margin: auto auto 16px auto;">
+                <span lang="en"><b>Demo version:</b> tokens are only for test purposes.</span>
+                <span lang="es"><b>Versión demo:</b> los tokens son sólo de prueba.</span>
+              </p>
+            </div>
+            <img 
+              class="header--utonomaLogo"
+              src="../assets/icons/utonoma-full-logo.svg" 
+              alt="" >
+            <div style="display: flex; justify-content: flex-end;">
+              <button 
+                id="buttonTouchToStart"
+                class="Button--horizontalText" 
+                style="margin-top: 32px;" 
+                type="button"
+              >
+                <h1 style="font: var(--headline6);">
+                  <span lang="en">Touch to start</span>
+                  <span lang="es">Toque para iniciar</span>
+                </h1>
+                <img src="../assets/icons/continue-active-icon.svg" alt="">
+              </button>
+            </div>
+          </div>
+          <div class="Layout--howItWorks">
+            <button id="buttonHowItWorks"
+              type="button" 
+              style="border: none; 
+              padding: 4px 12px; 
+              background-color: var(--cyberYellow);
+              border-radius: 100px;
+              margin: 0 0 24px 0;">
+              <span style="font: var(--headline6);">
+                <span lang="en">How it works</span>
+                <span lang="es">Cómo funciona</span>
+              </span>
             </button>
           </div>
         </div>
@@ -249,13 +282,6 @@
             <span style="font: var(--headline6);" lang="en">SETTINGS</span>
             <span style="font: var(--headline6);" lang="es">CONFIG.</span>
           </button>
-        </div>
-        <div class="Layout--swipeRight">
-          <p class="Button--horizontalText">
-            <span style="font: var(--headline6);" lang="en">Swipe right for settings</span>
-            <span style="font: var(--headline6);" lang="es">Desliza a la izquierda para ajustes</span>
-            <img src="../assets/icons/swipe-left.svg" alt="">
-          </p>
         </div>
       </header>
       <div id="shortVideoReel" 
@@ -331,7 +357,9 @@
                 <span class="Text--shaded" id="likesNumber" style="margin: 0; color: var(--snow);">-</span>
               </button>
               <button id="buttonShare"
-                style="margin-left: 10px;">
+                style="margin-left: 10px; 
+                background-color: transparent;
+                border: none;">
                 <svg class="Icon--small Icon--shaded" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fffafa">
                   <path d="M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T720-200q0-17-11.5-28.5T680-240q-17 0-28.5 11.5T640-200q0 17 11.5 28.5T680-160ZM200-440q17 0 28.5-11.5T240-480q0-17-11.5-28.5T200-520q-17 0-28.5 11.5T160-480q0 17 11.5 28.5T200-440Zm480-280q17 0 28.5-11.5T720-760q0-17-11.5-28.5T680-800q-17 0-28.5 11.5T640-760q0 17 11.5 28.5T680-720Zm0 520ZM200-480Zm480-280Z"/>
                 </svg>                  
@@ -473,7 +501,8 @@
           flex-direction: column;
           width: 100%;
           justify-content: flex-end;
-          display: none;"
+          display: none;
+          max-height: 100dvh;"
         >
           <img src="../assets/icons/utonoma-background.svg" alt="" class="Image--utonomaBackgroundPoster">
           <button 
@@ -562,12 +591,12 @@
           <button id = 'buttonBuySellTokens' class="Button--textBetweenTwoIcons">
             <div>
               <img src="../assets/icons/money-exchange.svg" alt="">
-              <span lang="en">Buy / Sell tokens</span>
-              <span lang="es">Comprar / Vender tokens</span>
+              <span lang="en">Get Nomax</span>
+              <span lang="es">Obtener Nomax</span>
             </div>
             <img src="../assets/icons/arrow.svg" alt="">
           </button>
-          <button id="buttonUploadContent" onclick="location.href='/UploadContent'" class="Button--textBetweenTwoIcons">
+          <button id="buttonUploadContent" onclick="location.href='/UploadContent/index.html'" class="Button--textBetweenTwoIcons">
             <div>
               <img src="../assets/icons/add.svg" alt="">
               <span lang="en">Upload Content</span>
@@ -579,7 +608,7 @@
             <span lang="en">3. You can view your content and claim your reward here.</span>
             <span lang="es">3. Puedes ver tu contenido y reclamar tu recompensa aquí.</span>
           </p>
-          <button id="buttonMyContent" onclick="location.href='/MyContent'" class="Button--textBetweenTwoIcons">
+          <button id="buttonMyContent" onclick="location.href='/MyContent/index.html'" class="Button--textBetweenTwoIcons">
             <div>
               <img src="../assets/icons/utonoma-small-logo-black.svg" alt="">
               <span lang="en">My content</span>
@@ -630,7 +659,7 @@
           Open your wallet and look for the option "Import token" or "Add custom ERC20 token". 
           For the required information: <br>
           <b>Token Contract Address:</b><br>
-          <span data-env="prod"> - </span>
+          <span data-env="prod"> 0xBF3089759edC8152ADE63270f98546fCdd71D34e </span>
           <span data-env="dev">0x8FffFDc2B2657413d1114D804F42159B8f084951</span><br>
           <b>Token Decimal:</b><br>
           18<br>
@@ -643,7 +672,7 @@
           Abre tu billetera y busca la opción “Importar token” o “Agregar token ERC20 personalizado”.
           Para la información requerida: <br>
           <b>Dirección del contrato de token:</b><br>
-          <span data-env="prod"> - </span>
+          <span data-env="prod"> 0xBF3089759edC8152ADE63270f98546fCdd71D34e </span>
           <span data-env="dev">0x8FffFDc2B2657413d1114D804F42159B8f084951</span><br>
           <b>Decimales del Token:</b><br>
           18<br>
@@ -707,29 +736,108 @@
         </button>
       </form>
     </dialog>
-    <dialog id="dialogWelcomeUtonoma">
-      <h3 style="font: var(--headline1);">
+    <dialog id="dialogWelcomeUtonoma" style="padding-bottom: 10dvh;">
+      <h3>
         <span lang="en">Welcome to Utonoma.</span>
         <span lang="es">Bienvenido(a) a Utonoma.</span>
       </h3>
       <p style="font: var(--headline6)">
         <span lang="en">
-          This is our first public release, and it’s already fully functional.
-          We’re continuously improving the visual experience 
-          to offer you an increasingly complete platform. <br>
-          Thank you for being among the first people to use this project. ❤️
+          <b>Create</b> content that helps others or showcases your good actions and receive rewards 
+          through the likes you earn. But be careful: you can also receive dislikes.<br><br>
+          <b>Vote</b> and reward your favorite creators by liking their posts. If you don’t like 
+          something, you can give it a dislike. When a piece of content receives too many 
+          dislikes, it is removed from the platform.<br><br>
+          <b>Hold.</b> By holding the Utonoma token, you help make creators’ rewards more valuable.<br><br>
+          Everything runs on blockchain. Explore, participate, and be 
+          among the first to use Utonoma.
         </span>
         <span lang="es">
-          Esta es nuestra primera versión pública y ya es completamente funcional.
-          Seguimos mejorando la experiencia visual para ofrecerte una plataforma 
-          cada vez más completa. <br>
-          Gracias por ser parte de las primeras personas en usar este proyecto. ❤️
+          <b>Crea</b> contenido donde ayudes a otros o muestres tus buenos actos y recibe recompensas 
+          por los likes que obtengas. Pero cuidado: también puedes recibir dislikes.<br><br>
+          <b>Vota</b> y recompensa a tus creadores favoritos dando like a sus publicaciones. 
+          Si algo no te gusta, puedes darle dislike. Cuando un contenido recibe demasiados 
+          dislikes, se elimina de la plataforma.<br><br>
+          <b>Holdea.</b> Al mantener el token de Utonoma, ayudas a que las recompensas de los creadores 
+          se vuelvan más valiosas.<br><br>
+          Todo funciona sobre blockchain. Explora, participa y sé parte de las primeras personas en usar Utonoma.<br>
         </span>
       </p>
       <button id="buttonDialogCloseWelcomeUtonoma">
         <span lang="en">Close</span>
         <span lang="es">Cerrar</span>
       </button>
+    </dialog>
+    <dialog id="dialogGetNomax">
+      <h3>
+        <span lang="en">Get Nomax.</span>
+        <span lang="es">Obtén Nomax.</span>
+      </h3>
+      <p style="font: var(--headline6)">
+        <span lang="en">
+          We’re giving <b>Nomax</b> to early users to try Utonoma.<br>
+          <b>Nomax</b> is used for likes and dislikes (publishing is free).<br>
+          Join our
+          <a href="https://t.me/+XwSV237xquBhZGRh" target="_blank">official Telegram</a> 
+          and ask for early access so we can transfer you a small amount.
+        </span>
+        <span lang="es">
+          Estamos regalando <b>Nomax</b> a nuestros primeros usuarios para probar Utonoma.<br>
+          <b>Nomax</b> se usa para dar like y dislike (publicar es gratis).<br>
+          Únete a nuestro 
+          <a href="https://t.me/+XwSV237xquBhZGRh" target="_blank">Telegram oficial</a> 
+          y pregunta por el acceso anticipado para transferirte un poco.
+        </span>
+      </p>
+      <p style="font: var(--headline6)">
+        <span lang="en"><b>Note:</b> Transactions require a small amount of AVAX for network fees.</span>
+        <span lang="es"><b>Nota:</b> las transacciones requieren una pequeña cantidad de AVAX para comisiones de red.</span>
+      </p>
+      <button id="buttonDialogCloseGetNomax">
+        <span lang="en">Close</span>
+        <span lang="es">Cerrar</span>
+      </button>
+    </dialog>
+    <dialog id="dialogVotingTutorial" style="padding-bottom: 5dvh;">
+      <form method="dialog">
+        <h3>
+          <span lang="en">Votes on Utonoma</span>
+          <span lang="es">Votos en Utonoma</span>
+        </h3>
+        <p style="font: var(--headline6); margin-bottom: 0;">
+          <span lang="en">
+            In Utonoma, giving a like or dislike has a small cost in Nomax. <br>
+            This is what allows the platform to work better.<br><br>
+            <b>What are the benefits of this?</b> <br><br>
+            <b>Reward your favorite creators</b> <br>
+            Each like directly supports, with cryptocurrency, the person who created the content. <br><br>
+            🧠 <b>More thoughtful votes</b> <br>
+            Because there is a cost, likes and dislikes are given with intention, not on impulse. <br><br>
+            🚫 <b>Prevents self-likes and spam</b> <br>
+            It’s not worth inflating your own posts with likes: you would spend more than you earn. <br><br>
+            🧹 <b>Better content for everyone</b> <br>
+            Dislikes help filter out negative content, while likes push valuable content forward.
+          </span>
+          <span lang="es">
+            En Utonoma, dar like o dislike tiene un pequeño costo en Nomax. <br>
+            Esto es lo que permite que la plataforma funcione mejor.<br><br>
+            <b>¿Qué ventajas tiene esto?</b> <br><br>
+            <b>Recompensas a tus creadores favoritos</b> <br>
+            Cada like apoya directamente, con criptomonedas, a quien creó el contenido. <br><br>
+            🧠 <b>Votos más reflexionados</b> <br>
+            Al tener un costo, los likes y dislikes se dan con intención, no por impulso. <br><br>
+            🚫 <b>Evita el auto-like y el spam</b> <br>
+            No conviene inflar tus propias publicaciones con likes: gastarías más de lo que ganarías. <br><br>
+            🧹 <b>Mejor contenido para todos</b> <br>
+            Los dislikes ayudan a depurar contenido negativo, mientras que los likes impulsan el contenido valioso.
+          </span>
+          <span id="spanCurrentFee">-</span>
+        </p>
+        <button id="confirmButton" value="confirm">
+          <span lang="en">Understood</span>
+          <span lang="es">Entendido</span>
+        </button>
+      </form>
     </dialog>
   </div>
 </body>

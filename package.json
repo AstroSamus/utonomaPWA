@@ -7,6 +7,7 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "build": "webpack --config webpack.prod.cjs",
+    "build-demo": "webpack --config webpack.dev.cjs",
     "start": "webpack serve --open --config webpack.dev.cjs"
   },
   "jest": {

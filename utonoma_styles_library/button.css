@@ -3,7 +3,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;      
+  align-items: center;     
+  background-color: transparent;
+  border: none; 
 }
 
 .Button--horizontalText {
@@ -12,6 +14,8 @@
   border: none;
   display: flex;
   padding: 0;
+  background-color: transparent;
+  border: none;
 }
 
 .Button--textBetweenTwoIcons {
@@ -25,7 +29,8 @@
   padding: 14px 18px;
   max-width: 23rem;
   width: 100%;
-  flex-wrap: nowrap
+  flex-wrap: nowrap;
+  background-color: transparent;
 }
 
 .Button--textBetweenTwoIcons > div {
@@ -44,6 +49,4 @@
 
 button {
   cursor: pointer;
-  background-color: transparent;
-  border: none;
 }

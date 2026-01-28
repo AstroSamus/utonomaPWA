@@ -1,7 +1,9 @@
 dialog {
   position: fixed;
-  top: 5%;
+  top: 2%;
   left: 50%;
   transform: translateX(-50%);
   min-width: 60vw;
+  max-width: 90vw;
+  max-height: 80dvh;
 }

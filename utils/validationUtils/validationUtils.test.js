@@ -5,7 +5,7 @@ import {
 } from "./validationUtils.js"
 
 describe('validateVideoDuration', () => {
-  document.body.innerHTML = '<video id="videoTag"> </video>'
+  document.body.textContent = '<video id="videoTag"> </video>'
   const $videoTag = document.querySelector('#videoTag')
 
   test('when not receiving a File object in the file parameter should throw an error', async() => {

@@ -5,6 +5,8 @@ const $buttonDisconnectWallet = document.querySelector('#buttonDisconnectWallet'
 const $buttonAddTokenToWallet = document.querySelector('#buttonAddTokenToWallet')
 const $buttonDialogCloseSendTokens = document.querySelector('#buttonDialogCloseSendTokens')
 const $buttonBuySellTokens = document.querySelector('#buttonBuySellTokens')
+const $dialogGetNomax = document.querySelector('#dialogGetNomax')
+const $buttonDialogCloseGetNomax = document.getElementById('buttonDialogCloseGetNomax')
 
 $buttonDisconnectWallet.addEventListener('click', async () => {
   $buttonDisconnectWallet.disabled = true
@@ -25,11 +27,18 @@ $buttonDialogCloseSendTokens.addEventListener('click', () => {
   $dialogAddTokenManually.close()
 })
 
+$buttonDialogCloseGetNomax.addEventListener('click', () => {
+  $dialogGetNomax.close()
+})
+
 $buttonBuySellTokens.addEventListener('click', async () => {
   //const { dexLink } = await import('../../../utonomaSmartContract.js')
   const { isDevEnvironment } = await import('config.env')
   if (isDevEnvironment) {
     alert('Contact us to request test NOMAX tokens for development purposes.')
+    $dialogGetNomax.showModal()
+  } else {
+    $dialogGetNomax.showModal()
   }
   //window.location.href = dexLink
 })

@@ -31,6 +31,7 @@ export const GenericModal = ($container) => {
       return new Promise((resolve) => {
         if(state.isDialogVisible) {
           $dialog.showModal()
+          $dialog.scrollTop = 0 //scrolls to the top of the content
           $dialog.addEventListener('close', function onClose() {
             if($dialog.returnValue === 'confirm') {
               resolve(true)
