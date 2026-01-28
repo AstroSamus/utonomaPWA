@@ -741,32 +741,58 @@
         <span lang="en">Welcome to Utonoma.</span>
         <span lang="es">Bienvenido(a) a Utonoma.</span>
       </h3>
-      <p style="font: var(--headline6)">
-        <span lang="en">
-          <b>Create</b> content that helps others or showcases your good actions and receive rewards 
-          through the likes you earn. But be careful: you can also receive dislikes.<br><br>
-          <b>Vote</b> and reward your favorite creators by liking their posts. If you don’t like 
-          something, you can give it a dislike. When a piece of content receives too many 
-          dislikes, it is removed from the platform.<br><br>
-          <b>Hold.</b> By holding the Utonoma token, you help make creators’ rewards more valuable.<br><br>
-          Everything runs on blockchain. Explore, participate, and be 
-          among the first to use Utonoma.
-        </span>
-        <span lang="es">
-          <b>Crea</b> contenido donde ayudes a otros o muestres tus buenos actos y recibe recompensas 
-          por los likes que obtengas. Pero cuidado: también puedes recibir dislikes.<br><br>
-          <b>Vota</b> y recompensa a tus creadores favoritos dando like a sus publicaciones. 
-          Si algo no te gusta, puedes darle dislike. Cuando un contenido recibe demasiados 
-          dislikes, se elimina de la plataforma.<br><br>
-          <b>Holdea.</b> Al mantener el token de Utonoma, ayudas a que las recompensas de los creadores 
-          se vuelvan más valiosas.<br><br>
-          Todo funciona sobre blockchain. Explora, participa y sé parte de las primeras personas en usar Utonoma.<br>
-        </span>
-      </p>
-      <button id="buttonDialogCloseWelcomeUtonoma">
-        <span lang="en">Close</span>
-        <span lang="es">Cerrar</span>
-      </button>
+      <div style="font: var(--headline6)">
+        <p id="dialogWelcomeUtonomaParagraphCreate" style="display: none;">
+          <span lang="en">
+            <b>Create</b> content that helps others or showcases your good actions and receive rewards 
+            through the likes you earn. But be careful: you can also receive dislikes.
+          </span>
+          <span lang="es">
+            <b>Crea</b> contenido donde ayudes a otros o muestres tus buenos actos y recibe recompensas 
+            por los likes que obtengas. Pero cuidado: también puedes recibir dislikes.
+          </span>
+        </p>
+        <p id="dialogWelcomeUtonomaParagraphVote" style="display: none;">
+          <span lang="en">
+            <b>Vote</b> and reward your favorite creators by liking their posts. If you don’t like 
+            something, you can give it a dislike. When a piece of content receives too many 
+            dislikes, it is removed from the platform.
+          </span>
+          <span lang="es">
+            <b>Vota</b> y recompensa a tus creadores favoritos dando like a sus publicaciones. 
+            Si algo no te gusta, puedes darle dislike. Cuando un contenido recibe demasiados 
+            dislikes, se elimina de la plataforma.
+          </span>
+        </p>
+        <p id="dialogWelcomeUtonomaParagraphHold" style="display: none;">
+          <span lang="en">
+              <b>Hold.</b> By holding the Utonoma token, you help make creators’ rewards more valuable.<br>
+              Everything runs on blockchain. Explore, participate, and be 
+              among the first to use Utonoma.
+            </span>
+          <span lang="es">
+            <b>Holdea.</b> Al mantener el token de Utonoma, ayudas a que las recompensas de los creadores 
+            se vuelvan más valiosas.<br>
+            Todo funciona sobre blockchain. Explora, participa y sé parte de las primeras personas en usar Utonoma.
+          </span>
+        </p>
+      </div>
+      <div style="display: flex; 
+        justify-content: end;
+        gap: 12px">
+        <button id="buttonDialogBackWelcomeUtonoma">
+          <span lang="en">Back</span>
+          <span lang="es">Atrás</span>
+        </button>
+        <button id="buttonDialogNextWelcomeUtonoma">
+          <span lang="en">Next</span>
+          <span lang="es">Siguiente</span>
+        </button>
+        <button id="buttonDialogCloseWelcomeUtonoma">
+          <span lang="en">Close</span>
+          <span lang="es">Cerrar</span>
+        </button>
+      </div>
     </dialog>
     <dialog id="dialogGetNomax">
       <h3>

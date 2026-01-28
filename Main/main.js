@@ -25,7 +25,8 @@ $buttonTouchToStart.addEventListener('click', async () => {
   await import('../components/ShortVideoReel/ShortVideoReel.js')
 })
 
-$buttonHowItWorks.addEventListener('click', () => {
+$buttonHowItWorks.addEventListener('click', async () => {
+  await import('../components/modals/WelcomeTutorial/WelcomeTutorial.js')
   $dialogWelcomeUtonoma.showModal()
   //Scrolling to top of the modal
   $dialogWelcomeUtonoma.scrollTop = 0
