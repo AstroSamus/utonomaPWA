@@ -1,1 +1,1 @@
-console.log('hello')
+import '../utonoma-styles-library/globals.css';
