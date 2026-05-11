@@ -1,0 +1,12 @@
+/*fonts*/
+@font-face {
+  font-family: 'NotoSans';
+  src: url('/assets/fonts/noto-sans-variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --base-font-family: 'NotoSans', system-ui, sans-serif;
+}
