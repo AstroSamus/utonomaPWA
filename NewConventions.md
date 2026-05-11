@@ -3,6 +3,11 @@
 
 Fonts are a critical part of the initial loading performance of the application. Poorly optimized fonts can significantly increase the amount of downloaded resources and negatively impact Core Web Vitals.
 
+### Naming Conventions
+
+- **Use kebab-case for CSS variables.**  
+  Kebab-case is the standard naming convention for CSS properties, such as `background-color`, `font-family`, and `border-radius`. CSS custom properties should follow the same convention for consistency and readability.
+
 ### Variable Fonts
 
 Prefer using **variable fonts** whenever possible.
