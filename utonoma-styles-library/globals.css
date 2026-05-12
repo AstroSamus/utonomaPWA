@@ -9,4 +9,20 @@
 
 :root {
   --base-font-family: 'NotoSans', system-ui, sans-serif;
+  --cyber-yellow: #fdd30f;
+  --pirate-black: #383838;
+  --electric-blue-lemonade: #0063b1;
+  --vibrant-orange: #FF7420;
+  --snow: #fffafa;
+  --headline-1: normal 700 3.8rem/1.1 var(--base-font-family);
+  --headline-2: normal 700 3rem/1.1 var(--base-font-family);
+  --headline-3: normal 700 2.4rem/1.1 var(--base-font-family);
+  --headline-4: normal 500 2rem/1.1 var(--base-font-family);
+  --headline-5: normal 700 1.5rem/1.1 var(--base-font-family);
+  --headline-6: normal 700 1.2rem/1.1 var(--base-font-family);
+  --paragraph-xxl: normal 400 3.8rem/1.1 var(--base-font-family);
+  --paragraph-large: normal 400 1.5rem/1.1 var(--base-font-family);
+  --paragraph: normal 400 1rem/1.6 var(--base-font-family);
+  --small: normal 500 0.8rem/1.1 var(--base-font-family);
+  --ui-text: normal 500 1rem/1.4 var(--base-font-family);
 }
