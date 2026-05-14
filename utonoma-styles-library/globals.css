@@ -26,3 +26,18 @@
   --small: normal 500 0.8rem/1.1 var(--base-font-family);
   --ui-text: normal 500 1rem/1.4 var(--base-font-family);
 }
+
+/*Start of selectors for multilingual support*/ 
+body [lang=en], 
+body [lang=es] {
+  display: none;
+}
+
+.spanishLang [lang=es] {
+  display: inline;
+}
+
+.englishLang [lang=en] {
+  display: inline;
+}
+/*End of selectors for multilingual support*/

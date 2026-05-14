@@ -18,47 +18,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Upload to Utonoma</title>
   <link rel="preload" href="/assets/fonts/noto-sans-variable-subset.woff2" as="font" type="font/woff2" crossorigin>
-  <!--Inline the critical css in the following style tag--> 
-  <style type="text/css">
-    :root {
-      --cyberYellow: #fdd30f;
-      --pirateBlack: #383838;
-      --electricBlueLemonade: #0063b1;
-      --vibrantOrange: #FF7420;
-      --snow: #fffafa;
-      --baseFontFamily: NotoSans, sans-serif, Helvetica;
-      --headline1: normal 3rem/100% var(--baseFontFamily);
-      --headline6: normal 1.19rem/normal var(--baseFontFamily);
-    }
-
-    /*Start of selectors for multilingual support*/ 
-    body [lang=en], 
-    body [lang=es] {
-      display: none;
-    }
-
-    .spanishLang [lang=es] {
-      display: inline;
-    }
-
-    .englishLang [lang=en] {
-      display: inline;
-    }
-    /*End of selectors for multilingual support*/
-
-    body {
-      background-color: var(--pirateBlack);
-      color: var(--snow);
-      font-family: var(--baseFontFamily);
-      margin: 0;
-    }
-
-    @media screen and (min-width: 700px) {
-
-    }
-  </style>
 </head>
 <body>
-
+  <h1 style="font: var(--headline-1)">
+    <span lang="en">Exploring the mysteries of Atlantis</span>
+    <span lang="es">Explorando los misterios de Atlantis</span>
+  </h1>
 </body>
 </html>
