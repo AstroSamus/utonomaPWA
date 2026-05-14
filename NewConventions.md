@@ -63,4 +63,4 @@ A good strategy is to:
 
 You can generate optimized subsets using:
 
-[Font Squirrel Webfont Generator](https://www.fontsquirrel.com/tools/webfont-generator?utm_source=chatgpt.com)
+[Font subsetter online tool](https://font-converters.com/tools/font-subsetter)
