@@ -1,1 +1,1 @@
-import '../utonoma-styles-library/globals.css';
+import '../utonoma-styles-library/globals.css'
