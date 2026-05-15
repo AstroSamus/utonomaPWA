@@ -12,7 +12,7 @@
 
 .collapsible p {
   font: var(--paragraph);
-  margin: 0;
+  margin: 8px 0 0 0;
 }
 
 .collapsible summary::marker {
@@ -23,6 +23,10 @@
   margin-left: auto;
   margin-right: 8px;
   height: 1rem;
+}
+
+.collapsible details svg {
+  transition: transform 1s ease;
 }
 
 .collapsible details:not([open]) svg {
