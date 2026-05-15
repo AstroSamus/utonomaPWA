@@ -11,3 +11,7 @@
 .upload-content > .scrollable-stepper-menu {
   flex: 1 1 auto
 }
+
+.upload-content .collapsible {
+  margin: 26px 16px 26px 16px;
+}
