@@ -1,0 +1,88 @@
+.collapsible-gallery {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.collapsible-gallery > :first-child {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.collapsible-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  animation: opacityLoop 1s ease-in-out;
+}
+
+@keyframes opacityLoop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.collapsible-gallery--img-1, 
+.collapsible-gallery--img-2,
+.collapsible-gallery--img-3,
+.collapsible-gallery--img-4,
+.collapsible-gallery--img-5,
+.collapsible-gallery--img-6,
+.collapsible-gallery--img-7,
+.collapsible-gallery--img-8,
+.collapsible-gallery--img-9,
+.collapsible-gallery--img-10 {
+  display: none;
+}
+
+/*Default image is 1*/
+.collapsible-gallery:not(:has(details[open])) .collapsible-gallery--img-1 {
+  display: block;
+}
+
+.collapsible-gallery:has(.collapsible-gallery__details-1[open]) .collapsible-gallery--img-1 {
+  display: block;
+}
+
+.collapsible-gallery:has(.collapsible-gallery__details-2[open]) .collapsible-gallery--img-2 {
+  display: block;
+}
+
+.collapsible-gallery:has(.collapsible-gallery__details-3[open]) .collapsible-gallery--img-3 {
+  display: block;
+}
+
+.collapsible-gallery:has(.collapsible-gallery__details-4[open]) .collapsible-gallery--img-4 {
+  display: block;
+}
+.collapsible-gallery:has(.collapsible-gallery__details-5[open]) .collapsible-gallery--img-5 {
+  display: block;
+}
+.collapsible-gallery:has(.collapsible-gallery__details-6[open]) .collapsible-gallery--img-6 {
+  display: block;
+}
+.collapsible-gallery:has(.collapsible-gallery__details-7[open]) .collapsible-gallery--img-7 {
+  display: block;
+}
+.collapsible-gallery:has(.collapsible-gallery__details-8[open]) .collapsible-gallery--img-8 {
+  display: block;
+}
+.collapsible-gallery:has(.collapsible-gallery__details-9[open]) .collapsible-gallery--img-9 {
+  display: block;
+}
+.collapsible-gallery:has(.collapsible-gallery__details-10[open]) .collapsible-gallery--img-10 {
+  display: block;
+}
+
+
+
+details::details-content {
+  transition: height 0.5s ease, content-visibility 0.5s ease allow-discrete;
+  height: 0;
+  overflow: clip;
+}
+
+details[open]::details-content {
+  opacity: 1;
+  height:auto;
+}
