@@ -98,3 +98,16 @@ body {
   display: flex;
   flex-direction: column;
 }
+```
+
+### Create Clean HTML by Minimizing CSS Classes Inside Components
+Prefer using a single class name on the root container of a component and rely on CSS selectors to target its child elements whenever possible.
+This approach may require more advanced selectors such as `:first-child`, `:last-child`, `:nth-child()`, or nested selectors, but it helps keep the HTML structure cleaner and easier to read by reducing unnecessary class names on internal elements.
+Avoid adding class names to every nested element unless they represent reusable subcomponents, semantic elements, or states that require explicit identification.
+
+### Use BEM for Nested Elements in Reusable Components
+When creating reusable HTML/CSS components, use the BEM naming convention to avoid naming collisions and improve readability and maintainability.
+Use the following structure:
+```css
+.component-name__inner-element--optional-variant
+```
