@@ -1,0 +1,30 @@
+.swipe-indicator{
+  text-align:center;
+  animation: swipePulse 1.2s ease-in-out infinite;
+}
+
+.swipe-indicator > div {
+  font: var(--small);
+}
+
+.swipe-indicator > svg {
+  height:2.5rem;
+  transform: rotate(90deg);
+  color: var(--cyber-yellow);
+}
+
+@keyframes swipePulse {
+  0% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.35;
+  }
+
+}
+
