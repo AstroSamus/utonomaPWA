@@ -14,7 +14,7 @@
   --electric-blue-lemonade: #0063b1;
   --vibrant-orange: #FF7420;
   --snow: #fffafa;
-  --headline-1: normal 700 3.8rem/1.1 var(--base-font-family);
+  --headline-1: normal 700 3rem/1.1 var(--base-font-family);
   --headline-2: normal 700 3rem/1.1 var(--base-font-family);
   --headline-3: normal 700 2.4rem/1.1 var(--base-font-family);
   --headline-4: normal 400 2rem/1.1 var(--base-font-family);
@@ -25,6 +25,7 @@
   --paragraph: normal 400 1rem/1.6 var(--base-font-family);
   --small: normal 500 0.8rem/1.1 var(--base-font-family);
   --ui-text: normal 500 1rem/1.4 var(--base-font-family);
+  interpolate-size: allow-keywords; 
 }
 
 /*Start of selectors for multilingual support*/ 
@@ -44,6 +45,8 @@ body [lang=es] {
 
 body {
   margin: 0;
+  color: var(--pirate-black);
+  background-color: var(--snow);
 }
 
 @media screen and (min-width: 700px) {
