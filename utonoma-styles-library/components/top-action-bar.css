@@ -1,0 +1,22 @@
+.top-action-bar {
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  background: var(--pirate-black);
+}
+
+.top-action-bar > button {
+  margin: 12px 16px;
+  color: var(--snow);
+  background-color: var(--pirate-black);
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--headline-4)
+}
+
+.top-action-bar > button > svg {
+  height: 1.5rem;
+  width: auto;
+}
