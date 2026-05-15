@@ -17,7 +17,7 @@
   --headline-1: normal 700 3.8rem/1.1 var(--base-font-family);
   --headline-2: normal 700 3rem/1.1 var(--base-font-family);
   --headline-3: normal 700 2.4rem/1.1 var(--base-font-family);
-  --headline-4: normal 500 2rem/1.1 var(--base-font-family);
+  --headline-4: normal 400 2rem/1.1 var(--base-font-family);
   --headline-5: normal 700 1.5rem/1.1 var(--base-font-family);
   --headline-6: normal 700 1.2rem/1.1 var(--base-font-family);
   --paragraph-xxl: normal 400 3.8rem/1.1 var(--base-font-family);
@@ -41,3 +41,11 @@ body [lang=es] {
   display: inline;
 }
 /*End of selectors for multilingual support*/
+
+body {
+  margin: 0;
+}
+
+@media screen and (min-width: 700px) {
+
+}
