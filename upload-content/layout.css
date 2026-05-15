@@ -1,0 +1,13 @@
+.upload-content.container {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.upload-content > .top-action-bar {
+  flex: 0 0 auto;
+}
+
+.upload-content > .scrollable-stepper-menu {
+  flex: 1 1 auto
+}
