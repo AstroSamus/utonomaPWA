@@ -76,3 +76,25 @@ However, there is one important exception:
 
 **Prefer using an `<img>` tag when the SVG is a critical static asset that benefits from browser caching**, especially assets used during the First Contentful Paint (FCP), such as logos or large illustrations. Loading SVGs through `<img>` allows the browser to cache the asset independently and avoid duplicating the SVG markup in the HTML document.
 
+### Use Semantically Correct HTML Elements (`main`, `nav`, `footer`, etc.)
+
+When building the general page layout, prefer semantically meaningful HTML elements instead of generic `<div>` containers whenever possible.
+Use elements such as:
+- `<main>`
+- `<header>`
+- `<nav>`
+- `<footer>`
+- `<section>`
+- `<article>`
+- `<aside>`
+These elements help describe the purpose and structure of the content, improving readability, accessibility, maintainability, and SEO.
+Avoid using `<div>` elements when a semantic alternative better represents the role of the content.
+
+### Use `<body>` as the Main Page Container
+Prefer using the `<body>` element as the primary layout container for the page instead of wrapping the entire application inside an additional root `<div>`.
+For example, it is valid to apply layout styles such as Flexbox directly to the `<body>` element:
+```css
+body {
+  display: flex;
+  flex-direction: column;
+}
