@@ -64,3 +64,15 @@ A good strategy is to:
 You can generate optimized subsets using:
 
 [Font subsetter online tool](https://font-converters.com/tools/font-subsetter)
+----
+## HTML
+
+### Prefer `<svg>` Tags Over `<img>` for SVG Content
+Always prefer inline `<svg>` tags when inserting SVG content. This approach allows us to easily animate SVG elements and add interactivity through CSS or JavaScript. Inline SVGs also let us modify properties such as `fill`, `stroke`, `opacity`, and transformations directly from CSS.
+
+When using an `<img>` tag to load an SVG file, the SVG is treated as an external image document. Because of this, we cannot directly style or manipulate its internal elements.
+
+However, there is one important exception:
+
+**Prefer using an `<img>` tag when the SVG is a critical static asset that benefits from browser caching**, especially assets used during the First Contentful Paint (FCP), such as logos or large illustrations. Loading SVGs through `<img>` allows the browser to cache the asset independently and avoid duplicating the SVG markup in the HTML document.
+
