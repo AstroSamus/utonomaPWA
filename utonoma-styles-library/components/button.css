@@ -1,0 +1,24 @@
+.button{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.button--secondary {
+  font: var(--paragraph-large);
+  padding: 16px;
+}
+
+.button--warning {
+  background-color: var(--pirate-black);
+  color: var(--snow);
+}
+
+.button--warning-highlight {
+  background-color: var(--pirate-black);
+  color: var(--vibrant-orange);
+}
