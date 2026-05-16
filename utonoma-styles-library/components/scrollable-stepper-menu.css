@@ -10,9 +10,8 @@
   overscroll-behavior-y: contain;
 }
 
-.scrollable-stepper-menu > * {
+.scrollable-stepper-menu > div {
   height: 100%;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  background-color: blue
 }
