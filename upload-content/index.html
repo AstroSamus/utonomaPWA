@@ -118,7 +118,7 @@
       </div>
     </div>
     </div>
-<dialog class="dialog dialog--warning dialog--decision">
+    <dialog  class="dialog">
       <div>
         <span lang="en">WARNING</span>
         <span lang="es">CUIDADO</span>
@@ -128,12 +128,13 @@
           You need to login using a crypto wallet to upload content to Utonoma.
         </p>
       </div>
-      <div>
+      <form method="dialog">
         <button
           data-id="button-cancel"
           class="button 
           button--secondary 
           button--warning"
+          value="cancel"
         >
           <span lang="en">Login</span>
           <span lang="es">Login</span>
@@ -143,11 +144,12 @@ data-id="button-accept"
           class="button 
 button--secondary 
           button--warning-highlight" 
+          value="accept"
         >
           <span lang="en">Sign Up</span>
           <span lang="es">Sign Up</span>
         </button>
-</div>
+      </form>
     </dialog>
   </main>
 </body>
