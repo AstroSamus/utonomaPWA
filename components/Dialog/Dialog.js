@@ -1,5 +1,5 @@
 export const Dialog = ($dialog, props, variant) => {
-
+  
   const $buttonAccept = $dialog.querySelector('[data-id="button-accept"]')
   const $buttonCancel = $dialog.querySelector('[data-id="button-cancel"]')
 
@@ -30,18 +30,18 @@ export const Dialog = ($dialog, props, variant) => {
       return new Promise((resolve) => {
         $dialog.addEventListener('close', () => {
           if($dialog.returnValue === 'accept') {
-          resolve(true)
+            resolve(true)
           } else {
-          resolve(false)
+            resolve(false)
           }
           $dialog.close()
         }, { once: true })
       })
     },
     toast: (miliseconds) => {
-      $container.showModal()
+      $dialog.showModal()
       setTimeout(() => {
-        $container.close()
+        $dialog.close()
       }, miliseconds)
     }
   }
