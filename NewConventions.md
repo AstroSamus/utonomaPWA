@@ -76,6 +76,16 @@ However, there is one important exception:
 
 **Prefer using an `<img>` tag when the SVG is a critical static asset that benefits from browser caching**, especially assets used during the First Contentful Paint (FCP), such as logos or large illustrations. Loading SVGs through `<img>` allows the browser to cache the asset independently and avoid duplicating the SVG markup in the HTML document.
 
+### Name ids of the components in kebab case
+All the html uses kebab case because this is consistent with the css class names
+
+### Use custom data attributes to identify inner elements of reusable components instead of ids.
+If you have a reusable component with a button inside and you want to get that button, you cannot put an id in the html element and reference it later because you'll end up with multiple same ids. Instead you can use custom data attributes to identify it, like data-element="button-accept" and you can have a selector like [data-element="button-accept"]
+
+### Use ids to identify unique elements in the html
+This way you can do getElementById without risk of naming colision, and you can do getElementById from js with the incresed performance that this implies.
+
+
 ### Use Semantically Correct HTML Elements (`main`, `nav`, `footer`, etc.)
 
 When building the general page layout, prefer semantically meaningful HTML elements instead of generic `<div>` containers whenever possible.
