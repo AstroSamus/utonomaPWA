@@ -1,0 +1,41 @@
+.dialog{
+  padding: 0;
+  border: 0;
+  margin: auto 24px;
+  background: transparent;
+}
+
+.dialog div:first-child {
+  font: var(--headline-4); 
+  padding: 12px 16px;
+}
+
+
+/*dialog warning */
+.dialog--warning div:first-child {
+  color: var(--pirate-black);
+  background-color: var(--vibrant-orange)
+}
+
+.dialog--warning div:nth-child(2) {
+  background-color: var(--snow);
+  padding: 12px 16px;
+  margin: 2px 0;
+  background-color: var(--pirate-black);
+  color: var(--snow);
+  font: var(--paragraph);
+}
+
+.dialog--warning div:last-child {
+  display: flex; 
+  gap: 2px;
+}
+
+.dialog--warning p {
+  margin: 0;
+}
+
+/*dialog decision*/
+.dialog--decision button {
+  flex: 1 1 0;
+}

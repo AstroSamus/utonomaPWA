@@ -118,13 +118,37 @@
       </div>
     </div>
     </div>
+<dialog class="dialog dialog--warning dialog--decision">
+      <div>
+        <span lang="en">WARNING</span>
+        <span lang="es">CUIDADO</span>
+      </div>
+      <div>
+        <p>
+          You need to login using a crypto wallet to upload content to Utonoma.
+        </p>
+      </div>
+      <div>
         <button
-          class="button button--secondary 
+          data-id="button-cancel"
+          class="button 
+          button--secondary 
+          button--warning"
+        >
+          <span lang="en">Login</span>
+          <span lang="es">Login</span>
+        </button>
+        <button
+data-id="button-accept"
+          class="button 
+button--secondary 
           button--warning-highlight" 
         >
           <span lang="en">Sign Up</span>
           <span lang="es">Sign Up</span>
         </button>
+</div>
+    </dialog>
   </main>
 </body>
 </html>
