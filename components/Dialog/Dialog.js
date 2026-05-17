@@ -1,7 +1,21 @@
-export const Dialog = ($container, {accepted, canceled}, variant) => {
+export const Dialog = ($dialog, props, variant) => {
 
-  const $buttonAccept = $container.querySelector('[data-id="button-accept"]')
-  const $buttonCancel = $container.querySelector('[data-id="button-cancel"]')
+  const $buttonAccept = $dialog.querySelector('[data-id="button-accept"]')
+  const $buttonCancel = $dialog.querySelector('[data-id="button-cancel"]')
+
+  switch (variant.severity) {
+    case 'WARNING':
+      $dialog.classList.add('dialog--warning', 'dialog--decision')
+      break;
+  }
+  switch (variant.intention) {
+    case 'DECISION' :
+      break
+    case 'ALERT' :
+      $buttonAccept.style.display = 'none'
+      break
+  }
+
 
   return {
     ask: () => {
