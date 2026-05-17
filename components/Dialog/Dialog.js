@@ -22,19 +22,20 @@ export const Dialog = ($dialog, props, variant) => {
       $dialog.showModal()
     },
     ask: () => {
-      $container.showModal()
-      const controller = new AbortController()
+      if(variant?.intention !== 'DECISION') {
+        throw new Error('Cannot use ask if dialog intention is not DECISION')
+      }
+
+      $dialog.showModal()
       return new Promise((resolve) => {
-        $buttonAccept.addEventListener('click', () => {
+        $dialog.addEventListener('close', () => {
+          if($dialog.returnValue === 'accept') {
           resolve(true)
-          controller.abort()
-          $container.close()
-        }, { signal: controller.signal })
-        $buttonCancel.addEventListener('click', () => {
+          } else {
           resolve(false)
-          controller.abort()
-          $container.close()
-        }, { signal: controller.signal })
+          }
+          $dialog.close()
+        }, { once: true })
       })
     },
     toast: (miliseconds) => {
