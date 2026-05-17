@@ -129,3 +129,10 @@ When you create a constant equal to a dom element always prefix it with $ so you
 
 ### querySelector vs getElementById to select elements
 getElementById is more performative than querySelector, but there is a problem with reusable components because you cannot have multiple equeal ids. In the reusable components you receive a $container and that container has no getElementById, as this method comes from the document object. Then we can use querySelector to select elements inside a component, this has almost no impact on performance because querySelector searches are limited to the subtree of the element in wich we are searching. So you can perfectly do $container.querySelector and have no noticeable performance impact vs getElementById
+
+## i18n
+
+### Runtime translations
+Sometimes, when creating components dynamically, you will also need to load their translations dynamically. While it is possible to store all translations in a single global translations file, this would force the application to load many unused translations.
+To avoid unnecessary overfetching, we created a `runtime` folder inside the `i18n` directory. This folder contains translations intended for runtime usage only.
+By loading these translation modules dynamically, components can fetch only the translations they need, without loading build-time translations or translations belonging to other pages.
