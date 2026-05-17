@@ -130,6 +130,23 @@ When you create a constant equal to a dom element always prefix it with $ so you
 ### querySelector vs getElementById to select elements
 getElementById is more performative than querySelector, but there is a problem with reusable components because you cannot have multiple equeal ids. In the reusable components you receive a $container and that container has no getElementById, as this method comes from the document object. Then we can use querySelector to select elements inside a component, this has almost no impact on performance because querySelector searches are limited to the subtree of the element in wich we are searching. So you can perfectly do $container.querySelector and have no noticeable performance impact vs getElementById
 
+Use jsDocs comments to document all your modules, this way you can be aware on what the methods expects and returns.
+
+### Use JSDoc comments to document your modules
+
+Use JSDoc comments to document all your modules. This improves code readability and allows editors such as VSCode to display method signatures, parameter descriptions, return types, and autocomplete suggestions directly in the editor.
+
+
+### Discretionary use of `@ts-check`
+
+You can add the following comment at the top of a JavaScript file to enable TypeScript type checking:
+```js
+// @ts-check
+```
+This allows TypeScript to detect type inconsistencies and potential runtime issues while still writing plain JavaScript.
+However, when working heavily with DOM elements, enabling strict type checking may require a large number of JSDoc type annotations and null validations throughout the codebase. In some situations, this additional overhead can slow down development significantly.
+Use `@ts-check` when the benefits of stronger type validation outweigh the extra development cost. A practical approach is to enable it temporarily while implementing or refactoring critical logic, and remove it afterward if maintaining all the required type annotations becomes too cumbersome for the project.
+
 ## i18n
 
 ### Runtime translations
