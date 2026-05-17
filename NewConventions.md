@@ -111,3 +111,11 @@ Use the following structure:
 ```css
 .component-name__inner-element--optional-variant
 ```
+
+## Javascript
+
+### Prefix $ in your constants for the html dom elements
+When you create a constant equal to a dom element always prefix it with $ so you can have a clear distiction between html elements and normal variables, youll have $container, $buttonNext, etcétera.
+
+### querySelector vs getElementById to select elements
+getElementById is more performative than querySelector, but there is a problem with reusable components because you cannot have multiple equeal ids. In the reusable components you receive a $container and that container has no getElementById, as this method comes from the document object. Then we can use querySelector to select elements inside a component, this has almost no impact on performance because querySelector searches are limited to the subtree of the element in wich we are searching. So you can perfectly do $container.querySelector and have no noticeable performance impact vs getElementById
