@@ -18,6 +18,9 @@ export const Dialog = ($dialog, props, variant) => {
 
 
   return {
+    alert: () => {
+      $dialog.showModal()
+    },
     ask: () => {
       $container.showModal()
       const controller = new AbortController()
