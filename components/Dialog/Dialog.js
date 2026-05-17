@@ -1,14 +1,28 @@
 export const Dialog = ($dialog, props, variant) => {
   
-  const $buttonAccept = $dialog.querySelector('[data-id="button-accept"]')
-  const $buttonCancel = $dialog.querySelector('[data-id="button-cancel"]')
+  const {
+    title,
+    text,
+    cancel,
+    accept
+  } = props
 
-  switch (variant.severity) {
+  const {
+    severity,
+    intention
+  } = variant
+
+  $dialog.querySelector('div:first-child').innerText = title
+  $dialog.querySelector('p').innerText = text
+  $dialog.querySelector('button:last-child').innerText = accept
+  $dialog.querySelector('button:first-child').innerText = cancel
+
+  switch (severity) {
     case 'WARNING':
       $dialog.classList.add('dialog--warning', 'dialog--decision')
       break;
   }
-  switch (variant.intention) {
+  switch (intention) {
     case 'DECISION' :
       break
     case 'ALERT' :
