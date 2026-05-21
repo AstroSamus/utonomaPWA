@@ -8,22 +8,38 @@ describe('validateVideoDuration', () => {
   document.body.textContent = '<video id="videoTag"> </video>'
   const $videoTag = document.querySelector('#videoTag')
 
-  test('when not receiving a File object in the file parameter should throw an error', async() => {
-    const errorMessage = 'invalid file object provided'
+  test('when not receiving a File object in the file parameter should return error', async() => {
+    const errorMessage = 'FILE_IS_NOT_A_VIDEO'
 
-    await expect(
-      validateVideoDuration($videoTag, { type: 'video/webm' }, 60)
-    ).rejects.toThrow(errorMessage)
+    const [error, data] = await validateVideoDuration($videoTag, null, 60, 500)
+
+    expect(error).toBe(errorMessage)
   })
 
-  test('when receiving a File object that its not it mp4 or webm formats should throw an error', async() => {
-    const errorMessage = 'Wrong video format'
+  test('when receiving a File object that its not a video should return error', async() => {
+    const errorMessage = 'FILE_IS_NOT_A_VIDEO'
 
-    await expect(
-      validateVideoDuration($videoTag, { type: 'video/quicktime' }, 60) //mock a video recorded from an iphone (.mov extension)
-    ).rejects.toThrow(errorMessage)
+    const [error, data] = await validateVideoDuration($videoTag, { type: 'image/jpeg' }, 60, 500)
+
+    expect(error).toBe(errorMessage)
   })
 
+  test('when receiving a File of 1GB and setting the limit to 500mb it will return an error', async() => {
+    const errorMessage = 'FILE_IS_TOO_BIG'
+
+    const [error, data] = await validateVideoDuration($videoTag, { 
+      type: 'video/mp4',
+      size: 1000 * 1024 * 1024
+    }, 60, 500)
+
+    expect(error).toBe(errorMessage)
+  })
+
+  test('when receving an invalid HTMLVideoElement as parameter should throw error', async() => {
+    await expect(
+      validateVideoDuration({invalid: 'videoHtml'}, { type: 'video/quicktime' }, 60, 500)
+    ).rejects.toThrow('Invalid video tag in validate video duration')
+  })
 })
 
 //shouldContentBeEliminated

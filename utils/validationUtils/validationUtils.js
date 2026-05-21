@@ -1,32 +1,53 @@
 /**
- * Validate if a video duration is longer than a certain amount of time
- * @param {object} $videoDomElement - A video tag in the dom where the video can be loaded (this 
- * element will be hidden from user)
- * @param {object} file - A File javascript object containing the video
- * @param {Number} maxDuration - The maximum time of seconds for the video to be considered valid
- * @returns {Promise} True if the video lasts less than the max duration time, false if it's longer
- * @throws {Error} If the html element provided in $videoDomElement is not a video tag, have no source 
- * or if the video its not in mp4 or webm formats. Also, in case that the File is not a video
+ * @typedef { 'UNSUPPORTED_VIDEO_FORMAT' | 'FILE_IS_NOT_A_VIDEO' | 'VIDEO_TOO_LONG' | 'FILE_IS_TOO_BIG' } VideoValidationError
  */
-export async function validateVideoDuration($videoDomElement, file, maxDuration) {
-  if(file.type !== 'video/mp4' && file.type !== 'video/webm') throw new Error('Wrong video format')
-  return new Promise((resolve) => {
+
+/** 
+ * Validate if a video duration is longer than a certain amount of time or size
+ * @param {HTMLVideoElement} $videoDomElement - A video tag in the dom where the video src can be loaded (this 
+ * element will be hidden from user)
+ * @param {File} file - A File javascript object containing the video
+ * @param {number} maxDuration - The maximum time of seconds for the video to be considered valid
+ * @param {number} maxSize - The maximum size of the video in MB
+ * @returns {Promise<[VideoValidationError|null, boolean|null]>} An error first tuple telling the error code 
+ * and a boolean true if succeded
+ * @throws {Error} If the html element provided in $videoDomElement.
+ */
+export async function validateVideoDuration(
+  $videoDomElement, 
+  file, 
+  maxDuration,
+  maxSize
+) {
+  //validate type
+  const isVideo = file?.type?.split('/')[0] === 'video'
+  if(!isVideo) return ['FILE_IS_NOT_A_VIDEO', false]
+  //validate size
+  if(file.size / 1024 / 1024 > maxSize ) {
+    return ['FILE_IS_TOO_BIG', false]
+  }
+
+  return new Promise((resolve, reject) => {
     var reader = new FileReader()
 
     reader.onload = function(e) {
-      if(!$videoDomElement.src) throw new Error('Invalid video tag')
       $videoDomElement.src = e.target.result
       $videoDomElement.load()
       $videoDomElement.onloadedmetadata = function() {
-        if(this.duration <= maxDuration) resolve(true) 
-        else resolve(false)
+        //validate duration
+        if(this.duration <= maxDuration) resolve([null, true]) 
+        else resolve(['VIDEO_TOO_LONG', false])
       }
     }
     try{
+      if(!$videoDomElement.src) throw new Error('Invalid video tag in validate video duration')
       reader.readAsDataURL(file);
     }
     catch(error) {
-      throw new Error('invalid file object provided')
+      if(error.message === 'Invalid video tag in validate video duration') {
+        reject(error)
+      }
+      else resolve(['UNSUPPORTED_VIDEO_FORMAT', false])
     }
   }) 
 }
