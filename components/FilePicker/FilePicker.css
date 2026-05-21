@@ -1,14 +1,14 @@
-.form__file--picker {
+.file-picker {
   flex: 0 0 auto;
   padding: 16px 16px 60px 16px;
 }
 
-.form__file--picker > label {
+.file-picker > label {
   margin: 0;
   font: var(--paragraph-xxl)
 }
 
-.form__file--picker > p {
+.file-picker > p {
   font: var(--paragraph-large);
   margin: 12px 0 16px 0
 }
