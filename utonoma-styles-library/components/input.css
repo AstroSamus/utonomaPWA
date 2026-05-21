@@ -10,6 +10,17 @@ input {
   padding: 16px;
   cursor: pointer;
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow: clip;
   white-space: nowrap;
+}
+
+.input--file:disabled {
+  cursor: wait;
+  animation: loading 1s infinite;
+}
+
+@keyframes loading {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.3; } 
 }
