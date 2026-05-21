@@ -76,6 +76,10 @@ However, there is one important exception:
 
 **Prefer using an `<img>` tag when the SVG is a critical static asset that benefits from browser caching**, especially assets used during the First Contentful Paint (FCP), such as logos or large illustrations. Loading SVGs through `<img>` allows the browser to cache the asset independently and avoid duplicating the SVG markup in the HTML document.
 
+### SVG with font color as fill color for logos
+In your SVG you can use fill="currentColor" as attribute so the logo can take the color of the text without extra work, this can help for future dark mode and simplifies the change of colors within the app.
+
+
 ### Name ids of the components in kebab case
 All the html uses kebab case because this is consistent with the css class names
 
