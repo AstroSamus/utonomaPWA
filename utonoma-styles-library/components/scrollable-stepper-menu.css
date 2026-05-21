@@ -30,3 +30,20 @@
   margin: 20px;
 }
 
+/*pick short video card*/
+.scrollable-stepper-menu__file-picker {
+  display: flex;
+  flex-direction:column;
+  height: 100%;
+}
+
+.scrollable-stepper-menu__file-picker > img {
+  min-height: 0px;
+  flex: 1 1 0;
+}
+
+.scrollable-stepper-menu__file-picker > form { 
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 16px 16px 60px 16px;
+}

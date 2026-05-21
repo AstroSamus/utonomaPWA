@@ -62,20 +62,20 @@
         </div>
         <div class="collapsible">
           <details class="collapsible-gallery__details-1" open name="services">
-          <summary>
-            <span>01.</span> 
-            This is a text
-            <svg viewBox="0 0 19 15">
-              <path d="M-9.53674e-06 -8.15946e-07L18.6667 0L9.33332 14.6667L-9.53674e-06 -8.15946e-07ZM4.86666 2.66667L9.33332 9.66667L13.8 2.66667L4.86666 2.66667Z" 
-                fill="currentColor"
-              />
-            </svg>
-          </summary>
-          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt less than 60 seconds et 
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-            exercitation ullamco.</p>
-        </details>
+            <summary>
+              <span>01.</span> 
+              This is a text
+              <svg viewBox="0 0 19 15">
+                <path d="M-9.53674e-06 -8.15946e-07L18.6667 0L9.33332 14.6667L-9.53674e-06 -8.15946e-07ZM4.86666 2.66667L9.33332 9.66667L13.8 2.66667L4.86666 2.66667Z" 
+                  fill="currentColor"
+                />
+              </svg>
+            </summary>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+              sed do eiusmod tempor incididunt less than 60 seconds et 
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+              exercitation ullamco.</p>
+          </details>
           <details class="collapsible-gallery__details-2" name="services">
             <summary>
               <span>02.</span>  
@@ -121,86 +121,61 @@
           fill="currentColor"/>
         </svg>
       </aside>
-        <div class="collapsible-gallery">
-          <div>
-            <img
-              class="collapsible-gallery--img-1"
-              src="assets/img/utnoma-pattern-background.jpg"
-              alt="Utonoma Pattern"
-            >
-            <img
-              class="collapsible-gallery--img-2"
-              src="https://cdn.create.vista.com/api/media/small/164859592/stock-photo-uppercase-pink-letter-n"
-              alt="Utonoma Pattern"
-            >
-          </div>
-          <div class="collapsible" style="flex: 0 0 auto;">
-            <details class="collapsible-gallery__details-1" open name="services">
-              <summary>
-                <span>01.</span> 
-                This is a text
-                <svg viewBox="0 0 19 15">
-                  <path d="M-9.53674e-06 -8.15946e-07L18.6667 0L9.33332 14.6667L-9.53674e-06 -8.15946e-07ZM4.86666 2.66667L9.33332 9.66667L13.8 2.66667L4.86666 2.66667Z" 
-                    fill="currentColor"
-                  />
-                </svg>
-              </summary>
-              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt less than 60 seconds et 
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                exercitation ullamco.</p>
-            </details>
-            <details class="collapsible-gallery__details-2" name="services">
-          <summary>
-            <span>02.</span>  
-            You will need Avad 
-          <svg viewBox="0 0 19 15">
-            <path d="M-9.53674e-06 -8.15946e-07L18.6667 0L9.33332 14.6667L-9.53674e-06 -8.15946e-07ZM4.86666 2.66667L9.33332 9.66667L13.8 2.66667L4.86666 2.66667Z" 
-              fill="currentColor"
-            />
-          </svg>
-          </summary>
-          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt less than 60 seconds et 
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-            exercitation ullamco.</p>
-        </details>
-      </div>
     </div>
-    </div>
-    <dialog  class="dialog">
-      <div>
-        <span lang="en">WARNING</span>
-        <span lang="es">CUIDADO</span>
-      </div>
-      <div>
+    <div class="scrollable-stepper-menu__file-picker">
+      <img
+        src="assets/img/creative-portal-1080.webp"
+        alt="Utonoma Pattern"
+      >
+      <form class="form__file--picker">
+        <label for="short-video-file-picker">
+          Pick a video of 60 seconds or less
+        </label>
         <p>
-          You need to login using a crypto wallet to upload content to Utonoma.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
-      </div>
-      <form method="dialog">
-        <button
-          data-id="button-cancel"
-          class="button 
-          button--secondary 
-          button--warning"
-          value="cancel"
+        <input
+          id="short-video-input"
+          type="file"
+          class="input--file"
+          accept="video/*"
         >
-          <span lang="en">Login</span>
-          <span lang="es">Login</span>
-        </button>
-        <button
-data-id="button-accept"
-          class="button 
-button--secondary 
-          button--warning-highlight" 
-          value="accept"
-        >
-          <span lang="en">Sign Up</span>
-          <span lang="es">Sign Up</span>
-        </button>
       </form>
-    </dialog>
+    </div>
   </main>
+  <dialog  class="dialog">
+    <div>
+      <span lang="en">WARNING</span>
+      <span lang="es">CUIDADO</span>
+    </div>
+    <div>
+      <p>
+        You need to login using a crypto wallet to upload content to Utonoma.
+      </p>
+    </div>
+    <form method="dialog">
+      <button
+        data-id="button-cancel"
+        class="button 
+        button--secondary 
+        button--warning"
+        value="cancel"
+      >
+        <span lang="en">Login</span>
+        <span lang="es">Login</span>
+      </button>
+      <button
+        data-id="button-accept"
+        class="button 
+        button--secondary 
+        button--warning-highlight"
+        value="accept"
+      >
+        <span lang="en">Sign Up</span>
+        <span lang="es">Sign Up</span>
+      </button>
+    </form>
+  </dialog>
 </body>
 </html>
