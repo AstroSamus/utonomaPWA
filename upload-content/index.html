@@ -127,7 +127,7 @@
         src="assets/img/creative-portal-1080.webp"
         alt="Utonoma Pattern"
       >
-      <form class="form__file--picker">
+      <section class="form__file--picker">
         <label for="short-video-file-picker">
           Pick a video of 60 seconds or less
         </label>
@@ -140,8 +140,9 @@
           type="file"
           class="input--file"
           accept="video/*"
+          required
         >
-      </form>
+      </section>
     </div>
   </main>
   <dialog  class="dialog">
@@ -177,5 +178,8 @@
       </button>
     </form>
   </dialog>
+  <div style="display: none;">
+    <video id="validate-video-duration" src="" type="video/MP4, video/WebM"></video>
+  </div>
 </body>
 </html>
