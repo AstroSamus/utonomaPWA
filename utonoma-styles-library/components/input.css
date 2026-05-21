@@ -1,0 +1,11 @@
+.input--file::file-selector-button {
+  background-color: var(--electric-blue-lemonade);
+  color:snow;
+  padding: 16px 48px;
+  font: var(--paragraph-large);
+  padding: 16px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
