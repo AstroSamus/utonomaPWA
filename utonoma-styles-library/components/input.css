@@ -1,3 +1,7 @@
+input {
+  max-width: 100%;
+}
+
 .input--file::file-selector-button {
   background-color: var(--electric-blue-lemonade);
   color:snow;
