@@ -30,6 +30,12 @@
   interpolate-size: allow-keywords; 
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /*Start of selectors for multilingual support*/ 
 body [lang=en], 
 body [lang=es] {
