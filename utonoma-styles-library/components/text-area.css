@@ -1,0 +1,8 @@
+textarea {
+  font: var(--paragraph-large);
+  border: 2px solid var(--pirate-black);
+}
+
+.text-area--full-width { 
+  width: 100%;
+}
