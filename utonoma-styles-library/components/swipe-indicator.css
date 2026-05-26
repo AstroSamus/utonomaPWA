@@ -1,4 +1,5 @@
 .swipe-indicator{
+  margin: 12px;
   text-align:center;
   animation: swipePulse 1.2s ease-in-out infinite;
 }
