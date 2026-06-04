@@ -45,5 +45,10 @@
 .scrollable-stepper-menu__item--hero-image > :last-child {
   flex: 0 0 auto;
   padding: 0;
-  margin: 16px 16px 60px 16px;
+  margin: 16px 16px 24px 16px;
+}
+
+.scrollable-stepper-menu__item--hero-image .swipe-indicator, 
+.scrollable-stepper-menu__title-card .swipe-indicator {
+  margin: 8px
 }
