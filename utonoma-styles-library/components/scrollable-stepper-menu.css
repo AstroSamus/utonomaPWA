@@ -22,6 +22,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding-bottom: 32px;
 }
 
 .scrollable-stepper-menu__title-card > h1 {
@@ -45,7 +46,7 @@
 .scrollable-stepper-menu__item--hero-image > :last-child {
   flex: 0 0 auto;
   padding: 0;
-  margin: 16px 16px 24px 16px;
+  margin: 16px 16px 32px 16px;
 }
 
 .scrollable-stepper-menu__item--hero-image .swipe-indicator, 
