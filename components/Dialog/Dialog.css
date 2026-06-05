@@ -6,7 +6,7 @@
 }
 
 .dialog div:first-child {
-  font: var(--headline-4); 
+  font: var(--paragraph-large); 
   padding: 12px 16px;
 }
 
