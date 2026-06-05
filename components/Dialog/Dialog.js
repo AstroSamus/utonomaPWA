@@ -3,7 +3,8 @@
  * @property {string} title
  * @property {string} text
  * @property {string} cancelText
- * @property {string} acceptText
+ * @property {string} [acceptText] This prop can be avoided in the alert intention
+ * variant as the cancel button is the only option visible
  */
 
 /**
