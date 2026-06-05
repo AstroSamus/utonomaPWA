@@ -8,11 +8,33 @@ button:hover {
   cursor: pointer;
 }
 
+/*Intention variants */
 .button--secondary {
   font: var(--paragraph-large);
   padding: 16px;
 }
 
+.button--cta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border: none;
+  background-color: transparent;
+  color: var(--pirate-black);
+}
+
+.button--cta > span {
+  font: var(--paragraph-xxl);
+  text-align: left;
+  width: min-content;
+}
+
+.button--cta > svg {
+  width: 4rem;
+  height: auto;
+}
+
+/*Color variants */
 .button--warning {
   background-color: var(--pirate-black);
   color: var(--snow);
