@@ -18,9 +18,8 @@ export const HideableContainer = ($container) => {
           el.style.visibility = 'hidden'
         }
       })
-      
       const $target = $container.querySelector(query)
-      if($target instanceof HTMLElement) target.style.visibility = 'visible'
+      if($target instanceof HTMLElement) $target.style.visibility = 'visible'
     }
   }
 
