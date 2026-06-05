@@ -17,6 +17,8 @@
 }
 
 
+/*to do: this name is wrong by our naming convention, 
+it should be scrollable-stepper-menu__item--title-card refactor it!*/
 /*title card*/
 .scrollable-stepper-menu__title-card {
   height: 100%;
@@ -32,24 +34,31 @@
 }
 
 /*pick short video card*/
-.scrollable-stepper-menu__item--hero-image {
+.scrollable-stepper-menu__item--hero-image,
+.scrollable-stepper-menu__item--cta {
   display: flex;
   flex-direction:column;
   height: 100%;
 }
 
-.scrollable-stepper-menu__item--hero-image > img {
+.scrollable-stepper-menu__item--hero-image > img,
+.scrollable-stepper-menu__item--cta > img {
   min-height: 0px;
   flex: 1 1 0;
 }
 
-.scrollable-stepper-menu__item--hero-image > :last-child {
+.scrollable-stepper-menu__item--hero-image > :last-child,
+.scrollable-stepper-menu__item--cta > :last-child {
   flex: 0 0 auto;
   padding: 0;
-  margin: 16px 16px 32px 16px;
+  margin: 16px 16px 36px 16px;
 }
 
 .scrollable-stepper-menu__item--hero-image .swipe-indicator, 
 .scrollable-stepper-menu__title-card .swipe-indicator {
-  margin: 8px
+  margin-top: 8px;
+}
+
+.scrollable-stepper-menu__item--cta .button--cta {
+  margin-top: 28px;
 }
