@@ -26,9 +26,7 @@
   font: var(--paragraph);
 }
 
-.dialog--warning > form {
-  display: flex; 
-  gap: 2px;
+/*dialog success*/
 }
 
 .dialog--warning p {
@@ -38,4 +36,9 @@
 /*dialog decision*/
 .dialog--decision button {
   flex: 1 1 0;
+}
+
+.dialog--decision > form {
+  display: flex; 
+  gap: 2px;
 }
