@@ -33,11 +33,31 @@
 }
 
 /*dialog success*/
+.dialog--success div:first-child {
+  color: var(--pirate-black);
+  background-color: var(--cyber-yellow)
 }
 
-.dialog--warning p {
+.dialog--success div:nth-child(2) {
+  padding: 12px 16px;
   margin: 0;
+  background-color: var(--cyber-yellow);
+  color: var(--pirate-black);
+  font: var(--paragraph);
 }
+
+.dialog--success > form { 
+  width: 100%
+}
+
+.dialog--success button {
+  width: 100%
+}
+
+.dialog--success {
+  background-color: var(--cyber-yellow)
+}
+
 
 /*dialog decision*/
 .dialog--decision button {

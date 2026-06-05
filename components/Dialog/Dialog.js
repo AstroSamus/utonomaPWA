@@ -43,6 +43,8 @@ export const Dialog = ($dialog, props, variant) => {
     case 'warning':
       $dialog.classList.add('dialog--warning', 'dialog--decision')
       break;
+    case 'success': 
+      $dialog.classList.add('dialog--success', 'dialog--alert')
   }
   switch (intention) {
     case 'decision' :
