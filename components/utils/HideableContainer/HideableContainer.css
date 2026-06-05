@@ -1,0 +1,7 @@
+.hideable-container {
+  display: grid;
+}
+
+.hideable-container > * {
+  grid-area: 1 / 1;
+}
