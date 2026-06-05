@@ -1,9 +1,9 @@
-.form__item > label {
+.form__item label {
   margin: 0;
   font: var(--paragraph-xxl)
 }
 
-.form__item > p {
+.form__item p {
   font: var(--paragraph-large);
   margin: 12px 0 16px 0
 }
