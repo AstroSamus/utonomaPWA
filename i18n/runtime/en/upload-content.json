@@ -4,5 +4,8 @@
   "exit": "Exit",
   "retry": "Retry",
   "invalidVideo": "INVALID VIDEO",
-  "checkVideoTooLong":"Check that your video is 60 seconds or less."
+  "checkVideoTooLong":"Check that your video is 60 seconds or less.",
+  "insufficientFunds":"Insufficient funds",
+  "insufficientFundsUploadContent": "To upload content, you need a small amount of crypto for transaction fees. You can request some in our Telegram group.",
+  "joinTelegram": "Join Telegram"
 }
