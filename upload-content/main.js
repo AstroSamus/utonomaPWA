@@ -13,10 +13,11 @@ import { UploadContentMachine } from './UploadContent.machine.js'
 import { Dialog as DialogFactory } from '../components/Dialog/Dialog.js'
 import { web3 } from '../web3_providers/web3Test.js'
 import { 
-  utonomaTelegramGroup
+  utonomaTelegramGroup,
+  apiUrl
 } from "config.env"
 
-let currentScreen = 'welcome'
+let uploadSessionId = null
 const $scrollableStepperMenu = document.querySelector('main')
 const $dialog = document.querySelector('dialog')
 
@@ -50,8 +51,33 @@ const effects = {
       }
     }
   },
-  creatingUploadSession: () => {
-    console.log('creating upload session')
+  creatingUploadSession: async () => {
+    const [_,  userAddress] = web3.userAddress
+    console.log(apiUrl)
+    try {
+      const uploadSessionRawRes = await fetch(apiUrl + 'upload-content/create-upload-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          creatorAddress: userAddress
+        })
+      })
+      const uploadSessionRes = await uploadSessionRawRes.json()
+      if(uploadSessionRes?.data?.uploadSessionId) {
+        uploadSessionId = uploadSessionRes.data.uploadSessionId
+        UploadContentMachine.state = 'uploadingShortVideo'
+      } else {
+        //Unexpected error
+        throw new Error('ERROR_CREATING_UPLOAD_SESSION')
+      }
+    } catch (error) {
+      UploadContentMachine.state = 'unexpectedError'
+    }
+  },
+  uploadingShortVideo: async () => {
+    console.log(uploadSessionId)
   },
   walletError: async() => {
     const currentLang = navigator.language.substring(0,2)

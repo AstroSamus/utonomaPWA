@@ -1,5 +1,5 @@
 /**
- * @typedef {'start' | 'validatingWallet' | 'creatingUploadSession' | 'insuficientFunds' |  'walletError' | 'unexpectedError' } UploadContentMachineStates
+ * @typedef {'start' | 'validatingWallet' | 'creatingUploadSession' | 'insuficientFunds' |  'walletError' | 'unexpectedError' | 'uploadingShortVideo' } UploadContentMachineStates
  */
 
 export const UploadContentMachine = {
@@ -20,11 +20,13 @@ export const UploadContentMachine = {
         && newState !== 'unexpectedError'
       )
     ) { throw new Error(`State ${this._state} cannot transition to ${newState}`)}
-    if(this._state === 'walletError' 
+    if(this._state === 'walletError' && newState !== 'validatingWallet') { 
+      throw new Error(`State ${this._state} cannot transition to ${newState}`)
+    }
+    if(this._state === 'creatingUploadSession' 
       && (
-        newState !== 'validatingWallet'
-        //&& newState !== 'walletError'
-        //&& newState !== 'creatingUploadSession'
+        newState !== 'uploadingShortVideo'
+        && newState !== 'unexpectedError'
       )
     ) { throw new Error(`State ${this._state} cannot transition to ${newState}`)}
     
