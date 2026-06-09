@@ -12,6 +12,9 @@ import { HideableContainer as HideableContainerFactory } from '../components/uti
 import { UploadContentMachine } from './UploadContent.machine.js'
 import { Dialog as DialogFactory } from '../components/Dialog/Dialog.js'
 import { web3 } from '../web3_providers/web3Test.js'
+import { 
+  utonomaTelegramGroup
+} from "config.env"
 
 let currentScreen = 'welcome'
 const $scrollableStepperMenu = document.querySelector('main')
@@ -93,7 +96,7 @@ const effects = {
     const ret = await Dialog.ask()
     //if true send to telegram group
     if(ret) {
-      window.open('https://t.me/+XwSV237xquBhZGRh', '_blank')
+      window.open(utonomaTelegramGroup, '_blank')
       //to do: When user clicks on join telegram, move the upload content page
       //to the explanation screen so the upload-content flow can be restarted
       window.location.href = '/index.html'

@@ -8,6 +8,8 @@ export const ipfsFileUploaderUrl = 'https://mmcvhj7mz9.us-east-1.awsapprunner.co
 
 export const utonomaEventFilterUrl = 'https://api.studio.thegraph.com/query/106360/utonoma-fuji/version/latest'
 
+export const utonomaTelegramGroup = 'https://t.me/+XwSV237xquBhZGRh'
+
 export const chainIdInBigInt = 43113n
 
 export const chains = [{
