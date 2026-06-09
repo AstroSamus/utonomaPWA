@@ -1,10 +1,23 @@
-export const FilePicker = ($container, params, variant) => {
+/**
+ * @typedef {Object} FilePickerProps
+ * @property {(file: File) => void} callback A callback method that sets the File in the context 
+ * of the caller, you can also add side effects
+ * @property {(file: File) => Promise<[errorMessage: string | null, result: boolean | null ]> | [errorMessage: string | null, result: boolean | null ]} validation 
+ * Callback function that validates the input, you can return custom messages to show to the user on error
+ * @property {boolean} required Sets if picking a file is required or not
+ */
+
+/**
+ * @param {HTMLInputElement} $container
+ * @param {FilePickerProps} props
+ */
+export const FilePicker = ($container, props) => {
 
   const {
     validation,
     callback,
     required
-   } = params
+   } = props
 
   const $fileInput = $container.querySelector('input')
 
