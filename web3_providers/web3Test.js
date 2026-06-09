@@ -1,7 +1,7 @@
 import Onboard from '@web3-onboard/core'
 import injectedModule from '@web3-onboard/injected-wallets'
 import walletConnectModule from '@web3-onboard/walletconnect'
-import { BrowserProvider, Contract } from 'ethers'
+import { BrowserProvider, Contract, formatEther } from 'ethers'
 import {
   chains,
   chainForAddEthereumChain,
@@ -168,5 +168,11 @@ export const web3 = {
     })();
 
     return this._utonomaContractPromise;
+  },
+
+  async getAccountBalance() {
+    if(!this._wallet?.accounts[0]?.address) throw new Error('Getting account balance without a conected wallet')
+    const rawBalance = await this._ethersProvider.getBalance(this._wallet?.accounts[0]?.address)
+    return formatEther(rawBalance)
   }
 };
