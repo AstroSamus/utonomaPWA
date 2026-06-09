@@ -170,9 +170,25 @@ export const web3 = {
     return this._utonomaContractPromise;
   },
 
+  /**
+   * Gets the balance of the first wallet connected
+   * @typedef { Object } GetAccountBalanceError
+   * @property { 'WALLET_DISCONNECTED' | 'UNEXPECTED_ERROR' } code
+   * @property {string} message
+   *  
+   * @returns {Promise<[GetAccountBalanceError | null, balance: number | null]>} The balance of the user in decimal form.
+   */
   async getAccountBalance() {
-    if(!this._wallet?.accounts[0]?.address) throw new Error('Getting account balance without a conected wallet')
-    const rawBalance = await this._ethersProvider.getBalance(this._wallet?.accounts[0]?.address)
-    return formatEther(rawBalance)
+    if(!this._wallet?.accounts[0]?.address) {
+      return [new Error('WALLET_DISCONNECTED'), null]
+    } 
+    try {
+      const rawBalance = await this._ethersProvider.getBalance(this._wallet?.accounts[0]?.address)
+      const balance = formatEther(rawBalance)
+      return [null, balance]
+    } catch(error) {
+      console.log(error)
+      return [new Error('UNEXPECTED_ERROR'), null]
+    }
   }
 };
