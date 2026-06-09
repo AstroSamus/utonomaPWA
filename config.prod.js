@@ -2,6 +2,8 @@ export const isDevEnvironment = false
 
 export const rpcUrl = 'https://api.avax.network/ext/bc/C/rpc'
 
+export const apiUrl = 'http://localhost:3000/upload-content/create-upload-session'
+
 export const ipfsJsonUploaderUrl = 'https://mmcvhj7mz9.us-east-1.awsapprunner.com/pinJsonToIpfs'
 
 export const ipfsFileUploaderUrl = 'https://mmcvhj7mz9.us-east-1.awsapprunner.com/pinFileToIpfs'
