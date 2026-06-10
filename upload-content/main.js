@@ -17,9 +17,16 @@ import {
   apiUrl
 } from "config.env"
 
-let uploadSessionId = null
 const $scrollableStepperMenu = document.querySelector('main')
+const $shortVideoPicker = document.querySelector('main > div:nth-child(2) section')
+console.log($shortVideoPicker)
+const $shortVideoInput = document.getElementById('short-video-input')
 const $dialog = document.querySelector('dialog')
+
+$shortVideoInput.disabled = true
+
+let uploadSessionId = null
+let shortVideoFile = null
 
 const effects = {
   validatingWallet: async() => {
@@ -67,7 +74,7 @@ const effects = {
       const uploadSessionRes = await uploadSessionRawRes.json()
       if(uploadSessionRes?.data?.uploadSessionId) {
         uploadSessionId = uploadSessionRes.data.uploadSessionId
-        UploadContentMachine.state = 'uploadingShortVideo'
+        UploadContentMachine.state = 'pickingShortVideo'
       } else {
         //Unexpected error
         throw new Error('ERROR_CREATING_UPLOAD_SESSION')
@@ -76,8 +83,12 @@ const effects = {
       UploadContentMachine.state = 'unexpectedError'
     }
   },
-  uploadingShortVideo: async () => {
-    console.log(uploadSessionId)
+  pickingShortVideo: async () => {
+    //wait for the user to pick a file
+    $shortVideoInput.disabled = false
+  },
+  uploadingShortVideo : () => {
+    console.log('uploading the video to the api')
   },
   walletError: async() => {
     const currentLang = navigator.language.substring(0,2)
@@ -132,9 +143,6 @@ const effects = {
   }
 }
 
-UploadContentMachine.effects = effects
-UploadContentMachine.state = 'validatingWallet'
-
 const menuIntersectionObserver = new IntersectionObserver(() => {
   console.log('intersection crossed')
 }, {
@@ -146,14 +154,40 @@ Array.from($scrollableStepperMenu.children).forEach(($children) => {
   menuIntersectionObserver.observe($children)
 })
 
+const FilePicker = FilePickerFactory(
+  $shortVideoPicker,
+  {
+    isRequired: true,
+    callback: (file) => {
+      shortVideoFile = file
+      UploadContentMachine.state = 'uploadingShortVideo'
+    }, //sets the file
+    validation: async (file) => { //returns tuple err, data, el error contiene un mensaje a desplegar al usuario
+      const currentLang = navigator.language.substring(0,2)
+      const runtimeTranslations = (await import(`../i18n/runtime/${currentLang}/upload-content.json`)).default 
+      const [err, data] = await validateVideoDuration(
+        document.getElementById('validate-video-duration'), 
+        file, 
+        60,
+        500
+      )
+      //if wrong video format, respond ok as videos with weird codecs will not pass validation
+      if(err === 'UNSUPPORTED_VIDEO_FORMAT') return [null, true]
+      if(err=== 'FILE_IS_TOO_BIG') return [runtimeTranslations.shortVideoTooBigError]
+      else if(err === 'VIDEO_TOO_LONG') return [runtimeTranslations.shortVideoTooLongError, null]  
+      else if(err === 'FILE_IS_NOT_A_VIDEO') return [runtimeTranslations.fileIsNotAVideo, null]
+      else if(!err) return [null, true]
+    }
+  }
+)
 
-
-
+UploadContentMachine.effects = effects
+UploadContentMachine.state = 'validatingWallet'
 
 /*
 
 const $cards = document.querySelectorAll('main > div')
-const $shortVideoPicker = document.querySelector('.scrollable-stepper-menu__file-picker')
+
 const $ctaHideableContainer = document.querySelector('.hideable-container')
 
 const CtaHideableContainer = HideableContainerFactory(
@@ -183,27 +217,6 @@ validateVideoDuration(
   
 )
 
-const FilePicker = FilePickerFactory(
-  $shortVideoPicker,
-  {
-    isRequired: true,
-    callback: (file) => state.file = file, //sets the state.file of this file
-    validation: async (file) => { //returns tuple err, data, el error contiene un mensaje a desplegar al usuario
-      const [err, data] = await validateVideoDuration(
-        document.getElementById('validate-video-duration'), 
-        file, 
-        60,
-        500
-      )
-      //if wrong video format, respond ok as videos with weird codecs will not pass validation
-      if(err === 'UNSUPPORTED_VIDEO_FORMAT') return [null, true]
-      if(err=== 'FILE_IS_TOO_BIG') return ['Error: File is too big, max 500mb']
-      else if(err === 'VIDEO_TOO_LONG') return ['Error: Short videos last 60 seconds or less', null]  
-      else if(err === 'FILE_IS_NOT_A_VIDEO') return ['Error: This file is not a valid video', null]
-      else if(!err) return [null, true]
-    }
-  }
-)
 
   const form = new FormData()
   form.append("video", files[0])

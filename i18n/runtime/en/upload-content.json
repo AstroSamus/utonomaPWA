@@ -7,5 +7,8 @@
   "checkVideoTooLong":"Check that your video is 60 seconds or less.",
   "insufficientFunds":"Insufficient funds",
   "insufficientFundsUploadContent": "To upload content, you need a small amount of crypto for transaction fees. You can request some in our Telegram group.",
-  "joinTelegram": "Join Telegram"
+  "joinTelegram": "Join Telegram",
+  "shortVideoTooBigError": "File is too large. Max size: 500 MB.",
+  "shortVideoTooLongError": "Error: Short videos must be 60 seconds or less.",
+  "fileIsNotAVideo": "Error: This file is not a valid video"
 }
