@@ -29,11 +29,13 @@ import {
 const $scrollableStepperMenu = document.querySelector('main')
 const $shortVideoPicker = document.querySelector('main > div:nth-child(2) section')
 const $shortVideoPickerCard = document.querySelector('main > div:nth-child(2)')
+const $shortVideoPickerCardSelector = $shortVideoPickerCard.querySelector('.swipe-indicator')
 const $shortVideoTitleCard = document.querySelector('main > div:nth-child(3)') 
 const $shortVideoInput = document.getElementById('short-video-input')
 const $dialog = document.querySelector('dialog')
 
 $shortVideoInput.disabled = true
+$shortVideoPickerCardSelector.style.visibility = 'hidden'
 
 let uploadSessionId = null
 let shortVideoFile = null
@@ -160,7 +162,9 @@ const effects = {
         }
       )
       if(uploadShortVideoRawResp.status === 200) {
-        UploadContentMachine.state = 'uploadingMetadata'
+        //show the swipe indicator
+        $shortVideoPickerCardSelector.style.visibility = 'visible'
+        UploadContentMachine.state = 'typingMetadata'
         return
       }
       //error case
@@ -174,11 +178,8 @@ const effects = {
       UploadContentMachine.state = 'unexpectedError'
     }
   },
-  uploadingMetadata: async() => {
-    $shortVideoTitleCard.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
-    })
+  typingMetadata: async() => {
+    console.log('uploading metadata')
   },
   walletError: async() => {
     const currentLang = navigator.language.substring(0,2)
