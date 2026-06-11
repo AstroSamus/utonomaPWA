@@ -28,7 +28,8 @@ import {
 
 const $scrollableStepperMenu = document.querySelector('main')
 const $shortVideoPicker = document.querySelector('main > div:nth-child(2) section')
-const $shortVideoPickerContainer = document.querySelector('main > div:nth-child(2)')
+const $shortVideoPickerCard = document.querySelector('main > div:nth-child(2)')
+const $shortVideoTitleCard = document.querySelector('main > div:nth-child(3)') 
 const $shortVideoInput = document.getElementById('short-video-input')
 const $dialog = document.querySelector('dialog')
 
@@ -135,7 +136,7 @@ const effects = {
       Dialog.alert()
 
       //move the ui to the short video file picker section
-      $shortVideoPickerContainer.scrollIntoView({
+      $shortVideoPickerCard.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       })
@@ -174,7 +175,10 @@ const effects = {
     }
   },
   uploadingMetadata: async() => {
-    console.log('Uploading the metadata')
+    $shortVideoTitleCard.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    })
   },
   walletError: async() => {
     const currentLang = navigator.language.substring(0,2)
