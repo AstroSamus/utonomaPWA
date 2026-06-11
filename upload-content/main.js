@@ -1,3 +1,12 @@
+/**
+ * @typedef { 'ERROR_INVALID_CONTENT_TYPE' | 'ERROR_VIDEO_TOO_LONG' | 'ERROR_INVALID_VIDEO' | 'ERROR_FILE_TOO_BIG' } UploadContentApiErrorCode
+ * 
+ * @typedef {Object} UploadContentApiError
+ * @property {UploadContentApiErrorCode} code
+ * @property {string} message
+ */
+
+
 import '../utonoma-styles-library/globals.css'
 import '../utonoma-styles-library/components/top-action-bar.css'
 import './layout.css'
@@ -19,7 +28,7 @@ import {
 
 const $scrollableStepperMenu = document.querySelector('main')
 const $shortVideoPicker = document.querySelector('main > div:nth-child(2) section')
-console.log($shortVideoPicker)
+const $shortVideoPickerContainer = document.querySelector('main > div:nth-child(2)')
 const $shortVideoInput = document.getElementById('short-video-input')
 const $dialog = document.querySelector('dialog')
 
@@ -27,6 +36,8 @@ $shortVideoInput.disabled = true
 
 let uploadSessionId = null
 let shortVideoFile = null
+/**@type {UploadContentApiErrorCode | null} */
+let shortVideoUploadApiError = null
 
 const effects = {
   validatingWallet: async() => {
@@ -84,7 +95,55 @@ const effects = {
     }
   },
   pickingShortVideo: async () => {
-    //wait for the user to pick a file
+    //if there was an error in uploadingShortVideo then do this
+    if(shortVideoUploadApiError) {
+      const currentLang = navigator.language.substring(0,2)
+      const runtimeTranslations = (await import(`../i18n/runtime/${currentLang}/upload-content.json`)).default 
+      
+      let errorMessage = 'Error in short video' //default error
+
+      switch(shortVideoUploadApiError) {
+        case 'ERROR_FILE_TOO_BIG':
+          errorMessage = runtimeTranslations.shortVideoTooBigError
+          break
+        case 'ERROR_INVALID_VIDEO' :
+        case 'ERROR_INVALID_CONTENT_TYPE':
+          errorMessage = runtimeTranslations.fileIsNotAVideo
+          break
+        case 'ERROR_VIDEO_TOO_LONG' :
+          errorMessage = runtimeTranslations.shortVideoTooLongError
+          break
+      }
+
+      //clear the shortVideoUploadApiError
+      shortVideoUploadApiError = null
+      
+      //show an alert to the user
+      const Dialog = DialogFactory(
+        $dialog,
+        {
+          title: runtimeTranslations.error,
+          text: errorMessage,
+          cancelText: runtimeTranslations.understood,
+        },
+        {
+          severity: 'warning',
+          intention: 'alert'
+        }
+      )
+      Dialog.alert()
+
+      //move the ui to the short video file picker section
+      $shortVideoPickerContainer.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      })
+
+      //prompt the error in the file picker
+      FilePicker.showErrorMessage(errorMessage)
+    }
+
+    //allow the user to pick a file
     $shortVideoInput.disabled = false
   },
   uploadingShortVideo : async () => {
@@ -166,6 +225,25 @@ const effects = {
     } 
     //if false send to main page
     else window.location.href = '/index.html'
+  },
+  unexpectedError: async() => {
+    const currentLang = navigator.language.substring(0,2)
+    const runtimeTranslations = (await import(`../i18n/runtime/${currentLang}/upload-content.json`)).default 
+    const Dialog = DialogFactory(
+      $dialog,
+      {
+        title: runtimeTranslations.error,
+        text: runtimeTranslations.insufficientFundsUploadContent,
+      },
+      {
+        severity: 'warning',
+        intention: 'toast'
+      }
+    )
+    const ret = await Dialog.toast(3000)
+    setTimeout(() => {
+      window.location.href = '/index.html'
+    }, 3500)
   }
 }
 
@@ -208,7 +286,7 @@ const FilePicker = FilePickerFactory(
 )
 
 UploadContentMachine.effects = effects
-UploadContentMachine.state = 'validatingWallet'
+//UploadContentMachine.state = 'validatingWallet'
 
 /*
 
@@ -242,20 +320,6 @@ const state = {
 validateVideoDuration(
   
 )
-
-
-  const form = new FormData()
-  form.append("video", files[0])
-  try {
-    const ret = await fetch('http://localhost:3000/upload-content/6/upload-short-video', {
-      method: 'POST',
-      body: form
-    })
-    console.log(ret.status)
-    console.log(await ret.json())
-  } catch(error) {
-    console.log(error)
-  }
 
 
 const intersectionObserver = new IntersectionObserver(callback, { 
