@@ -34,6 +34,7 @@ const $shortVideoPicker = document.querySelector('main > div:nth-child(2) sectio
 const $shortVideoPickerCard = document.querySelector('main > div:nth-child(2)')
 const $shortVideoPickerCardSelector = $shortVideoPickerCard.querySelector('.swipe-indicator')
 const $shortVideoTitleCard = document.querySelector('main > div:nth-child(3)') 
+const $shortVideoDescriptionCard = document.querySelector('main > div:nth-child(4)') 
 const $finalCard = document.querySelector('main > div:nth-child(5)') 
 const $shortVideoInput = document.getElementById('short-video-input')
 const $shortVideoTitle = document.getElementById('short-video-title')
@@ -172,7 +173,7 @@ const effects = {
       if(uploadShortVideoRawResp.status === 200) {
         //show the swipe indicator
         $shortVideoPickerCardSelector.style.visibility = 'visible'
-        UploadContentMachine.state = 'typingMetadata'
+        //UploadContentMachine.state = 'typingMetadata'
         return
       }
       //error case
@@ -323,8 +324,16 @@ const menuIntersectionObserver = new IntersectionObserver((entries, observer) =>
       if(el.target === $shortVideoPickerCard && isFirstVisit === true) {
         isFirstVisit = false
         UploadContentMachine.state = 'validatingWallet'
-      } else if (el.target === $finalCard) {
+      } else if(el.target === $finalCard) {
         UploadContentMachine.state = 'uploadingMetadata'
+      } else if(
+        UploadContentMachine.state !== 'typingMetadata'
+        && ( 
+          el.target === $shortVideoDescriptionCard 
+          || el.target === $shortVideoTitleCard
+        )
+      ) {
+        UploadContentMachine.state = 'typingMetadata'
       }
     } 
   }) 
