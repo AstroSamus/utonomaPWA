@@ -87,8 +87,34 @@ const effects = {
     //wait for the user to pick a file
     $shortVideoInput.disabled = false
   },
-  uploadingShortVideo : () => {
-    console.log('uploading the video to the api')
+  uploadingShortVideo : async () => {
+    const form = new FormData()
+    form.append('video', shortVideoFile)
+    try {
+      const uploadShortVideoRawResp = await fetch(
+        `${apiUrl}upload-content/${uploadSessionId}/upload-short-video`, 
+        {
+          method: 'POST',
+          body: form
+        }
+      )
+      if(uploadShortVideoRawResp.status === 200) {
+        UploadContentMachine.state = 'uploadingMetadata'
+        return
+      }
+      //error case
+      /**@type UploadContentApiError */
+      const uploadShortVideoResp =  await uploadShortVideoRawResp.json()
+      console.log(uploadShortVideoResp.code)
+      shortVideoUploadApiError = uploadShortVideoResp.code
+      UploadContentMachine.state = 'pickingShortVideo'      
+    } catch(error) {
+      console.log(error)
+      UploadContentMachine.state = 'unexpectedError'
+    }
+  },
+  uploadingMetadata: async() => {
+    console.log('Uploading the metadata')
   },
   walletError: async() => {
     const currentLang = navigator.language.substring(0,2)
