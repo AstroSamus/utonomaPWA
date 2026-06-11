@@ -189,6 +189,13 @@ const effects = {
     }
   },
   typingMetadata: async () => {
+    if(!shortVideoFile) {
+      setTimeout(() => {
+        $shortVideoPickerCard.scrollIntoView()
+        FilePicker.showErrorMessage('This field is required')
+        UploadContentMachine.state = 'pickingShortVideo'
+      }, 1000)
+    }
     if(shortVideoMetadataError === 'EMPTY_SHORT_VIDEO_TITLE') {
       setTimeout(() => {
         $shortVideoTitle.scrollIntoView()

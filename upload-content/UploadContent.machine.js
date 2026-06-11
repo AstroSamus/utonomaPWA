@@ -32,6 +32,7 @@ export const UploadContentMachine = {
     if(this._state === 'pickingShortVideo' 
       && (
         newState !== 'uploadingShortVideo'
+        &&newState !== 'typingMetadata' //picking short video can go to typingMetadata if the user scrolls to the title and description cards
         && newState !== 'unexpectedError'
       )
     ) { throw new Error(`State ${this._state} cannot transition to ${newState}`)}
@@ -40,9 +41,15 @@ export const UploadContentMachine = {
         newState !== 'typingMetadata'
         && newState !== 'unexpectedError'
         && newState !== 'pickingShortVideo'
+        && newState !== 'uploadingShortVideo' //uploadingShortVideo can transition to uploadingShortVideo if the user picks a short video again
       )
     ) { throw new Error(`State ${this._state} cannot transition to ${newState}`)}
-    if(this._state === 'typingMetadata' && newState !== 'uploadingMetadata') { 
+    if(this._state === 'typingMetadata' 
+      && (
+        newState !== 'uploadingMetadata'
+        && newState !== 'pickingShortVideo' //typingMetadata can go to pickingShortVideo if the user scrolls back or didn't picked a file and scrolled down
+      )
+    ) { 
       throw new Error(`State ${this._state} cannot transition to ${newState}`)
     }
     if(this._state === 'uploadingMetadata' 
