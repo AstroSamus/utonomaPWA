@@ -180,7 +180,7 @@ export const web3 = {
    */
   async getAccountBalance() {
     if(!this._wallet?.accounts[0]?.address) {
-      return [new Error('WALLET_DISCONNECTED'), null]
+      return [{ code: 'WALLET_DISCONNECTED' }, null]
     } 
     try {
       const rawBalance = await this._ethersProvider.getBalance(this._wallet?.accounts[0]?.address)
@@ -190,5 +190,15 @@ export const web3 = {
       console.log(error)
       return [new Error('UNEXPECTED_ERROR'), null]
     }
+  },
+
+  /**
+   * @returns {[GetAccountBalanceError | null, address: string | null]}
+   */
+  get userAddress () {
+    if(!this._wallet?.accounts[0]?.address) {
+      return [{ code: 'WALLET_DISCONNECTED' }, null]
+    }
+    return [null, this._wallet?.accounts[0]?.address]
   }
-};
+}
