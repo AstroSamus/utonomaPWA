@@ -45,6 +45,7 @@ $shortVideoInput.disabled = true
 $shortVideoPickerCardSelector.style.visibility = 'hidden'
 
 let uploadSessionId = null
+/**@type {File | null} */
 let shortVideoFile = null
 /**@type {UploadContentApiErrorCode | null} */
 let shortVideoUploadApiError = null
@@ -363,12 +364,16 @@ const FilePicker = FilePickerFactory(
         60,
         500
       )
+
+      if(!err) return [null, true]
       //if wrong video format, respond ok as videos with weird codecs will not pass validation
-      if(err === 'UNSUPPORTED_VIDEO_FORMAT') return [null, true]
+      else if(err === 'UNSUPPORTED_VIDEO_FORMAT') return [null, true]
+      
+      //if there was an error set the file to null
+      shortVideoFile = null
       if(err=== 'FILE_IS_TOO_BIG') return [runtimeTranslations.shortVideoTooBigError]
       else if(err === 'VIDEO_TOO_LONG') return [runtimeTranslations.shortVideoTooLongError, null]  
       else if(err === 'FILE_IS_NOT_A_VIDEO') return [runtimeTranslations.fileIsNotAVideo, null]
-      else if(!err) return [null, true]
     }
   }
 )
