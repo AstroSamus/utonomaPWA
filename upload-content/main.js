@@ -4,6 +4,9 @@
  * @typedef {Object} UploadContentApiError
  * @property {UploadContentApiErrorCode} code
  * @property {string} message
+ * 
+ * @typedef { 'EMPTY_SHORT_VIDEO_TITLE' | 'EMPTY_SHORT_VIDEO_DESCRIPTION' } ShortVideoMetadataError
+ * 
  */
 
 
@@ -31,7 +34,10 @@ const $shortVideoPicker = document.querySelector('main > div:nth-child(2) sectio
 const $shortVideoPickerCard = document.querySelector('main > div:nth-child(2)')
 const $shortVideoPickerCardSelector = $shortVideoPickerCard.querySelector('.swipe-indicator')
 const $shortVideoTitleCard = document.querySelector('main > div:nth-child(3)') 
+const $finalCard = document.querySelector('main > div:nth-child(5)') 
 const $shortVideoInput = document.getElementById('short-video-input')
+const $shortVideoTitle = document.getElementById('short-video-title')
+const $shortVideoDescription = document.getElementById('short-video-description')
 const $dialog = document.querySelector('dialog')
 
 $shortVideoInput.disabled = true
@@ -41,7 +47,9 @@ let uploadSessionId = null
 let shortVideoFile = null
 /**@type {UploadContentApiErrorCode | null} */
 let shortVideoUploadApiError = null
-let isFirstVisit = false
+/**@type {ShortVideoMetadataError | null} */
+let shortVideoMetadataError = null
+let isFirstVisit = true
 
 const effects = {
   validatingWallet: async() => {
@@ -178,8 +186,62 @@ const effects = {
       UploadContentMachine.state = 'unexpectedError'
     }
   },
-  typingMetadata: async() => {
-    console.log('uploading metadata')
+  typingMetadata: async () => {
+    if(shortVideoMetadataError === 'EMPTY_SHORT_VIDEO_TITLE') {
+      setTimeout(() => {
+        $shortVideoTitle.scrollIntoView()
+        $shortVideoTitle.setCustomValidity('This field is required')
+        $shortVideoTitle.reportValidity()
+      }, 1000)
+      return
+    }
+    if(shortVideoMetadataError === 'EMPTY_SHORT_VIDEO_DESCRIPTION') {
+      setTimeout(() => {
+        $shortVideoDescription.scrollIntoView()
+        $shortVideoDescription.setCustomValidity('This field is required')
+        $shortVideoDescription.reportValidity()
+      }, 1000)
+      return
+    }
+  },
+  uploadingMetadata: async () => {
+    const shortVideoTitle = $shortVideoTitle.value
+    const shortVideoDescription = $shortVideoDescription.value
+    //validate that there is a title
+    if(!shortVideoTitle) {
+      shortVideoMetadataError = 'EMPTY_SHORT_VIDEO_TITLE'
+      UploadContentMachine.state = 'typingMetadata'
+      return
+    } 
+    //validate that there is a description
+    if(!shortVideoDescription) {
+      shortVideoMetadataError = 'EMPTY_SHORT_VIDEO_DESCRIPTION'
+      UploadContentMachine.state = 'typingMetadata'
+      return
+    }
+    try {
+      const uploadMetadataRawResp = await fetch(
+        `${apiUrl}upload-content/${uploadSessionId}/upload-short-video-metadata`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            shortVideoTitle,
+            shortVideoDescription
+          })
+        }
+      )
+      if(uploadMetadataRawResp.status == 200) {
+        console.log('success, lets go to the next state')
+      } else {
+        UploadContentMachine.state = 'unexpectedError'
+      }
+    } catch (error) {
+      console.log('Uploading short video metadata unexpected error: ', error)
+      UploadContentMachine.state = 'unexpectedError'
+    }
   },
   walletError: async() => {
     const currentLang = navigator.language.substring(0,2)
@@ -239,7 +301,7 @@ const effects = {
       $dialog,
       {
         title: runtimeTranslations.error,
-        text: runtimeTranslations.insufficientFundsUploadContent,
+        text: runtimeTranslations.unexpectedError,
       },
       {
         severity: 'warning',
@@ -255,11 +317,17 @@ const effects = {
 
 const menuIntersectionObserver = new IntersectionObserver((entries, observer) => {
   //if the user scrolls to the second card then we check if its the first visit
-  if(entries[1].isIntersecting === true && isFirstVisit === false) {
-    isFirstVisit = true
-    //change the state of the machine
-    UploadContentMachine.state = 'validatingWallet'
-  }
+
+  entries.forEach(el => {
+    if(el.isIntersecting) {
+      if(el.target === $shortVideoPickerCard && isFirstVisit === true) {
+        isFirstVisit = false
+        UploadContentMachine.state = 'validatingWallet'
+      } else if (el.target === $finalCard) {
+        UploadContentMachine.state = 'uploadingMetadata'
+      }
+    } 
+  }) 
 }, {
   root: $scrollableStepperMenu,
   threshold: 0.5

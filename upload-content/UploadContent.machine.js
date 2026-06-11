@@ -42,6 +42,16 @@ export const UploadContentMachine = {
         && newState !== 'pickingShortVideo'
       )
     ) { throw new Error(`State ${this._state} cannot transition to ${newState}`)}
+    if(this._state === 'typingMetadata' && newState !== 'uploadingMetadata') { 
+      throw new Error(`State ${this._state} cannot transition to ${newState}`)
+    }
+    if(this._state === 'uploadingMetadata' 
+      && (
+        newState !== 'typingMetadata'
+        && newState !== 'unexpectedError'
+        && newState !== 'waitingForCids'
+      )
+    ) { throw new Error(`State ${this._state} cannot transition to ${newState}`)}
     
     this._state = newState
     if(this._effects[this._state]) {
