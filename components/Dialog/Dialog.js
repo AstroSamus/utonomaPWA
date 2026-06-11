@@ -2,9 +2,9 @@
  * @typedef {Object} DialogProps
  * @property {string} title
  * @property {string} text
- * @property {string} cancelText
- * @property {string} [acceptText] This prop can be avoided in the alert intention
- * variant as the cancel button is the only option visible
+ * @property {string} [cancelText] Avoidable in the toast mode
+ * @property {string} [acceptText] This prop can be avoided in the alert and toast 
+ * intention variants as the cancel button is the only option visible
  */
 
 /**
