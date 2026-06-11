@@ -11,5 +11,6 @@
   "shortVideoTooBigError": "File is too large. Max size: 500 MB.",
   "shortVideoTooLongError": "Error: Short videos must be 60 seconds or less.",
   "fileIsNotAVideo": "Error: This file is not a valid video",
-  "understood": "Understood"
+  "understood": "Understood",
+  "unexpectedError": "An unexpected error occurred."
 }
