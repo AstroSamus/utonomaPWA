@@ -45,10 +45,17 @@ export const FilePicker = ($container, props) => {
     }
   })
 
+  /**
+   * @param {string} message
+   */
   async function showErrorMessage(message) {
     console.log('show error message')
     $fileInput.setCustomValidity(message)
     $fileInput.reportValidity()
+  }
+
+  return {
+    showErrorMessage
   }
 
 }
