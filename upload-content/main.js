@@ -38,6 +38,7 @@ let uploadSessionId = null
 let shortVideoFile = null
 /**@type {UploadContentApiErrorCode | null} */
 let shortVideoUploadApiError = null
+let isFirstVisit = false
 
 const effects = {
   validatingWallet: async() => {
@@ -247,8 +248,13 @@ const effects = {
   }
 }
 
-const menuIntersectionObserver = new IntersectionObserver(() => {
-  console.log('intersection crossed')
+const menuIntersectionObserver = new IntersectionObserver((entries, observer) => {
+  //if the user scrolls to the second card then we check if its the first visit
+  if(entries[1].isIntersecting === true && isFirstVisit === false) {
+    isFirstVisit = true
+    //change the state of the machine
+    UploadContentMachine.state = 'validatingWallet'
+  }
 }, {
   root: $scrollableStepperMenu,
   threshold: 0.5
