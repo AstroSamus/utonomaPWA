@@ -1,8 +1,9 @@
-.dialog{
+.dialog {
   padding: 0;
   border: 0;
   margin: auto 24px;
   background: transparent;
+  width: 100%;
 }
 
 .dialog div:first-child {

@@ -48,9 +48,16 @@ export const Dialog = ($dialog, props, variant) => {
   }
   switch (intention) {
     case 'decision' :
+      $buttonAccept.style.display = 'block'
+      $buttonCancel.style.display = 'block'
       break
     case 'alert' :
       $buttonAccept.style.display = 'none'
+      $buttonCancel.style.display = 'block'
+      break
+    case 'toast' :
+      $buttonAccept.style.display = 'none'
+      $buttonCancel.style.display = 'none'
       break
   }
 
