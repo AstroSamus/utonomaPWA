@@ -1,5 +1,6 @@
+//@ts-check
 /**
- * @typedef {'start' | 'validatingWallet' | 'creatingUploadSession' | 'insuficientFunds' |  'walletError' | 'unexpectedError' | 'uploadingShortVideo' | 'pickingShortVideo' | 'uploadingMetadata' | 'typingMetadata' } UploadContentMachineStates
+ * @typedef {'start' | 'validatingWallet' | 'creatingUploadSession' | 'insuficientFunds' |  'walletError' | 'unexpectedError' | 'uploadingShortVideo' | 'pickingShortVideo' | 'uploadingMetadata' | 'typingMetadata' | 'readyForSignature' | 'signing' } UploadContentMachineStates
  */
 
 export const UploadContentMachine = {
@@ -56,7 +57,13 @@ export const UploadContentMachine = {
       && (
         newState !== 'typingMetadata'
         && newState !== 'unexpectedError'
-        && newState !== 'waitingForCids'
+        && newState !== 'readyForSignature'
+      )
+    ) { throw new Error(`State ${this._state} cannot transition to ${newState}`)}
+    if(this._state === 'readyForSignature' 
+      && (
+        newState !== 'unexpectedError'
+        && newState !== 'signing'
       )
     ) { throw new Error(`State ${this._state} cannot transition to ${newState}`)}
     

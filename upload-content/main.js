@@ -63,6 +63,8 @@ const $shortVideoInput = document.getElementById('short-video-input')
 const $shortVideoTitle = document.getElementById('short-video-title')
 const $shortVideoDescription = document.getElementById('short-video-description')
 const $dialog = document.querySelector('dialog')
+const $ctaHideableContainer = document.querySelector('.hideable-container')
+const $ctaButton = document.getElementById('cta-button')
 
 $shortVideoInput.disabled = true
 $shortVideoPickerCardSelector.style.visibility = 'hidden'
@@ -215,6 +217,7 @@ const effects = {
     }
   },
   typingMetadata: async () => {
+    CtaHideableContainer.show('#cta-loading') //hide the "Upload Content" button
     if(!shortVideoFile) {
       setTimeout(() => {
         $shortVideoPickerCard.scrollIntoView()
@@ -268,15 +271,21 @@ const effects = {
           })
         }
       )
-      if(uploadMetadataRawResp.status == 200) {
-        console.log('success, lets go to the next state')
-      } else {
+      if(uploadMetadataRawResp.status !== 200) {
         UploadContentMachine.state = 'unexpectedError'
       }
+      //wait for listenProgressUpdates to change to the next state
     } catch (error) {
       console.log('Uploading short video metadata unexpected error: ', error)
       UploadContentMachine.state = 'unexpectedError'
     }
+  },
+  readyForSignature: () => {
+    CtaHideableContainer.show('#cta-button') //show the cta button
+    //Wait for the CTA button to change to the next state
+  },
+  signing:() => {
+    console.log('signing transaction')
   },
   walletError: async() => {
     const currentLang = navigator.language.substring(0,2)
@@ -420,7 +429,7 @@ function listenProgressUpdates() {
       eventSource.close()
       shortVideoCid = eventData?.data?.shortVideoCid
       shortVideoMetadataCid = eventData?.data?.shortVideoMetadataCid
-      //send to the waitingForSignature state
+      UploadContentMachine.state = 'readyForSignature'
     }
     else if(eventData?.event === 'error') {
       eventSource.close()
@@ -430,122 +439,13 @@ function listenProgressUpdates() {
   }
 }
 
-UploadContentMachine.effects = effects
-//UploadContentMachine.state = 'validatingWallet'
-
-/*
-
-const $cards = document.querySelectorAll('main > div')
-
-const $ctaHideableContainer = document.querySelector('.hideable-container')
-
 const CtaHideableContainer = HideableContainerFactory(
   document.querySelector('.hideable-container')
 )
 
-
-CtaHideableContainer.show('#cta-button')
-CtaHideableContainer.show('#cta-loading')
-
-
-const state = {
-  _file: {},
-
-  set file(newFile) {
-    this._file = newFile
-    if(this._file) {
-      console.log('trigger effect for file upload on ', this._file)
-    }
-  },
-
-  get file() {
-    return this._file
-  }
-}
-validateVideoDuration(
-  
-)
-
-
-const intersectionObserver = new IntersectionObserver(callback, { 
-  root: $scrollableStepperMenu,
-  threshold: 0.5 
+$ctaButton.addEventListener('click', () => {
+  UploadContentMachine.state = 'signing'
 })
 
-function callback(entries, obs) {
-  if(entries[1]?.isIntersecting) {
-    //func() //validate user connection
-  }
-}
-
-$cards.forEach(($card) => {
-  console.log($card)
-  intersectionObserver.observe($card)
-})
-
-
-
-const currentLang = navigator.language.substring(0,2)
-
-async function walletRequiredError() {
-  const runtimeTranslations = (await import(`../i18n/runtime/${currentLang}/upload-content.json`)).default 
-  const { Dialog: DialogComponent } = await import('../components/Dialog/Dialog.js')
-  const Dialog = DialogComponent(
-    $dialog,
-    {
-      title: runtimeTranslations.error,
-      text: runtimeTranslations.walletIsRequired,
-      cancelText: runtimeTranslations.exit,
-      acceptText: runtimeTranslations.retry
-    },
-    {
-      severity: 'warning',
-      intention: 'decision'
-    }
-  )
-  const ret = await Dialog.ask()
-
-}
-
-async function invalidVideoError() {
-  const runtimeTranslations = (await import(`../i18n/runtime/${currentLang}/upload-content.json`)).default 
-  const { Dialog: DialogComponent } = await import('../components/Dialog/Dialog.js')
-  const Dialog = DialogComponent(
-    $dialog,
-    {
-      title: runtimeTranslations.invalidVideo,
-      text: runtimeTranslations.checkVideoTooLong,
-      cancelText: runtimeTranslations.retry,
-      acceptText: '',
-    },
-    {
-      severity: 'warning',
-      intention: 'alert'
-    }
-  )
-  const ret = await Dialog.alert()
-}
-
-async function alertSuccessfulUpload() {
-  const {Dialog: DialogComponent} = await import('../components/Dialog/Dialog.js')
-  const Dialog = DialogComponent(
-    $dialog,
-    {
-      title: 'Success',
-      text: 'Your contant was uploaded successfuly to blockchain',
-      cancelText: 'UNDERSTOOD'
-    },
-    {
-      severity: 'success',
-      intention: 'alert'
-    }
-  )
-  Dialog.alert()
-}
-
-
-alertSuccessfulUpload()
-walletRequiredError()
-invalidVideoError()
-ask the user to connect their wallet 
-*/
+UploadContentMachine.effects = effects
+//UploadContentMachine.state = 'validatingWallet'
