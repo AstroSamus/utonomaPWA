@@ -9,6 +9,29 @@
  * 
  */
 
+/**
+ * @typedef { 'connect' | 'update' | 'complete' | 'error' } ProgressUpdateEventType
+ * 
+ * @typedef {Object} ApiError
+ * @property {string} code
+ * @property {string} message
+ */
+
+/** 
+ * @typedef {Object} UploadContentCids
+ * @property {string} sessionId
+ * @property {string} shortVideoCid
+ * @property {string} shortVideoMetadataCid
+ */
+  
+/** 
+ * @template T
+ * @typedef {Object} ProgressUpdate
+ * @property {ProgressUpdateEventType}  event
+ * @property {ApiError} [error]
+ * @property {T} [data]
+ */
+
 
 import '../utonoma-styles-library/globals.css'
 import '../utonoma-styles-library/components/top-action-bar.css'
@@ -52,6 +75,8 @@ let shortVideoUploadApiError = null
 /**@type {ShortVideoMetadataError | null} */
 let shortVideoMetadataError = null
 let isFirstVisit = true
+let shortVideoCid = null
+let shortVideoMetadataCid = null
 
 const effects = {
   validatingWallet: async() => {
@@ -99,6 +124,7 @@ const effects = {
       const uploadSessionRes = await uploadSessionRawRes.json()
       if(uploadSessionRes?.data?.uploadSessionId) {
         uploadSessionId = uploadSessionRes.data.uploadSessionId
+        listenProgressUpdates()
         UploadContentMachine.state = 'pickingShortVideo'
       } else {
         //Unexpected error
@@ -384,6 +410,25 @@ const FilePicker = FilePickerFactory(
     }
   }
 )
+
+function listenProgressUpdates() {
+  const  eventSource = new EventSource(`${apiUrl}upload-content/${uploadSessionId}/progress-updates`)
+  eventSource.onmessage = (event) => {
+    /**@type {ProgressUpdate<UploadContentCids>} */
+    const eventData = (JSON.parse(event.data) )
+    if(eventData?.event === 'complete') {
+      eventSource.close()
+      shortVideoCid = eventData?.data?.shortVideoCid
+      shortVideoMetadataCid = eventData?.data?.shortVideoMetadataCid
+      //send to the waitingForSignature state
+    }
+    else if(eventData?.event === 'error') {
+      eventSource.close()
+      console.log(eventData?.error)
+      UploadContentMachine.state = 'unexpectedError'
+    }
+  }
+}
 
 UploadContentMachine.effects = effects
 //UploadContentMachine.state = 'validatingWallet'
