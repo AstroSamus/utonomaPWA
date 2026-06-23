@@ -67,33 +67,38 @@ async function getContent() {
 }
 
 async function getElement(index, contentType) {
-  const { 
-    0: authorAddress, 
-    1: contentIdInBytes32, 
-    2: metadataHashInBytes32, 
-    3: likes,
-    4: dislikes,
-    5: harvestedLikes
-  } = await readOnlyProvider.utonomaContract.getContentById([index, contentType])
+  try {
+    const { 
+      0: authorAddress, 
+      1: contentIdInBytes32, 
+      2: metadataHashInBytes32, 
+      3: likes,
+      4: dislikes,
+      5: harvestedLikes
+    } = await readOnlyProvider.utonomaContract.getContentById([index, contentType])
 
-  if(metadataHashInBytes32 === ZeroHash) return null
+    if(metadataHashInBytes32 === ZeroHash) return null
 
-  const metadata = await fetch(
-    `https://copper-urban-gorilla-864.mypinata.cloud/ipfs/${getIpfsHashFromBytes32(metadataHashInBytes32)}?pinataGatewayToken=WmR3tEcyNtxE6vjc4lPPIrY0Hzp3Dc9AYf2X4Bl-8o6JYBzTx9aY_u3OlpL1wGra`
-  )
-  const readableMetadata = await metadata.json()
+    const metadata = await fetch(
+      `https://copper-urban-gorilla-864.mypinata.cloud/ipfs/${getIpfsHashFromBytes32(metadataHashInBytes32)}?pinataGatewayToken=WmR3tEcyNtxE6vjc4lPPIrY0Hzp3Dc9AYf2X4Bl-8o6JYBzTx9aY_u3OlpL1wGra`
+    )
+    const readableMetadata = await metadata.json()
 
-  const isHarvestable = canContentBeHarvested(Number(likes), Number(dislikes), Number(harvestedLikes))
+    const isHarvestable = canContentBeHarvested(Number(likes), Number(dislikes), Number(harvestedLikes))
 
-  return {
-    shortVideoTitle : readableMetadata.shortVideoTitle,
-    likes,
-    dislikes,
-    harvestedLikes,
-    isHarvestable,
-    identifierIndex: index,
-    identifierContentType: contentType
+    return {
+      shortVideoTitle : readableMetadata.shortVideoTitle,
+      likes,
+      dislikes,
+      harvestedLikes,
+      isHarvestable,
+      identifierIndex: index,
+      identifierContentType: contentType
+    }
+  } catch(error) {
+    return null
   }
+
 }
 
 const place = (cont) => {
